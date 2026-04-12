@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Familia em Rumo Financeiro | Facilitando seu Planejamento Financeiro</title>
+    <meta name="description" content="Educacao financeira para familias. E-books gratuitos, assistente IA, calculadora e consultoria personalizada.">
+    <style>
+        :root {
+            --primary: #0D7C3E;
+            --primary-dark: #095C2D;
+            --primary-light: #12A150;
+            --gold: #D4A843;
+            --gold-light: #E8C86A;
+            --dark: #0A0F1A;
+            --dark-card: #111827;
+            --dark-surface: #1A2332;
+            --text: #F1F5F9;
+            --text-muted: #94A3B8;
+            --border: rgba(212, 168, 67, 0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--dark); color: var(--text);
+            line-height: 1.6; overflow-x: hidden; max-width: 100%; padding-bottom: 70px;
+        }
+        header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border); padding: 0.8rem 1.5rem;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+        .logo-icon {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--gold));
+            border-radius: 8px; display: flex; align-items: center; justify-content: center;
+        }
+        .logo-text { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+        .logo-text span { color: var(--gold); }
+        nav { display: flex; gap: 1.5rem; }
+        nav a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--gold); }
+        .header-cta {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff; padding: 0.5rem 1.2rem; border-radius: 8px;
+            text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: transform 0.3s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff; padding: 0.9rem 2rem; border-radius: 12px; text-decoration: none;
+            font-weight: 600; font-size: 1rem; display: inline-flex; align-items: center; gap: 0.5rem;
+            transition: transform 0.3s, box-shadow 0.3s; border: none; cursor: pointer;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(13, 124, 62, 0.4); }
+        .btn-secondary {
+            background: transparent; color: var(--gold); padding: 0.9rem 2rem; border-radius: 12px;
+            text-decoration: none; font-weight: 600; font-size: 1rem;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            border: 1px solid var(--gold); transition: all 0.3s; cursor: pointer;
+        }
+        .btn-secondary:hover { background: rgba(212, 168, 67, 0.1); transform: translateY(-2px); }
+        .glass-card {
+            background: rgba(17,24,39,0.78); border: 1px solid var(--border);
+            border-radius: 20px; padding: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25); backdrop-filter: blur(10px);
+        }
+        .section-label {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            color: var(--primary-light); font-size: 0.85rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.8rem;
+        }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-header h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 700; margin-bottom: 1rem; }
+        .section-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+        .section-kicker {
+            display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.8rem;
+            border-radius: 999px; border: 1px solid rgba(212,168,67,0.25);
+            background: rgba(212,168,67,0.08); color: var(--gold);
+            font-size: 0.8rem; font-weight: 700;
+        }
+        .mini-list { display: grid; gap: 0.75rem; margin-top: 1rem; }
+        .mini-list div { display: flex; gap: 0.8rem; align-items: flex-start; color: var(--text-muted); }
+        .mini-list strong { color: var(--text); display: block; margin-bottom: 0.15rem; }
+        .soft-note {
+            margin-top: 1rem; padding: 0.9rem 1rem; border-radius: 14px;
+            background: rgba(212,168,67,0.08); border: 1px solid rgba(212,168,67,0.2);
+            color: #eadfb8; font-size: 0.92rem;
+        }
+        .cta-stack { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-top: 1.25rem; }
+        .lead-grid, .consult-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.5rem; }
+        .benefits-grid, .authority-grid, .future-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .step-line { display: grid; gap: 0.9rem; margin-top: 1rem; }
+        .step-line .step-item {
+            display: grid; grid-template-columns: 44px 1fr; gap: 0.9rem; align-items: flex-start;
+            padding: 1rem; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+        }
+        .step-badge {
+            width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; font-weight: 800;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(212, 168, 67, 0.1); border: 1px solid rgba(212, 168, 67, 0.3);
+            padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.8rem;
+            color: var(--gold); margin-bottom: 1.5rem; font-weight: 500;
+        }
+        .hero-proof { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.25rem; }
+        .hero-proof span {
+            border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03);
+            border-radius: 999px; padding: 0.55rem 0.9rem; color: var(--text-muted); font-size: 0.86rem;
+        }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.15; margin-bottom: 1.5rem; }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .fade-in { opacity: 0; transform: translateY(25px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .qnav-pill {
+            display: inline-flex; align-items: center; padding: 0.4rem 1rem; background: var(--dark-surface);
+            border: 1px solid var(--border); border-radius: 50px; color: var(--text-muted); font-size: 0.8rem;
+            font-weight: 600; text-decoration: none; transition: all 0.3s; flex-shrink: 0;
+        }
+        .qnav-pill:hover { color: var(--gold); border-color: var(--gold); background: rgba(212,168,67,0.1); }
+        .mobile-nav {
+            display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(10, 15, 26, 0.98); backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border); padding: 0.5rem 0;
+        }
+        .mobile-nav-inner { display: flex; justify-content: space-around; align-items: center; max-width: 500px; margin: 0 auto; }
+        .mobile-nav a {
+            display: flex; flex-direction: column; align-items: center; gap: 0.2rem;
+            text-decoration: none; color: var(--text-muted); font-size: 0.6rem; font-weight: 500;
+            padding: 0.3rem; transition: color 0.3s;
+        }
+        .mobile-nav a:hover, .mobile-nav a.active { color: var(--gold); }
+        .chat-float { position: fixed; bottom: 90px; right: 20px; z-index: 998; }
+        .chat-toggle {
+            width: 56px; height: 56px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 20px rgba(13,124,62,0.4); color: #fff; position: relative;
+        }
+        .badge-dot {
+            position: absolute; top: 6px; right: 6px; width: 10px; height: 10px;
+            background: #EF4444; border-radius: 50%; border: 2px solid var(--dark);
+        }
+        .chat-window {
+            position: fixed; bottom: 160px; right: 20px; width: 370px; max-height: 500px;
+            background: var(--dark-card); border: 1px solid var(--border); border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5); z-index: 999;
+            flex-direction: column; overflow: hidden; display: none;
+        }
+        .chat-window.open { display: flex; }
+        .chat-header {
+            padding: 1rem 1.2rem; background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            display: flex; align-items: center; gap: 0.8rem;
+        }
+        .chat-header-avatar {
+            width: 40px; height: 40px; background: rgba(255,255,255,0.15);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        }
+        .chat-header-info h4 { font-size: 0.95rem; font-weight: 700; color: #fff; }
+        .chat-header-info p { font-size: 0.7rem; color: rgba(255,255,255,0.7); }
+        .chat-close { margin-left: auto; background: none; border: none; color: rgba(255,255,255,0.7); cursor: pointer; }
+        .chat-messages {
+            flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column;
+            gap: 0.8rem; max-height: 320px; min-height: 250px;
+        }
+        .chat-msg {
+            max-width: 85%; padding: 0.7rem 1rem; border-radius: 14px;
+            font-size: 0.85rem; line-height: 1.5; animation: msgSlide 0.3s ease;
+        }
+        @keyframes msgSlide { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .chat-msg.bot { background: var(--dark-surface); border: 1px solid var(--border); align-self: flex-start; border-bottom-left-radius: 4px; }
+        .chat-msg.user { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+        .chat-suggestions { padding: 0 1rem 0.5rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .chat-suggestion {
+            font-size: 0.75rem; padding: 0.4rem 0.8rem; border-radius: 50px;
+            background: var
+                  background: var(--dark-surface); border: 1px solid var(--border);
+            color: var(--text-muted); cursor: pointer; transition: all 0.3s;
+        }
+        .chat-suggestion:hover { border-color: var(--gold); color: var(--gold); }
+        .chat-input-area { padding: 0.8rem 1rem; border-top: 1px solid var(--border); display: flex; gap: 0.5rem; }
+        .chat-input {
+            flex: 1; background: var(--dark-surface); border: 1px solid var(--border);
+            border-radius: 10px; padding: 0.6rem 1rem; color: var(--text); font-size: 0.85rem; outline: none;
+        }
+        .chat-input:focus { border-color: var(--primary-light); }
+        .chat-send {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border: none; border-radius: 10px; padding: 0.6rem 0.8rem;
+            color: #fff; cursor: pointer; display: flex; align-items: center;
+        }
+        .ebook-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(10,15,26,0.75); z-index: 2000; padding: 1rem; }
+        .ebook-modal.open { display: flex; }
+        .ebook-modal-card { background: var(--dark-card); border-radius: 20px; border: 1px solid var(--border); max-width: 520px; width: 100%; padding: 2rem; position: relative; box-shadow: 0 30px 70px rgba(0,0,0,0.5); }
+        .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
+        .modal-cta { margin-top: 1.5rem; width: 100%; display: inline-flex; align-items: center; justify-content: center; padding: 0.9rem; border-radius: 12px; border: none; background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; font-weight: 600; font-size: 1rem; cursor: pointer; }
+        .modal-success { margin-top: 1.5rem; padding: 1.5rem; border-radius: 14px; border: 1px solid rgba(212,168,67,0.3); background: rgba(212,168,67,0.08); display: none; text-align: center; }
+        .modal-success.open { display: block; }
+        .modal-success a { display: inline-flex; margin-top: 0.8rem; padding: 0.8rem 1.4rem; border-radius: 12px; background: var(--gold); color: #0a0f1a; font-weight: 600; text-decoration: none; }
+        .ebook-lead-box { background: linear-gradient(180deg, rgba(13,124,62,0.14), rgba(212,168,67,0.08)); border: 1px solid rgba(13,124,62,0.25); border-radius: 22px; padding: 1.5rem; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .portfolio-card { background: var(--dark-card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; }
+        .portfolio-row { display: grid; grid-template-columns: 1fr 160px 80px; gap: 0.5rem; margin-bottom: 0.6rem; }
+        .portfolio-row select, .portfolio-row input { padding: 0.6rem; border-radius: 8px; border: 1px solid var(--border); background: var(--dark-surface); color: var(--text); font-size: 0.85rem; }
+        .portfolio-row button { border: none; background: rgba(239,68,68,0.15); color: #EF4444; border-radius: 8px; cursor: pointer; font-size: 0.8rem; }
+        .portfolio-actions { display: flex; gap: 0.8rem; margin-top: 1rem; }
+        .portfolio-primary { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; border: none; border-radius: 10px; padding: 0.7rem 1.2rem; cursor: pointer; font-weight: 600; }
+        .portfolio-secondary { background: transparent; color: var(--gold); border: 1px solid var(--gold); border-radius: 10px; padding: 0.7rem 1.2rem; cursor: pointer; }
+        .pie-chart { width: 180px; height: 180px; border-radius: 50%; margin: 1rem auto; background: conic-gradient(var(--primary) 0deg 360deg); }
+        .pie-legend { font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-top: 0.5rem; }
+        .portfolio-summary { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.4rem; }
+        .portfolio-summary-item { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border); }
+        .portfolio-insights { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.6rem; }
+        .portfolio-insight { background: var(--dark-surface); border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem; font-size: 0.82rem; color: var(--text-muted); }
+        .portfolio-insight strong { color: var(--gold); display: block; margin-bottom: 0.2rem; }
+        section { padding: 5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+        .sobre-container { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .sobre-image { position: relative; }
+        .sobre-image img { width: 100%; border-radius: 20px; }
+        .experience-badge { position: absolute; bottom: -20px; right: 20px; background: linear-gradient(135deg, var(--primary), var(--gold)); padding: 1rem 1.5rem; border-radius: 12px; text-align: center; }
+        .credentials { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1.5rem; }
+        .credential-item { display: flex; align-items: center; gap: 0.8rem; color: var(--text-muted); }
+        .ebooks-page { padding: 5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+        .ebook-highlights { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .highlight-card { background: var(--dark-card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; }
+        .highlight-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--gold); }
+        .highlight-card ul { margin: 0.8rem 0 1rem 1.2rem; color: var(--text-muted); font-size: 0.85rem; }
+        .highlight-link { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--primary-light); font-size: 0.85rem; text-decoration: none; font-weight: 600; }
+        .ebook-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .ebook-tab { padding: 0.5rem 1.2rem; border-radius: 50px; border: 1px solid var(--border); background: var(--dark-surface); color: var(--text-muted); cursor: pointer; font-size: 0.85rem; transition: all 0.3s; }
+        .ebook-tab.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+        .ebooks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 1.5rem; }
+        .ebook-card { background: var(--dark-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: transform 0.3s; }
+        .ebook-card:hover { transform: translateY(-4px); }
+        .ebook-card.hidden { display: none; }
+        .ebook-cover { height: 140px; display: flex; align-items: center; justify-content: center; position: relative; }
+        .ebook-cover-basic { background: linear-gradient(135deg, #0D7C3E, #12A150); }
+        .ebook-cover-inter { background: linear-gradient(135deg, #1e3a8a, #2563eb); }
+        .ebook-cover-adv { background: linear-gradient(135deg, #92400e, #D4A843); }
+        .cover-icon { color: rgba(255,255,255,0.8); }
+        .ebook-level { position: absolute; top: 10px; right: 10px; font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 50px; font-weight: 600; text-transform: uppercase; }
+        .level-basic { background: rgba(13,124,62,0.9); color: #fff; }
+        .level-inter { background: rgba(37,99,235,0.9); color: #fff; }
+        .level-adv { background: rgba(212,168,67,0.9); color: #000; }
+        .ebook-info { padding: 1.5rem; }
+        .ebook-info h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .ebook-info .ebook-author { font-size: 0.8rem; color: var(--gold); margin-bottom: 0.6rem; }
+        .ebook-info p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem; }
+        .ebook-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .ebook-tag { font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 50px; background: var(--dark-surface); color: var(--text-muted); border: 1px solid var(--border); }
+        .ebook-cta { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; font-size: 0.85rem; font-weight: 600; border: none; cursor: pointer; }
+        .btn-whatsapp { background: #25D366; color: #fff; padding: 0.9rem 2rem; border-radius: 12px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; }
+        footer { text-align: center; padding: 2rem 1.5rem 5rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.85rem; }
+        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.7); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all .3s; }
+        .popup-overlay.active { opacity: 1; visibility: visible; }
+        .popup-box { background: #1a1a2e; border-radius: 16px; padding: 2rem; max-width: 420px; width: 90%; position: relative; border: 1px solid var(--primary); }
+        .popup-close { position: absolute; top: 12px; right: 16px; background: none; border: none; color: #888; font-size: 1.5rem; cursor: pointer; }
+        .popup-input { width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #333; background: #111; color: #fff; font-size: .95rem; margin-bottom: .6rem; box-sizing: border-box; }
+        .popup-btn { width: 100%; padding: 12px; border-radius: 8px; border: none; background: var(--primary); color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer; }
+        .popup-skip { text-align: center; margin-top: .8rem; }
+        .popup-skip a { color: #888; font-size: .8rem; text-decoration: underline; cursor: pointer; }
+        .chatbot-gate-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.85); z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; border-radius: 16px; text-align: center; }
+        @media (max-width: 768px) {
+            nav, .header-cta { display: none; }
+            .mobile-nav { display: block; }
+            .lead-grid, .consult-grid { grid-template-columns: 1fr; }
+            .sobre-container { grid-template-columns: 1fr; }
+            section, .ebooks-page { padding: 3rem 1rem; }
+            .chat-window { width: calc(100vw - 24px); right: 12px; bottom: 140px; }
+            .chat-float { bottom: 78px; right: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#inicio" class="logo">
+            <div
+                          logo-icon">
+                <i data-lucide="trending-up" style="width:20px;height:20px;color:#fff"></i>
+            </div>
+            <div class="logo-text">Familia em Rumo<span>Financeiro</span></div>
+        </a>
+        <nav>
+            <a href="#inicio">Inicio</a>
+            <a href="#assistente">Assistente IA</a>
+            <a href="#ebook-gratuito">E-book Gratuito</a>
+            <a href="#ebooks">E-books</a>
+            <a href="#consultoria">Consultoria</a>
+            <a href="#cadastro">Cadastro</a>
+        </nav>
+        <a href="#assistente" class="header-cta">
+            <i data-lucide="bot" style="width:16px;height:16px"></i>
+            Falar com a IA
+        </a>
+    </header>
+
+    <div id="quicknav" style="position:fixed;top:56px;left:0;right:0;z-index:999;background:rgba(17,24,39,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0.5rem 0;overflow-x:auto;">
+        <div style="display:flex;gap:0.5rem;padding:0 1rem;max-width:1100px;margin:0 auto;white-space:nowrap;">
+            <a href="#assistente" class="qnav-pill" style="background:rgba(13,124,62,0.2);border-color:var(--primary);">Assistente IA</a>
+            <a href="#ebook-gratuito" class="qnav-pill" style="background:rgba(212,168,67,0.15);border-color:var(--gold);">E-book Gratuito</a>
+            <a href="#ebooks" class="qnav-pill">Biblioteca</a>
+            <a href="#beneficios" class="qnav-pill">Beneficios</a>
+            <a href="#consultoria" class="qnav-pill">Consultoria</a>
+            <a href="#carteira" class="qnav-pill">Carteira</a>
+            <a href="#cadastro" class="qnav-pill" style="background:rgba(13,124,62,0.2);border-color:var(--primary);">Cadastrar</a>
+        </div>
+    </div>
+
+    <section class="hero" id="inicio" style="min-height:100vh;display:flex;align-items:center;padding:8rem 1.5rem 4rem;">
+        <div class="hero-content fade-in" style="max-width:1180px;margin:0 auto;width:100%;">
+            <div class="lead-grid">
+                <div>
+                    <div class="hero-badge">
+                        <i data-lucide="sparkles" style="width:14px;height:14px"></i>
+                        Planejamento financeiro com triagem inteligente por IA
+                    </div>
+                    <h1 class="hero">Comece seu planejamento com uma <span class="highlight">assistente IA</span> antes da consultoria</h1>
+                    <p style="color:var(--text-muted);margin-bottom:1rem;">O visitante fala primeiro com a assistente, tira duvidas iniciais, recebe uma orientacao pratica, se qualifica e so no final pode solicitar a consultoria.</p>
+                    <div class="cta-stack">
+                        <a href="#assistente" class="btn-primary">
+                            <i data-lucide="bot" style="width:18px;height:18px"></i>
+                            Conversar com a Assistente
+                        </a>
+                        <a href="#ebook-gratuito" class="btn-secondary">
+                            <i data-lucide="download" style="width:18px;height:18px"></i>
+                            Baixar E-book Gratuito
+                        </a>
+                    </div>
+                    <div class="hero-proof">
+                        <span>Qualificacao antes do contato humano</span>
+                        <span>Capta leads com e-book gratuito</span>
+                        <span>Preparada para consultoria e area paga</span>
+                    </div>
+                </div>
+                <div class="glass-card fade-in">
+                    <span class="section-kicker"><i data-lucide="workflow" style="width:14px;height:14px"></i> Fluxo de conversao</span>
+                    <div class="step-line">
+                        <div class="step-item"><div class="step-badge">1</div><div><strong>IA recebe e qualifica</strong><p style="color:var(--text-muted);margin-top:0.25rem;">Idade, momento financeiro, objetivos, prazo e perfil.</p></div></div>
+                        <div class="step-item"><div class="step-badge">2</div><div><strong>Entrega orientacao inicial</strong><p style="color:var(--text-muted);margin-top:0.25rem;">A assistente organiza o caso e mostra o melhor proximo passo.</p></div></div>
+                        <div class="step-item"><div class="step-badge">3</div><div><strong>Lead entra no funil</strong><p style="color:var(--text-muted);margin-top:0.25rem;">Cadastro para e-book, materiais e formulario de qualificacao.</p></div></div>
+                        <div class="step-item"><div class="step-badge">4</div><div><strong>Consultoria no momento certo</strong><p style="color:var(--text-muted);margin-top:0.25rem;">Apenas os leads mais prontos seguem para agendamento.</p></div></div>
+                    </div>
+                    <div class="soft-note">Isso evita mandar qualquer visitante direto para o seu WhatsApp e melhora a qualidade dos contatos.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="assistente" style="padding:4rem 1.5rem;max-width:1100px;margin:0 auto;">
+        <div class="section-header fade-in">
+            <div class="section-label"><i data-lucide="bot" style="width:16px;height:16px"></i> Primeiro atendimento por IA</div>
+            <h2>A assistente atende, entende e prepara o lead antes da consultoria</h2>
+            <p>Ela recebe o visitante, responde duvidas iniciais, faz uma pre-qualificacao e entrega uma orientacao inicial.</p>
+        </div>
+        <div class="lead-grid">
+            <div class="glass-card fade-in">
+                <h3>O que a assistente vai fazer</h3>
+                <div class="mini-list">
+                    <div><i data-lucide="message-square-more" style="width:18px;height:18px;color:var(--gold)"></i><div><strong>Receber o visitante</strong>Primeiro contato leve, sem mandar direto para atendimento humano.</div></div>
+                    <div><i data-lucide="circle-help" style="width:18px;height:18px;color:var(--gold)"></i><div><strong>Tirar duvidas iniciais</strong>Explicar reserva, investimentos, risco e prazo.</div></div>
+                    <div><i data-lucide="list-checks" style="width:18px;height:18px;color:var(--gold)"></i><div><strong>Qualificar o lead</strong>Coletar idade, se ja investe, objetivos, prazo e perfil financeiro.</div></div>
+                    <div><i data-lucide="file-text" style="width:18px;height:18px;color:var(--gold)"></i><div><strong>Entregar orientacao inicial</strong>Mostrar um direcionamento pratico antes de sugerir consultoria.</div></div>
+                    <div><i data-lucide="calendar-check-2" style="width:18px;height:18px;color:var(--gold)"></i><div><strong>Oferecer agendamento no final</strong>Somente depois do formulario e da qualificacao.</div></div>
+                </div>
+            </div>
+            <div class="glass-card fade-in">
+                <h3>Perfil que a IA coleta</h3>
+                <div class="mini-list">
+                    <div><i data-lucide="user" style="width:18px;height:18px;color:var(--gold)"></i><div><strong>Faixa etaria</strong>Para entender o momento de vida financeira.</div></div>
+                    <div><i data-lucide="trending-up" style="width:18px;height:18px;color:var(--gold)"></i><div><strong>Experiencia com investimentos</strong>Ja investe ou esta comecando do zero.</div></div>
+                    <div><i data-lucide="target" style="width:18px;height:18px;color:var(--gold)"></i><div><strong>Objetivo principal</strong>Reserva, dividas, carteira ou rebalanceamento.</div></div>
+                    <div><i data-lucide="clock" style="width:18px;height:18px;color:var(--gold)"></i><div><strong>Prazo e perfil de risco</strong>Conservador, moderado ou arrojado.</div></div>
+                    <div><i data-lucide="coins" style="width:18px;height:18px;color:var(--gold)"></i><div><strong>Interesses</strong>Acoes, FIIs, stocks, cripto, renda fixa.</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ebook-gratuito" style="padding:0 1.5rem 4rem;max-width:1100px;margin:0 auto;">
+        <div class="ebook-lead-box fade-in">
+            <div class="lead-grid" style="align-items:center;">
+                <div>
+                    <span class="section-kicker"><i data-lucide="gift" style="width:14px;height:14px"></i> Isca digital principal</span>
+                    <h2 style="margin-top:1rem;font-size:clamp(1.8rem,3vw,2.5rem);">Baixe o e-book gratuito e entre no funil da consultoria</h2>
+                    <p style="color:var(--text-muted);margin-top:0.8rem;">O visitante recebe valor imediato, entra na base e depois pode continuar a conversa com a assistente.</p>
+                    <div class="mini-list">
+                        <div><i data-lucide="shield-plus" style="width:18px;height:18px;color:var(--gold)"></i><div><strong>Reserva de Emergencia do Zero</strong>Material direto para quem vive no aperto e quer criar protecao financeira.</div></div>
+                        <div><i data-lucide="badge-check" style="width:18px;height:18px;color:var(--gold)"></i><div><strong>Perfeito para leads iniciantes</strong>Capta pessoas que ainda nao estao prontas para investir, mas precisam de orientacao.</div></div>
+                    </div>
+                </div>
+                <div class="glass-card">
+                    <h3>Receber agora</h3>
+                    <p style="color:var(--text-muted);margin-bottom:1rem;">Preencha e receba o e-book gratuito no seu e-mail.</p>
+                    <form id="leadMagnetForm" action="https://formsubmit.co/ajax/marcustomaz.alphaxtransportes@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="Lead Magnet - Reserva de Emergencia">
+                        <input type="hidden" name="_captcha" value="false">
+                        <div style="display:grid;gap:0.8rem;">
+                            <input type="text" name="Nome" placeholder="Seu nome" required style="width:100%;padding:0.85rem 1rem;background:var(--dark-surface);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:0.95rem;outline:none;">
+                            <input type="email" name="Email" placeholder="Seu melhor e-mail" required style="width:100%;padding:0.85rem 1rem;background:var(--dark-surface);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:0.95rem;outline:none;">
+                            <input type="tel" name="WhatsApp" placeholder="Seu WhatsApp" style="width:100%;padding:0.85rem 1rem;background:var(--dark-surface);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:0.95rem;outline:none;">
+                            <button type="submit" class="btn-primary" style="justify-content:center;border:none;cursor:pointer;">
+                                <i data-lucide="download" style="width:18px;height:18px"></i>
+                                Quero meu e-book gratuito
+                            </button>
+                            <a href="https://familiaemrumofinanceiro-620634786284.southamerica-east1.run.app/ebooks/reserva-de-emergencia.pdf" download class="btn-secondary" style="justify-content:center;">
+                                <i data-lucide="file-down" style="width:18px;height:18px"></i>
+                                Baixar PDF direto
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+      <section id="beneficios" style="padding:4rem 1.5rem;max-width:1100px;margin:0 auto;">
+        <div class="section-header fade-in">
+            <div class="section-label"><i data-lucide="star" style="width:16px;height:16px"></i> Beneficios</div>
+            <h2>Uma home feita para captar, qualificar e converter</h2>
+            <p>O site deixa claro o proximo passo do visitante e organiza melhor o caminho ate a consultoria.</p>
+        </div>
+        <div class="benefits-grid">
+            <div class="glass-card fade-in"><h3>Mais clareza</h3><p style="color:var(--text-muted)">O visitante entende em segundos o que voce oferece e qual e o proximo passo.</p></div>
+            <div class="glass-card fade-in"><h3>Mais leads</h3><p style="color:var(--text-muted)">O e-book gratuito vira a principal porta de entrada para captacao.</p></div>
+            <div class="glass-card fade-in"><h3>Melhor qualificacao</h3><p style="color:var(--text-muted)">A assistente filtra curiosos e evita perda de tempo no WhatsApp.</p></div>
+            <div class="glass-card fade-in"><h3>Mais conversao</h3><p style="color:var(--text-muted)">Quando o lead chega na consultoria, ele ja chega aquecido e pronto.</p></div>
+        </div>
+    </section>
+
+    <div class="ebooks-page" id="ebooks">
+        <div class="section-header fade-in">
+            <div class="section-label"><i data-lucide="library" style="width:16px;height:16px"></i> Biblioteca</div>
+            <h2>E-books para cada fase da jornada financeira</h2>
+            <p>Materiais para captacao, nutricao de leads e aprofundamento.</p>
+        </div>
+        <div class="ebook-tabs">
+            <button class="ebook-tab active" data-filter="all">Todos</button>
+            <button class="ebook-tab" data-filter="basic">Basico</button>
+            <button class="ebook-tab" data-filter="inter">Intermediario</button>
+            <button class="ebook-tab" data-filter="adv">Avancado</button>
+        </div>
+        <div class="ebooks-grid">
+            <div class="ebook-card fade-in" data-level="basic">
+                <div class="ebook-cover ebook-cover-basic"><div class="cover-icon"><i data-lucide="shield-plus" style="width:36px;height:36px"></i></div><span class="ebook-level level-basic">Gratuito</span></div>
+                <div class="ebook-info"><h3>Como Montar Sua Reserva de Emergencia do Zero</h3><div class="ebook-author">por Marcus</div><p>Guia direto para quem nao tem dinheiro guardado e quer criar protecao financeira.</p><div class="ebook-tags"><span class="ebook-tag">Reserva</span><span class="ebook-tag">Iniciante</span></div><a href="https://familiaemrumofinanceiro-620634786284.southamerica-east1.run.app/ebooks/reserva-de-emergencia.pdf" download class="ebook-cta"><i data-lucide="download" style="width:16px;height:16px"></i> Baixar PDF</a></div>
+            </div>
+            <div class="ebook-card fade-in" data-level="basic">
+                <div class="ebook-cover ebook-cover-basic"><div class="cover-icon"><i data-lucide="list-checks" style="width:36px;height:36px"></i></div><span class="ebook-level level-basic">Gratuito</span></div>
+                <div class="ebook-info"><h3>7 Passos para Organizar Sua Vida Financeira</h3><div class="ebook-author">por Marcus</div><p>Roteiro para diagnosticar a vida financeira, criar reserva e dar os primeiros passos.</p><div class="ebook-tags"><span class="ebook-tag">Organizacao</span><span class="ebook-tag">Reserva</span></div><a href="https://familiaemrumofinanceiro-620634786284.southamerica-east1.run.app/ebooks/7-passos-vida-financeira.pdf" download class="ebook-cta"><i data-lucide="download" style="width:16px;height:16px"></i> Baixar PDF</a></div>
+            </div>
+            <div class="ebook-card fade-in" data-level="basic">
+                <div class="ebook-cover ebook-cover-basic"><div class="cover-icon"><i data-lucide="wallet" style="width:36px;height:36px"></i></div><span class="ebook-level level-basic">Gratuito</span></div>
+                <div class="ebook-info"><h3>Orcamento Familiar</h3><div class="ebook-author">por Marcus</div><p>Para familias que querem organizar o dinheiro da casa e montar uma rotina financeira.</p><div class="ebook-tags"><span class="ebook-tag">Familia</span><span class="ebook-tag">Orcamento</span></div><a href="https://familiaemrumofinanceiro-620634786284.southamerica-east1.run.app/ebooks/orcamento-familiar.pdf" download class="ebook-cta"><i data-lucide="download" style="width:16px;height:16px"></i> Baixar PDF</a></div>
+            </div>
+            <div class="ebook-card fade-in" data-level="basic">
+                <div class="ebook-cover ebook-cover-basic"><div class="cover-icon"><i data-lucide="compass" style="width:36px;height:36px"></i></div><span class="ebook-level level-basic">Basico</span></div>
+                <div class="ebook-info"><h3>Como Iniciar no Mercado Financeiro</h3><div class="ebook-author">por Marcus</div><p>Do orcamento aos primeiros investimentos. Roteiro claro para quem quer comecar.</p><div class="ebook-tags"><span class="ebook-tag">Iniciante</span><span class="ebook-tag">Planejamento</span></div><a href="https://familiaemrumofinanceiro-620634786284.southamerica-east1.run.app/ebooks/como-iniciar-no-mercado-financeiro.pdf" download class="ebook-cta"><i data-lucide="download" style="width:16px;height:16px"></i> Baixar PDF</a></div>
+            </div>
+            <div class="ebook-card fade-in" data-level="inter">
+                <div class="ebook-cover ebook-cover-inter"><div class="cover-icon"><i data-lucide="circle-dollar-sign" style="width:36px;height:36px"></i></div><span class="ebook-level level-inter">Intermediario</span></div>
+                <div class="ebook-info"><h3>Descomplicando Seus Investimentos</h3><div class="ebook-author">por Marcus</div><p>Sair da poupanca, entender renda fixa vs variavel e comecar com uma carteira inteligente.</p><div class="ebook-tags"><span class="ebook-tag">Renda Fixa</span><span class="ebook-tag">Renda Variavel</span></div><a href="https://familiaemrumofinanceiro-620634786284.southamerica-east1.run.app/ebooks/descomplicando-seus-investimentos.pdf" download class="ebook-cta"><i data-lucide="download" style="width:16px;height:16px"></i> Baixar PDF</a></div>
+            </div>
+            <div class="ebook-card fade-in" data-level="inter">
+                <div class="ebook-cover ebook-cover-inter"><div class="cover-icon"><i data-lucide="bitcoin" style="width:36px;height:36px"></i></div><span class="ebook-level level-inter">Intermediario</span></div>
+                <div class="ebook-info"><h3>Bitcoin para Iniciantes: Um Guia Pratico</h3><div class="ebook-author">por Marcus</div><p>Do que e Bitcoin ate DeFi, DePIN e RWA. Atualizado 2025.</p><div class="ebook-tags"><span class="ebook-tag">Bitcoin</span><span class="ebook-tag">Cripto</span></div><a href="https://familiaemrumofinanceiro-620634786284.southamerica-east1.run.app/ebooks/bitcoin-para-iniciantes.pdf" download class="ebook-cta"><i data-lucide="download" style="width:16px;height:16px"></i> Baixar PDF</a></div>
+            </div>
+            <div class="ebook-card fade-in" data-level="adv">
+                <div class="ebook-cover ebook-cover-adv"><div class="cover-icon"><i data-lucide="rocket" style="width:36px;height:36px;color:#000"></i></div><span class="ebook-level level-adv">Avancado</span></div>
+                <div class="ebook-info"><h3>Do Zero ao Aprendizado em Criptoativos</h3><div class="ebook-author">por Marcus</div><p>Blockchain, estrategias e seguranca no universo cripto.</p><div class="ebook-tags"><span class="ebook-tag">Blockchain</span><span class="ebook-tag">Cripto</span></div><a href="https://familiaemrumofinanceiro-620634786284.southamerica-east1.run.app/ebooks/do-zero-ao-aprendizado-em-criptoativos.pdf" download class="ebook-cta"><i data-lucide="download" style="width:16px;height:16px"></i> Baixar PDF</a></div>
+            </div>
+            <div class="ebook-card fade-in" data-level="inter">
+                <div class="ebook-cover ebook-cover-inter"><div class="cover-icon"><i data-lucide="lock" style="width:36px;height:36px"></i></div><span class="ebook-level level-inter">Em breve</span></div>
+                <div class="ebook-info"><h3>Renda Fixa Descomplicada</h3><div class="ebook-author">por Marcus</div><p>Tesouro, CDB, LCI, LCA e base segura antes de buscar mais risco.</p><div class="ebook-tags"><span class="ebook-tag">Tesouro</span><span class="ebook-tag">CDB</span></div><button class="ebook-cta" disabled style="opacity:0.6;cursor:not-allowed;"><i data-lucide="clock" style="width:16px;height:16px"></i> Em breve</button></div>
+            </div>
+        </div>
+    </div>
+
+    <section id="consultoria" style="padding:4rem 1.5rem;max-width:1100px;margin:0 auto;">
+        <div class="section-header fade-in">
+            <div class="section-label"><i data-lucide="briefcase-business" style="width:16px;height:16px"></i> Consultoria</div>
+            <h2>Consultoria financeira para quem quer clareza, estrategia e acompanhamento</h2>
+            <p>A consultoria entra na hora certa, depois da triagem e da qualificacao do lead.</p>
+        </div>
+        <div class="consult-grid">
+            <div class="glass-card fade-in">
+                <h3>O que a consultoria resolve</h3>
+                <div class="mini-list">
+                    <div><i data-lucide="badge-dollar-sign" style="width:18px;height:18px;color:var(--gold)"></i><div><strong>Organizacao financeira</strong>Saida do caos, controle de gastos e construcao de reserva.</div></div>
+                    <div><i data-lucide="pie-chart" style="width:18px;height:18px;color:var(--gold)"></i><div><strong>Montagem de carteira</strong>Alocacao coerente com perfil, prazo e objetivo.</div></div>
+                    <div><i data-lucide="shield-check" style="width:18px;height:18px;color:var(--gold)"></i><div><strong>Reducao de erros</strong>Menos decisoes impulsivas e mais criterio antes de investir.</div></div>
+                    <div><i data-lucide="map" style="width:18px;height:18px;color:var(--gold)"></i><div><strong>Plano de acao claro</strong>Passos praticos para o momento atual da pessoa.</div></div>
+                </div>
+            </div>
+            <div class="glass-card fade-in">
+                <h3>Como chegar ate a consultoria</h3>
+                <p style="color:var(--text-muted);margin-bottom:1rem;">Primeiro o visitante conversa com a assistente, se qualifica e preenche o formulario. So depois pode solicitar a consultoria.</p>
+                <div class="soft-note">"Depois de conversar com a assistente e preencher sua qualificacao, voce podera solicitar sua consultoria."</div>
+                <div class="cta-stack">
+                    <a href="#assistente" class="btn-primary"><i data-lucide="bot" style="width:18px;height:18px"></i> Comecar pela Assistente</a>
+                    <a href="#cadastro" class="btn-secondary"><i data-lucide="file-text" style="width:18px;height:18px"></i> Preencher Cadastro</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="autoridade" style="padding:4rem 1.5rem;max-width:1100px;margin:0 auto;">
+        <div class="section-header fade-in">
+            <div class="section-label"><i data-lucide="award" style="width:16px;height:16px"></i> Prova de autoridade</div>
+            <h2>Metodo claro, base tecnica e conteudo proprio</h2>
+            <p>A home mostra valor, organiza a jornada e reforca profissionalismo desde o primeiro clique.</p>
+        </div>
+        <div class="authority-grid">
+            <div class="glass-card fade-in"><h3>Metodo claro</h3><p style="color:var(--text-muted)">O visitante entende a proposta, conversa com a assistente e so depois avanca para consultoria.</p></div>
+            <div class="glass-card fade-in
+              "><h3>Base tecnica</h3><p style="color:var(--text-muted)">Planejamento financeiro, gestao de riscos e abordagem pratica para diferentes perfis.</p></div>
+            <div class="glass-card fade-in"><h3>Conteudo proprio</h3><p style="color:var(--text-muted)">Biblioteca com e-books gratuitos para atrair, nutrir e preparar cada potencial cliente.</p></div>
+            <div class="glass-card fade-in"><h3>Fluxo profissional</h3><p style="color:var(--text-muted)">A consultoria aparece no momento certo, depois da triagem e da qualificacao do lead.</p></div>
+        </div>
+    </section>
+
+    <section id="estrutura-futura" style="padding:4rem 1.5rem;max-width:1100px;margin:0 auto;">
+        <div class="section-header fade-in">
+            <div class="section-label"><i data-lucide="layers-3" style="width:16px;height:16px"></i> Estrutura futura</div>
+            <h2>Espaco preparado para evoluir o projeto</h2>
+            <p>A home ja pode apresentar o que existe hoje e o que pode ser destravado nas proximas fases.</p>
+        </div>
+        <div class="future-grid">
+            <div class="glass-card fade-in"><h3>Controle de despesas</h3><p style="color:var(--text-muted)">Area para usuario organizar entradas, saidas e visualizar para onde o dinheiro esta indo.</p></div>
+            <div class="glass-card fade-in"><h3>Grafico pizza da carteira</h3><p style="color:var(--text-muted)">Analise visual da distribuicao por setores e classes de ativos.</p></div>
+            <div class="glass-card fade-in"><h3>Area paga com IA</h3><p style="color:var(--text-muted)">Ambiente premium para acompanhamento, trilhas e conversas mais inteligentes.</p></div>
+            <div class="glass-card fade-in"><h3>Agendamento automatizado</h3><p style="color:var(--text-muted)">No futuro, a IA pode liberar agenda automaticamente para leads aprovados na qualificacao.</p></div>
+        </div>
+    </section>
+
+    <section id="carteira" style="padding:4rem 1.5rem;max-width:1100px;margin:0 auto;">
+        <div class="section-header fade-in">
+            <div class="section-label"><i data-lucide="pie-chart" style="width:16px;height:16px"></i> Monte sua Carteira em Pizza</div>
+            <h2>Visualize sua alocacao de investimentos</h2>
+            <p>Adicione seus ativos por categoria e veja a distribuicao em grafico com insights educativos.</p>
+        </div>
+        <div class="portfolio-grid">
+            <div class="portfolio-card fade-in">
+                <h3>Seus investimentos hoje</h3>
+                <p style="color:var(--text-muted);margin-bottom:1rem;">Adicione os valores por categoria para entender sua alocacao atual.</p>
+                <div id="portfolioRows">
+                    <div class="portfolio-row">
+                        <select class="portfolio-sector"><option value="Renda Fixa">Renda Fixa</option><option value="Acoes">Acoes</option><option value="FIIs">FIIs</option><option value="ETFs">ETFs</option><option value="Stocks">Stocks</option><option value="Cripto">Cripto</option><option value="Caixa">Caixa / Reserva</option></select>
+                        <input type="number" class="portfolio-value" placeholder="Valor em R$" min="0" step="0.01">
+                        <button type="button" onclick="removePortfolioRow(this)">Remover</button>
+                    </div>
+                </div>
+                <div class="portfolio-actions">
+                    <button type="button" class="portfolio-primary" onclick="analyzePortfolio()">Analisar carteira</button>
+                    <button type="button" class="portfolio-secondary" onclick="addPortfolioRow()">Adicionar linha</button>
+                </div>
+            </div>
+            <div class="portfolio-card fade-in">
+                <h3>Distribuicao da carteira</h3>
+                <p style="color:var(--text-muted);margin-bottom:1rem;">Veja sua exposicao por setor e o peso de cada classe de ativo.</p>
+                <div class="pie-chart" id="portfolioPie"></div>
+                <div class="pie-legend" id="portfolioLegend">Preencha os valores e clique em analisar.</div>
+                <div class="portfolio-summary" id="portfolioSummary"></div>
+                <div class="portfolio-insights" id="portfolioInsights"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cadastro" style="padding:4rem 1.5rem;max-width:700px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:2rem;" class="fade-in">
+            <div class="section-label"><i data-lucide="user-plus" style="width:16px;height:16px"></i> Qualificacao e cadastro</div>
+            <h2 style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;">Preencha seus dados para seguir no atendimento</h2>
+            <p style="color:var(--text-muted);max-width:560px;margin:0.5rem auto 0;">Depois do primeiro contato com a assistente, o visitante avanca para este formulario.</p>
+        </div>
+        <div id="cadastroBox" style="background:var(--dark-card);border-radius:16px;padding:2rem;border:1px solid var(--border);" class="fade-in">
+            <form id="cadastroForm" action="https://formsubmit.co/ajax/marcustomaz.alphaxtransportes@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="Novo Lead Qualificado - Familia em Rumo Financeiro">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="text" name="_honey" style="display:none">
+                <div style="margin-bottom:1rem;">abel style="display:block;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.4rem;">Nome completo *</label><input type="text" name="Nome" id="cadNome" placeholder="Ex: Maria Silva" required style="width:100%;padding:0.8rem 1rem;background:var(--dark-surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.95rem;outline:none;"></div>
+                <div style="margin-bottom:1rem;">abel style="display:block;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.4rem;">E-mail *</label><input type="email" name="Email" id="cadEmail" placeholder="seu@email.com" required style="width:100%;padding:0.8rem 1rem;background:var(--dark-surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.95rem;outline:none;"></div>
+                <div style="margin-bottom:1rem;">abel style="display:block;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.4rem;">WhatsApp *</label><input type="tel" name="WhatsApp" id="cadWhatsapp" placeholder="(21) 99999-9999" required style="width:100%;padding:0.8rem 1rem;background:var(--dark-surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.95rem;outline:none;"></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+                    <div>abel style="display:block;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.4rem;">Faixa etaria *</label><select name="Faixa Etaria" id="cadFaixaEtaria" required style="width:100%;padding:0.8rem 1rem;background:var(--dark-surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.95rem;outline:none;"><option value="">Selecione</option><option>18 a 24</option><option>25 a 34</option><option>35 a 44</option><option>45 a 54</option><option>55+</option></select></div>
+                    <div>abel style="display:block;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.4rem;">Ja investe? *</label><select name="Ja Investe" id="cadInveste" required style="width:100%;padding:0.8rem 1rem;background:var(--dark-surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.95rem;outline:none;"><option value="">Selecione</option><option>Nao</option><option>Sim</option></select></div>
+                </div>
+                <div style="margin-bottom:1rem;">abel style="display:block;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.4rem;">Interesses principais *</label><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.6rem;color:var(--text-muted);font-size:0.92rem;">abel><input type="checkbox" name="Interesses" value="Acoes"> Acoes</label>abel><input type="checkbox" name="Interesses" value="Stocks"> Stocks</label>abel><input type="checkbox" name="Interesses" value="FIIs"> FIIs</label>abel><input type="checkbox" name="Interesses" value="Cripto"> Cripto</label>abel><input type="checkbox" name="Interesses" value="Renda Fixa"> Renda Fixa</label>abel><input type="checkbox" name="Interesses" value="Organizacao Financeira"> Organizacao</label>abel><input type="checkbox" name="Interesses" value="Reserva de Emergencia"> Reserva</label></div></div>
+                <div style="margin-bottom:1rem;">abel style="display:block;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.4rem;">Objetivo principal *</label><select name="Objetivo Principal" id="cadObjetivo" required style="width:100%;padding:0.8rem 1rem;background:var(--dark-surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.95rem;outline:none;"><option value="">Selecione</option><option>Sair das dividas</option><option>Montar reserva</option><option>Comecar a investir</option><option>Diversificar carteira</option><option>Rebalancear</option></select></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+                    <div>abel style="display:block;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.4rem;">Prazo *</label><select name="Prazo Objetivo" id="cadPrazo" required style="width:100%;padding:0.8rem 1rem;background:var(--dark-surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.95rem;outline:none;"><option value="">Selecione</option><option>0 a 3 meses</option><option>3 a 6 meses</option><option>6 a 12 meses</option><option>1 a 3 anos</option><option>Mais de 3 anos</option></select></div>
+                    <div>abel style="display:block;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.4rem;">Poupanca/mes *</label><select name="Faixa de Poupanca" id="cadPoupanca" required style="width:100%;padding:0.8rem 1rem;background:var(--dark-surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.95rem;outline:none;"><option value="">Selecione</option><option>Ate R$ 200</option><option>R$ 200 a R$ 500</option><option>R$ 500 a R$ 1.000</option><option>R$ 1.000 a R$ 3.000</option><option>Acima de R$ 3.000</option></select></div>
+                </div>
+                <div style="margin-bottom:1rem;">abel style="display:block;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.4rem;">Perfil de risco *</label><select name="Perfil de Risco" id="cadPerfil" required style="width:100%;padding:0.8rem 1rem;background:var(--dark-surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.95rem;outline:none;"><option value="">Selecione</option><option>Conservador</option><option>Moderado</option><option>Arrojado</option></select></div>
+                <div style="margin-bottom:1rem;">abel style="display:block;font-size:0.85rem;color:var(--text-muted);margin-bottom:0.4rem;">O que quer resolver primeiro?</label><textarea name="Prioridade" id="cadPrioridade" rows="3" placeholder="Conte em poucas palavras sua principal necessidade hoje" style="width:100%;padding:0.8rem 1rem;background:var(--dark-surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.95rem;outline:none;resize:vertical;"></textarea></div>
+                <input type="hidden" name="Resumo do Perfil" id="cadResumoPerfil">
+                <button type="submit" id="cadastroBtn" style="width:100%;padding:0.95rem;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;border:none;
+                  border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;">Enviar qualificacao completa</button>
+            </form>
+        </div>
+        <div id="cadastroSucesso" style="display:none;text-align:center;background:var(--dark-card);border-radius:16px;padding:3rem 2rem;border:1px solid var(--border);">
+            <div style="font-size:3rem;margin-bottom:1rem;">✅</div>
+            <h3 style="color:var(--primary-light);margin-bottom:0.5rem;">Recebemos seus dados!</h3>
+            <p style="color:var(--text-muted);margin-bottom:1.5rem;">Agora siga com a assistente e depois avalie a consultoria no momento certo.</p>
+            <a href="#assistente" class="btn-secondary" style="display:inline-flex;">Ir para a assistente</a>
+        </div>
+    </section>
+
+    <section style="padding:0 1.5rem 4.5rem;max-width:1100px;margin:0 auto;">
+        <div class="glass-card fade-in" style="text-align:center;padding:2rem;">
+            <span class="section-kicker"><i data-lucide="calendar-range" style="width:14px;height:14px"></i> Ultima etapa</span>
+            <h2 style="margin-top:1rem;">Quando o lead estiver pronto, a consultoria entra em cena</h2>
+            <p style="max-width:700px;margin:0.8rem auto 0;color:var(--text-muted);">A home conduz o visitante por um caminho melhor: conteudo, assistente, qualificacao e so depois consultoria.</p>
+            <div class="cta-stack" style="justify-content:center;">
+                <a href="#assistente" class="btn-primary"><i data-lucide="bot" style="width:18px;height:18px"></i> Comecar pelo atendimento IA</a>
+                <a href="#cadastro" class="btn-secondary"><i data-lucide="clipboard-list" style="width:18px;height:18px"></i> Preencher qualificacao</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="chat-float">
+        <button class="chat-toggle" id="chatToggle" aria-label="Abrir assistente">
+            <i data-lucide="bot" style="width:26px;height:26px"></i>
+            <span class="badge-dot"></span>
+        </button>
+    </div>
+
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <div class="chat-header-avatar"><i data-lucide="bot" style="width:22px;height:22px;color:#fff"></i></div>
+            <div class="chat-header-info"><h4>Assistente Financeiro</h4><p>Online - Tire suas duvidas</p></div>
+            <button class="chat-close" id="chatClose"><i data-lucide="x" style="width:20px;height:20px"></i></button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-msg bot">Ola! Posso te orientar e montar seu perfil antes da consultoria.</div>
+        </div>
+        <div class="chat-suggestions" id="chatSuggestions">
+            <button class="chat-suggestion" data-q="fase2_start">Fazer meu perfil</button>
+            <button class="chat-suggestion" data-q="ebook">Ver e-books</button>
+            <button class="chat-suggestion" data-q="consultoria">Como funciona</button>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Digite sua duvida..." autocomplete="off">
+            <button class="chat-send" id="chatSend"><i data-lucide="send" style="width:18px;height:18px"></i></button>
+        </div>
+    </div>
+
+    <div class="mobile-nav">
+        <div class="mobile-nav-inner">
+            <a href="#inicio"><i data-lucide="home" style="width:20px;height:20px"></i>Inicio</a>
+            <a href="#assistente"><i data-lucide="bot" style="width:20px;height:20px"></i>IA</a>
+            <a href="#ebooks"><i data-lucide="book-open" style="width:20px;height:20px"></i>E-books</a>
+            <a href="#cadastro"><i data-lucide="clipboard-list" style="width:20px;height:20px"></i>Cadastro</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Familia em Rumo Financeiro — Facilitando seu Planejamento Financeiro</p>
+        <p style="margin-top:0.5rem;">WhatsApp: (21) 97093-8600</p>
+    </footer>
+
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-box">
+            <button class="popup-close" id="popupClose">&times;</button>
+            <div id="popupFormBox">
+                <h3 style="color:var(--gold);font-size:1.3rem;margin-bottom:.5rem;text-align:center;">Bem-vindo ao Familia em Rumo Financeiro!</h3>
+                <p style="color:#ccc;font-size:.9rem;text-align:center;margin-bottom:1.2rem;">Cadastre-se gratis e acesse ferramentas exclusivas</p>
+                <input type="text" class="popup-input" id="popupNome" placeholder="Seu nome">
+                <input type="email" class="popup-input" id="popupEmail" placeholder="Seu melhor e-mail" required>
+                <input type="tel" class="popup-input" id="popupWhatsapp" placeholder="WhatsApp (opcional)">
+                <button class="popup-btn" id="popupBtn" onclick="submitPopup()">Quero acesso gratis!</button>
+                <div class="popup-skip"><a id="popupSkip">Agora nao, quero so olhar</a></div>
+            </div>
+            <div class="popup-success" id="popupSuccess" style="display:none;text-align:center;padding:1rem 0;">
+                <h3 style="color:var(--primary);">Cadastro realizado!</h3>
+                <p style="color:#ccc;margin-bottom:1rem;">Aproveite suas ferramentas gratuitas!</p>
+                <a href="#cadastro" onclick="document.getElementById('popupOverlay').classList.remove('active')" style="display:inline-block;background:var(--primary);color:#fff;padding:8px 20px;border-radius:8px;font-size:.9rem;font-weight:600;text-decoration:none;">Continuar qualificacao</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script>
+        lucide.createIcons();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const tabs = document.querySelectorAll('.ebook-tab');
+        const cards = document.querySelectorAll('.ebook-card');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const filter = tab.dataset.filter;
+                cards.forEach(card => {
+                    card.classList.toggle('hidden', filter !== 'all' && card.dataset.level !== filter);
+                });
+            });
+        });
+
+        const chatToggle = document.getElementById('chatToggle');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatClose = document.getElementById('chatClose');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+        const chatSuggestions = document.getElementById('chatSuggestions');
+
+        chatToggle.addEventListener('click', () => { chatWindow.classList.toggle('open'); if (chatWindow.classList.contains('open')) chatInput.focus(); });
+        chatClose.addEventListener('click', () => chatWindow.classList.remove('open'));
+
+        const qualificationFlow = { active: false, step: 0, answers: {} };
+        const flowSteps = [
+            { key: 'nome', question: 'Para comecar, qual seu nome?' },
+            { key: 'email', question: 'Qual seu melhor e-mail?' },
+            { key: 'whatsapp', question: 'Qual seu WhatsApp?' },
+            { key: 'faixa_etaria', question: 'Sua faixa etaria: 18-24, 25-34, 35-44, 45-54 ou 55+?' },
+            { key: 'ja_investe', question: 'Voce ja investe? (nao / sim ha menos de 1 ano / 1-3 anos / mais de 3 anos)' },
+            { key: 'interesses', question: 'Quais seus interesses? (acoes, stocks, FIIs, cripto, renda fixa, organizacao, reserva)' },
+            { key: 'objetivo', question: 'Objetivo principal: sair das dividas, montar reserva, comecar a investir, diversificar ou rebalancear?' },
+            { key: 'prazo', question: 'Prazo para atingir esse objetivo?' },
+            { key: 'poupanca', question: 'Quanto consegue poupar por mes? (ate R$200 / R$200-500 / R$500-1000 / R$1000-3000 / acima de R$3000)' },
+            { key: 'perfil', question: 'Perfil de risco: conservador, moderado ou arrojado?' }
+        ];
+
+        const simpleKnowledge = {
+            'ebook': { answer: 'Temos e-books gratuitos para organizacao, reserva, investimentos e cripto. Posso montar seu perfil agora e indicar o melhor.', follow: ['fase2_start', 'comecar'] },
+            'consultoria': { answer: 'A consultoria so e liberada depois da qualificacao completa. Posso iniciar seu perfil agora.', follow: ['fase2_start', 'ebook'] },
+            'comecar': { answer: 'O melhor caminho: entender sua fase atual, definir objetivo, criar reserva e dar os primeiros passos. Quer que eu monte seu perfil?', follow: ['fase2_start', 'ebook'] },
+            'reserva': { answer: 'Reserva de emergencia e a base de tudo. Guarde em algo liquido e seguro antes de correr mais risco.', follow: ['fase2_start', 'ebook'] },
+            'renda fixa': { answer: 'Renda fixa e a melhor porta de entrada para seguranca e previsibilidade.', follow: ['fase2_start', 'ebook'] },
+            'acoes': { answer: 'Acoes fazem mais sentido quando ja existe organizacao, reserva e horizonte de longo prazo.', follow: ['fase2_start', 'ebook'] },
+            'fii': { answer: 'FIIs podem gerar renda mensal e diversificacao, mas entram melhor quando a base financeira ja esta organizada.', follow: ['fase2_start', 'ebook'] },
+            'cripto': { answer: 'Cripto exige tolerancia a risco. Entenda seu perfil e reserva antes de entrar.', follow: ['fase2_start', 'ebook'] }
+        };
+
+        function addMessage(text, type) {
+            const msg = document.createElement('div');
+            msg.className = 'chat-msg ' + type;
+            msg.textContent = text;
+            chatMessages.appendChild(msg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function updateSuggestions(keys) {
+            if (!keys) return;
+            const labels = { 'fase2_start':'Montar meu perfil','comecar':'Por onde comecar?','ebook':'Ver e-books','consultoria':'Como funciona?','reserva':'Reserva','renda fixa':'Renda Fixa','acoes':'Acoes','fii':'FIIs','cripto':'Cripto' };
+            chatSuggestions.innerHTML = '';
+            keys.slice(0,3).forEach(k => {
+                const btn = document.createElement('button');
+                btn.className = 'chat-suggestion';
+                btn.dataset.q = k;
+                btn.textContent = labels[k] || k;
+                btn.addEventListener('click', () => handleSuggestion(k));
+                chatSuggestions.appendChild(btn);
+            });
+        }
+
+        function suggestEbook(profile) {
+            const i = (profile.interesses || '').toLowerCase();
+            const o = (profile.objetivo || '').toLowerCase();
+            if (o.includes('divida') || o.includes('reserva') || i.includes('organizacao')) return { nome: '7 Passos para Organizar Sua Vida Financeira', link: 'https://familiaemrumofinanceiro-620634786284.southamerica-east1.run.app/ebooks/7-passos-vida-financeira.pdf' };
+            if (i.includes('cripto')) return { nome: 'Bitcoin para Iniciantes', link: 'https://familiaemrumofinanceiro-620634786284.southamerica-east1.run.app/ebooks/bitcoin-para-iniciantes.pdf' };
+            return { nome: 'Reserva de Emergencia do Zero', link: 'https://familiaemrumofinanceiro-620634786284.southamerica-east1.run.app/ebooks/reserva-de-emergencia.pdf' };
+        }
+
+        function buildProfileSummary(p) {
+            return `Perfil: ${p.nome}, faixa ${p.faixa_etaria}, objetivo "${p.objetivo}", prazo ${p.prazo}, perfil ${p.perfil}, poupanca ${p.poupanca}, interesses: ${p.interesses}.`;
+        }
+
+        function fillForm(profile, summary) {
+            const map = { cadNome:profile.nome||'', cadEmail:profile.email||'', cadWhatsapp:profile.whatsapp||'', cadFaixaEtaria:profile.faixa_etaria||'', cadInveste:(profile.ja_investe||'').toLowerCase().includes('nao')?'Nao':'Sim', cadObjetivo:profile.objetivo||'', cadPrazo:profile.prazo||'', cadPoupanca:profile.poupanca||'', cadPerfil:profile.perfil||'', cadPrioridade:profile.objetivo||'', cadResumoPerfil:summary||''
+                          };
+            Object.entries(map).forEach(([id, value]) => { const el = document.getElementById(id); if (el) el.value = value; });
+            document.querySelectorAll('input[name="Interesses"]').forEach(cb => { cb.checked = (profile.interesses||'').toLowerCase().includes(cb.value.toLowerCase()); });
+        }
+
+        function startQualificationFlow() {
+            qualificationFlow.active = true; qualificationFlow.step = 0; qualificationFlow.answers = {};
+            addMessage('Perfeito. Vou montar seu perfil antes de liberar a consultoria.', 'bot');
+            setTimeout(() => addMessage(flowSteps[0].question, 'bot'), 300);
+            updateSuggestions([]);
+        }
+
+        function handleFlowAnswer(text) {
+            const step = flowSteps[qualificationFlow.step];
+            qualificationFlow.answers[step.key] = text;
+            qualificationFlow.step++;
+            if (qualificationFlow.step < flowSteps.length) {
+                setTimeout(() => addMessage(flowSteps[qualificationFlow.step].question, 'bot'), 300);
+                return;
+            }
+            qualificationFlow.active = false;
+            const summary = buildProfileSummary(qualificationFlow.answers);
+            const ebook = suggestEbook(qualificationFlow.answers);
+            fillForm(qualificationFlow.answers, summary);
+            addMessage(summary, 'bot');
+            addMessage('E-book sugerido para voce: ' + ebook.nome, 'bot');
+            addMessage('Preenchi o formulario de qualificacao para voce. Revise e envie para liberar a consultoria.', 'bot');
+            updateSuggestions(['ebook', 'consultoria']);
+            document.getElementById('cadastro').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function findAnswer(input) {
+            const q = input.toLowerCase();
+            if (q.includes('fase2_start') || q.includes('montar') || q.includes('perfil')) return { answer: '__START_FLOW__', follow: [] };
+            for (const key of Object.keys(simpleKnowledge)) { if (q.includes(key)) return simpleKnowledge[key]; }
+            return { answer: 'Posso montar seu perfil agora e indicar o melhor e-book e liberar a consultoria no final.', follow: ['fase2_start', 'ebook', 'consultoria'] };
+        }
+
+        function handleSend() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+            addMessage(text, 'user');
+            chatInput.value = '';
+            if (qualificationFlow.active) { handleFlowAnswer(text); return; }
+            setTimeout(() => {
+                const result = findAnswer(text);
+                if (result.answer === '__START_FLOW__') startQualificationFlow();
+                else { addMessage(result.answer, 'bot'); updateSuggestions(result.follow); }
+            }, 400);
+        }
+
+        function handleSuggestion(q) {
+            addMessage(q === 'fase2_start' ? 'Montar meu perfil' : q, 'user');
+            if (q === 'fase2_start') { startQualificationFlow(); return; }
+            setTimeout(() => {
+                const result = simpleKnowledge[q] || findAnswer(q);
+                addMessage(result.answer, 'bot'); updateSuggestions(result.follow);
+            }, 400);
+        }
+
+        chatSend.addEventListener('click', handleSend);
+        chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
+        document.querySelectorAll('.chat-suggestion').forEach(btn => { btn.addEventListener('click', () => handleSuggestion(btn.dataset.q)); });
+
+        function addPortfolioRow() {
+            const container = document.getElementById('portfolioRows');
+            const row = document.createElement('div');
+            row.className = 'portfolio-row';
+            row.innerHTML = '<select class="portfolio-sector"><option value="Renda Fixa">Renda Fixa</option><option value="Acoes">Acoes</option><option value="FIIs">FIIs</option><option value="ETFs">ETFs</option><option value="Stocks">Stocks</option><option value="Cripto">Cripto</option><option value="Caixa">Caixa</option></select><input type="number" class="portfolio-value" placeholder="Valor em R$" min="0"><button type="button" onclick="removePortfolioRow(this)">Remover</button>';
+            container.appendChild(row);
+        }
+
+        function removePortfolioRow(btn) {
+            if (document.querySelectorAll('#portfolioRows .portfolio-row').length <= 1) return;
+            btn.parentElement.remove();
+        }
+
+        function analyzePortfolio() {
+            const rows = document.querySelectorAll('#portfolioRows .portfolio-row');
+            const totals = {}; let total = 0;
+            rows.forEach(row => {
+                const sector = row.querySelector('.portfolio-sector').value;
+                const value = parseFloat(row.querySelector('.portfolio-value').value) || 0;
+                if (value > 0) { totals[sector] = (totals[sector] || 0) + value; total += value; }
+            });
+            const pie = document.getElementById('portfolioPie');
+            const legend = document.getElementById('portfolioLegend');
+            const summary = document.getElementById('portfolioSummary');
+            const insights = document.getElementById('portfolioInsights');
+            if (!total) { legend.textContent = 'Preencha os valores e clique em analisar.'; summary.innerHTML = ''; insights.innerHTML = ''; return; }
+            const colors = { 'Renda Fixa':'#0D7C3E','Acoes':'#D4A843','FIIs':'#3FA7D6','ETFs':'#8E44AD','Stocks':'#E67E22','Cripto':'#F1C40F','Caixa':'#95A5A6' };
+            let deg = 0; const segments = []; let legendHtml = []; let summaryHtml = [];
+            Object.entries(totals).sort((a,b)=>b[1]-a[1]).forEach(([sector, value]) => {
+                const pct = (value/total)*100; const d = (pct/100)*360;
+                segments.push(`${colors[sector]||'#6B7280'} ${deg}deg ${deg+d}deg`); deg += d;
+                legendHtml.push(`<div style="margin:.3rem 0;font-size:0.8rem;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${colors[sector]};margin-right:6px"></span>${sector}: <strong>${pct.toFixed(1)}%</strong></div>`);
+                summaryHtml.push(`<div class="portfolio-summary-item"><span>${sector}</span><strong>R$ ${value.toLocaleString('pt-BR',{minimumFractionDigits:2})} • ${pct.toFixed(1)}%</strong></div>`);
+            });
+            pie.style.background = `conic-gradient(${segments.join(', ')})`;
+            legend.innerHTML = legendHtml.join('');
+            summary.innerHTML = summaryHtml.join('');
+            const pct = name => ((totals[name]||0)/total)*100;
+            let insightList = [];
+            if (pct('Cripto') > 15) insightList.push('<div class="portfolio-insight"><strong>Cripto alta:</strong> exposicao em cripto elevada. Para a maioria, acima de 10-15% aumenta bastante o risco.</div>');
+            if (pct('Renda Fixa') < 20) insightList.push('<div class="portfolio-insight"><strong>Pouca base defensiva:</strong> carteira com pouca renda fixa pode aumentar a volatilidade.</div>');
+            if ((pct('Acoes')+pct('Stocks')) > 50) insightList.push('<div class="portfolio-insight"><strong>Concentrado em empresas:</strong> grande peso em acoes. Avalie qualidade, lucro e divida das empresas.</div>');
+            if (pct('Caixa') > 20) insightList.push('<div class="portfolio-insight"><strong>Caixa elevado:</strong> liquidez e importante, mas caixa demais pode deixar dinheiro parado sem render.</div>');
+            insightList.push('<div class="portfolio-insight"><strong>Dica:</strong> priorize empresas com lucro recorrente, baixa divida e boa margem. Se quiser analise detalhada, consulte um especialista.</div>');
+            insights.innerHTML = insightList.join('');
+            localStorage.setItem('frf_portfolio', JSON.stringify(totals));
+        }
+
+        document.getElementById('cadastroForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('cadastroBtn');
+            btn.textContent = 'Enviando...'; btn.disabled = true;
+            const interesses = Array.from(document.querySelectorAll('input[name="Interesses"]:checked')).map(el=>el.value);
+            const fd = new FormData(this);
+            fd.append('Interesses Selecionados', interesses.join(', '));
+            fetch(this.action, { method:'POST', body:fd, headers:{'Accept':'application/json'} })
+            .then(r=>r.json()).then(result => {
+                if (result.success) {
+                    document.getElementById('cadastroBox').style.display = 'none';
+                    document.getElementById('cadastroSucesso').style.display = 'block';
+                } else { alert('Erro ao enviar. Tente novamente!'); btn.textContent='Enviar qualificacao completa'; btn.disabled=false; }
+            }).catch(() => { alert('Erro de conexao.'); btn.textContent='Enviar qualificacao completa'; btn.disabled=false; });
+        });
+
+        document.getElementById('leadMagnetForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fd = new FormData(this);
+            fetch(this.action, { method:'POST', body:fd, headers:{'Accept':'application/json'} })
+            .then(r=>r.json()).then(result => {
+                if (result.success) {
+                    this.innerHTML = '<p style="color:var(--primary-light);text-align:center;padding:1rem;">✅ E-book enviado! Verifique seu e-mail.</p><a href="https://familiaemrumofinanceiro-620634786284.southamerica-east1.run.app/ebooks/reserva-de-emergencia.pdf" download class="btn-primary" style="justify-content:center;margin-top:1rem;">Baixar agora</a>';
+                }
+            }).catch(() => {});
+        });
+
+        (function(){
+            const REGISTERED_KEY = 'frf_registered';
+            const isRegistered = () => localStorage.getItem(REGISTERED_KEY) === 'true';
+            const overlay = document.getElementById('popupOverlay');
+            if (!isRegistered() && !sessionStorage.getItem('frf_popup_dismissed')) {
+                setTimeout(() => { overlay.classList.add('active'); lucide.createIcons(); }, 3000);
+            }
+            document.getElementById('popupClose').addEventListener('click', () => { overlay.classList.remove('active'); sessionStorage.setItem('frf_popup_dismissed','true'); });
+            document.getElementById('popupSkip').addEventListener('click', () => { overlay.classList.remove('active'); sessionStorage.setItem('frf_popup_dismissed','true'); });
+            overlay.addEventListener('click', (e) => { if (e.target===overlay) { overlay.classList.remove('active'); sessionStorage.setItem('frf_popup_dismissed','true'); } });
+            window.submitPopup = function() {
+                const email = document.getElementById('popupEmail').value.trim();
+                if (!email) { document.getElementById('popupEmail').style.borderColor='#e74c3c'; return; }
+                const nome = document.getElementById('popupNome').value.trim();
+                const whatsapp = document.getElementById('popupWhatsapp').value.trim();
+                fetch('https://formsubmit.co/ajax/marcustomaz.alphaxtransportes@gmail.com', {
+                    method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
+                    body:JSON.stringify({Nome:nome,Email:email,WhatsApp:whatsapp,Origem:'Popup',_subject:'Novo Lead - Popup'})
+                }).then(()=>{
+                    localStorage.setItem(REGISTERED_KEY,'true');
+                    document.getElementById('popupFormBox').style.display='none';
+                    document.getElementById('popupSuccess').style.display='block';
+                    setTimeout(()=>overlay.classList.remove('active'),2500);
+                });
+            };
+        })();
+    </script>
+</body>
+</html>
+              
