@@ -15,9 +15,6 @@
         gtag('config', 'G-W1W2CTXMG8');
     </script>
     
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
     <style>
         :root {
             --primary: #0D7C3E;
@@ -47,96 +44,212 @@
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
             background: rgba(10, 15, 26, 0.95); backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border); padding: 0.8rem 1.5rem;
-            display: flex; align-items: center; justify-content: space-between;
         }
         
-        .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
-        .logo-icon { width: 36px; height: 36px; }
-        .logo-icon { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
-        .logo img { width: 36px; height: 36px; border-radius: 50%; }
-        .logo-text { font-weight: 600; color: #fff; }
+        nav {
+            max-width: 1400px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 1rem;
+        }
+        
+        .logo { 
+            display: flex; align-items: center; gap: 0.75rem;
+            font-size: 1.25rem; font-weight: 700; color: var(--gold);
+            text-decoration: none;
+        }
+        
+        .logo-icon { font-size: 2rem; }
+        
+        .nav-links {
+            display: flex; gap: 0.5rem; align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a, .nav-btn {
+            color: var(--text); text-decoration: none;
+            padding: 0.6rem 1.2rem; border-radius: 8px;
+            transition: all 0.3s; font-size: 0.95rem;
+            white-space: nowrap;
+        }
+        
+        .nav-links a:hover {
+            background: var(--dark-surface);
+            color: var(--gold);
+        }
+        
+        .nav-btn {
+            background: var(--primary); color: #fff;
+            border: none; cursor: pointer; font-weight: 600;
+        }
+        
+        .nav-btn:hover {
+            background: var(--primary-light);
+        }
+        
+        .btn-gold {
+            background: var(--gold) !important;
+            color: var(--dark) !important;
+        }
+        
+        .btn-gold:hover {
+            background: var(--gold-light) !important;
+        }
         
         .hero {
             min-height: 100vh; display: flex; align-items: center; justify-content: center;
             background: linear-gradient(135deg, #0A0F1A 0%, #0D7C3E 100%);
-            padding: 100px 20px 60px;
+            padding: 120px 20px 60px; text-align: center;
         }
         
-        .hero-content { max-width: 800px; text-align: center; }
-        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1.5rem; }
-        .hero p { font-size: clamp(1rem, 2.5vw, 1.3rem); color: var(--text-muted); margin-bottom: 2rem; }
+        .hero-content { max-width: 900px; }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 1.5rem; line-height: 1.2; }
+        .hero p { font-size: clamp(1.1rem, 3vw, 1.4rem); color: var(--text-muted); margin-bottom: 2.5rem; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .hero .cta-button { display: inline-block; background: var(--gold); color: var(--dark); padding: 1.2rem 3rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.1rem; transition: all 0.3s; }
+        .hero .cta-button:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(218, 165, 69, 0.3); }
         
-        .cta-button {
-            display: inline-block; background: var(--gold); color: var(--dark);
-            padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none;
-            font-weight: 600; transition: all 0.3s; border: none; cursor: pointer;
-        }
-        .cta-button:hover { background: var(--gold-light); transform: translateY(-2px); }
+        section { padding: 100px 20px; max-width: 1400px; margin: 0 auto; }
+        h2 { font-size: clamp(2rem, 5vw, 3rem); text-align: center; margin-bottom: 4rem; }
         
-        section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
+        .investimentos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+        .inv-card { background: var(--dark-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.8rem; text-align: center; transition: transform 0.3s; cursor: pointer; }
+        .inv-card:hover { transform: translateY(-5px); border-color: var(--gold); }
+        .inv-card .icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .inv-card h3 { color: var(--gold); margin-bottom: 0.8rem; font-size: 1.2rem; }
+        .inv-card p { color: var(--text-muted); font-size: 0.95rem; }
         
-        h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); text-align: center; margin-bottom: 3rem; }
+        .sobre { background: var(--dark-surface); }
+        .sobre-content { max-width: 800px; margin: 0 auto; text-align: center; }
+        .sobre-content p { font-size: 1.2rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 1.5rem; }
+        .sobre-content strong { color: var(--gold); }
         
-        .ebooks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .ebooks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; }
+        .ebook-card { background: var(--dark-card); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; transition: all 0.3s; }
+        .ebook-card:hover { transform: translateY(-8px); box-shadow: 0 10px 40px rgba(0,0,0,0.3); border-color: var(--gold); }
+        .ebook-card h3 { color: var(--gold); margin-bottom: 1.2rem; font-size: 1.4rem; }
+        .ebook-card p { color: var(--text-muted); margin-bottom: 1.8rem; line-height: 1.7; }
+        .download-btn { display: inline-block; background: var(--primary); color: #fff; padding: 0.9rem 2rem; border-radius: 8px; text-decoration: none; transition: all 0.3s; width: 100%; text-align: center; font-weight: 600; }
+        .download-btn:hover { background: var(--primary-light); transform: translateY(-2px); }
         
-        .ebook-card {
-            background: var(--dark-card); border: 1px solid var(--border);
-            border-radius: 16px; padding: 2rem; transition: transform 0.3s;
-        }
-        .ebook-card:hover { transform: translateY(-5px); }
-        .ebook-card h3 { color: var(--gold); margin-bottom: 1rem; }
-        .ebook-card p { color: var(--text-muted); margin-bottom: 1.5rem; }
-        .download-btn {
-            display: inline-block; background: var(--primary); color: #fff;
-            padding: 0.7rem 1.5rem; border-radius: 8px; text-decoration: none;
-            transition: all 0.3s; width: 100%; text-align: center;
-        }
-        .download-btn:hover { background: var(--primary-light); }
+        #calculadora { background: var(--dark-surface); }
+        .calc-container { max-width: 900px; margin: 0 auto; background: var(--dark-card); padding: 3rem; border-radius: 20px; border: 1px solid var(--border); }
+        .calc-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; }
+        .calc-group { display: flex; flex-direction: column; }
+        .calc-group label { color: var(--gold); margin-bottom: 0.6rem; font-weight: 600; }
+        .calc-group input, .calc-group select { background: var(--dark-surface); border: 1px solid var(--border); color: var(--text); padding: 0.9rem; border-radius: 8px; font-size: 1rem; }
+        .calc-group input:focus, .calc-group select:focus { outline: none; border-color: var(--gold); }
+        .calc-button { background: var(--gold); color: var(--dark); padding: 1rem 2.5rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 1.1rem; transition: all 0.3s; width: 100%; margin-top: 1rem; }
+        .calc-button:hover { background: var(--gold-light); transform: translateY(-2px); }
+        .calc-result { margin-top: 2rem; padding: 2rem; background: var(--dark-surface); border-radius: 12px; border: 1px solid var(--gold); }
+        .calc-result h3 { color: var(--gold); margin-bottom: 1.5rem; font-size: 1.8rem; }
+        .result-item { display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+        .result-item:last-child { border-bottom: none; }
+        .result-label { color: var(--text-muted); }
+        .result-value { color: var(--gold); font-weight: 700; font-size: 1.2rem; }
         
-        #perfil-investidor { background: var(--dark-surface); }
+        .quiz-container { max-width: 700px; margin: 0 auto; }
+        .quiz-card { background: var(--dark-card); padding: 2.5rem; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 2rem; }
+        .quiz-card h3 { color: var(--gold); margin-bottom: 1.5rem; font-size: 1.3rem; }
+        .quiz-options { display: flex; flex-direction: column; gap: 1rem; }
+        .quiz-option { background: var(--dark-surface); border: 2px solid var(--border); padding: 1.2rem; border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+        .quiz-option:hover { border-color: var(--gold); background: var(--dark-card); }
+        .quiz-option.selected { border-color: var(--gold); background: var(--dark-card); }
+        
+        #cadastro { background: var(--dark-surface); }
+        .cadastro-container { max-width: 600px; margin: 0 auto; background: var(--dark-card); padding: 3rem; border-radius: 20px; border: 1px solid var(--border); }
         .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--gold); }
-        .form-group input, .form-group select {
-            width: 100%; padding: 0.8rem; background: var(--dark-card);
-            border: 1px solid var(--border); border-radius: 8px; color: var(--text);
-        }
+        .form-group label { color: var(--gold); margin-bottom: 0.6rem; display: block; font-weight: 600; }
+        .form-group input { width: 100%; background: var(--dark-surface); border: 1px solid var(--border); color: var(--text); padding: 0.9rem; border-radius: 8px; font-size: 1rem; }
+        .form-group input:focus { outline: none; border-color: var(--gold); }
         
-        #investimentos-chart { max-width: 600px; margin: 2rem auto; background: var(--dark-card); padding: 2rem; border-radius: 16px; }
+        footer { background: var(--dark-card); border-top: 1px solid var(--border); padding: 3rem 20px 2rem; text-align: center; color: var(--text-muted); }
+        footer p { margin-bottom: 1rem; }
         
-        footer {
-            background: var(--dark-card); border-top: 1px solid var(--border);
-            padding: 2rem 20px; text-align: center; color: var(--text-muted);
-        }
-        
-        .whatsapp-float {
-            position: fixed; bottom: 20px; right: 20px; z-index: 1000;
-            background: #25D366; width: 60px; height: 60px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); transition: all 0.3s;
-        }
-        .whatsapp-float:hover { transform: scale(1.1); }
+        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: #25D366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); transition: all 0.3s; text-decoration: none; }
+        .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6); }
         .whatsapp-float svg { width: 32px; height: 32px; fill: white; }
         
         @media (max-width: 768px) {
             header { padding: 0.6rem 1rem; }
-            .hero { padding: 80px 15px 40px; }
+            .nav-links { width: 100%; justify-content: center; }
+            .hero { padding: 100px 15px 40px; }
             section { padding: 60px 15px; }
+            .calc-container, .cadastro-container { padding: 2rem; }
         }
     </style>
 </head>
 <body>
     <header>
-        <a href="#" class="logo">
-            <img src="https://github.com/marcussilva1984.png" alt="Marcus Silva">
-            <span class="logo-text">Família em Rumo Financeiro</span>
-        </a>
+        <nav>
+            <a href="#" class="logo">
+                <span class="logo-icon">📊</span>
+                Família em Rumo Financeiro
+            </a>
+            <div class="nav-links">
+                <a href="#investimentos">Investimentos</a>
+                <a href="#sobre">Sobre</a>
+                <a href="#ebooks">E-books</a>
+                <a href="#calculadora">Calculadora</a>
+                <a href="#quiz">Quiz Perfil</a>
+                <a href="#cadastro" class="nav-btn btn-gold">Cadastre-se</a>
+            </div>
+        </nav>
     </header>
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Transforme suas Finanças com Educação Gratuita</h1>
-            <p>E-books completos, calculadoras inteligentes e consultoria personalizada para sua família alcançar a liberdade financeira.</p>
-            <a href="#ebooks" class="cta-button">Baixar E-books Gratuitos</a>
+            <h1>Facilitando seu Planejamento Financeiro</h1>
+            <p>Eu comecei do jeito errado e perdi dinheiro. Esse aprendizado me transformou. Hoje ajudo famílias a saírem das dívidas, diversificarem investimentos e construírem um futuro financeiro sólido.</p>
+            <a href="#ebooks" class="cta-button">📚 Meias E-books</a>
+            <a href="#investimentos" class="cta-button" style="margin-left: 1rem; background: var(--primary);">💹 Ver Investimentos</a>
+        </div>
+    </section>
+
+    <section id="investimentos">
+        <h2>+5 anos no mercado financeiro</h2>
+        <div class="investimentos-grid">
+            <div class="inv-card">
+                <div class="icon">🏛️</div>
+                <h3>Renda Fixa</h3>
+                <p>CDB, Tesouro Direto, LCI, LCA. Segurança e previsibilidade para seu portfólio.</p>
+            </div>
+            <div class="inv-card">
+                <div class="icon">💵</div>
+                <h3>CDB</h3>
+                <p>Certificados de Depósito Bancário com rendimento superior à poupança.</p>
+            </div>
+            <div class="inv-card">
+                <div class="icon">📈</div>
+                <h3>Ações</h3>
+                <p>Invista em empresas sólidas e participe do crescimento do mercado.</p>
+            </div>
+            <div class="inv-card">
+                <div class="icon">🟠</div>
+                <h3>FIIs</h3>
+                <p>Fundos Imobiliários: receba renda passiva mensal com imóveis.</p>
+            </div>
+            <div class="inv-card">
+                <div class="icon">🔷</div>
+                <h3>Criptomoedas</h3>
+                <p>Bitcoin, Ethereum e mais. O futuro das finanças descentralizadas.</p>
+            </div>
+            <div class="inv-card">
+                <div class="icon">🔵</div>
+                <h3>ETFs</h3>
+                <p>Diversificação instantânea com fundos de índice de baixo custo.</p>
+            </div>
+            <div class="inv-card">
+                <div class="icon">🟮</div>
+                <h3>Stocks</h3>
+                <p>Ações internacionais: Apple, Tesla, Microsoft e mais.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="sobre">
+        <div class="sobre-content">
+            <h2>Sobre</h2>
+            <p>Eu comecei do jeito errado e perdi dinheiro. Esse aprendizado me transformou. Hoje ajudo famílias a saírem das dívidas, diversificarem investimentos e construírem um futuro financeiro sólido.</p>
+            <p><strong>+5 anos de mercado financeiro</strong> | <strong>10+ E-books publicados</strong> | <strong>100% Comprometimento</strong></p>
         </div>
     </section>
 
@@ -163,76 +276,144 @@
                 <p>Compilação definitiva com estratégias avançadas de gestão financeira.</p>
                 <a href="ebook_final.pdf" download class="download-btn">Baixar Agora</a>
             </div>
+            <div class="ebook-card">
+                <h3>Iniciando no Mercado Financeiro</h3>
+                <p>Primeiros passos no mundo dos investimentos com segurança.</p>
+                <a href="iniciando no mercado financeiro.pdf" download class="download-btn">Baixar Agora</a>
+            </div>
+            <div class="ebook-card">
+                <h3>Livro 2 de Cripto Edited</h3>
+                <p>Estratégias avançadas de criptomoedas e trading.</p>
+                <a href="livro 2 de cripto _edited.pdf1.pdf" download class="download-btn">Baixar Agora</a>
+            </div>
         </div>
     </section>
 
-    <section id="perfil-investidor">
-        <h2>Descubra seu Perfil de Investidor</h2>
-        <div style="max-width: 600px; margin: 0 auto;">
-            <form id="perfil-form">
+    <section id="calculadora">
+        <h2>Calculadora de Orçamento Familiar</h2>
+        <div class="calc-container">
+            <div class="calc-row">
+                <div class="calc-group">
+                    <label>Salário/Renda Mensal (R$)</label>
+                    <input type="number" id="renda" placeholder="Ex: 5000">
+                </div>
+                <div class="calc-group">
+                    <label>Moradia (Aluguel/Financiamento)</label>
+                    <input type="number" id="moradia" placeholder="Ex: 1500">
+                </div>
+            </div>
+            <div class="calc-row">
+                <div class="calc-group">
+                    <label>Alimentação</label>
+                    <input type="number" id="alimentacao" placeholder="Ex: 800">
+                </div>
+                <div class="calc-group">
+                    <label>Transporte</label>
+                    <input type="number" id="transporte" placeholder="Ex: 400">
+                </div>
+            </div>
+            <div class="calc-row">
+                <div class="calc-group">
+                    <label>Educação</label>
+                    <input type="number" id="educacao" placeholder="Ex: 500">
+                </div>
+                <div class="calc-group">
+                    <label>Saúde</label>
+                    <input type="number" id="saude" placeholder="Ex: 300">
+                </div>
+            </div>
+            <div class="calc-row">
+                <div class="calc-group">
+                    <label>Lazer/Entretenimento</label>
+                    <input type="number" id="lazer" placeholder="Ex: 400">
+                </div>
+                <div class="calc-group">
+                    <label>Outros Gastos</label>
+                    <input type="number" id="outros" placeholder="Ex: 200">
+                </div>
+            </div>
+            <button class="calc-button" onclick="calcularOrcamento()">Calcular Orçamento</button>
+            <div class="calc-result" id="resultado" style="display: none;">
+                <h3>Resultado do seu Orçamento</h3>
+                <div class="result-item">
+                    <span class="result-label">Renda Total:</span>
+                    <span class="result-value" id="renda-total">R$ 0,00</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Total de Despesas:</span>
+                    <span class="result-value" id="despesas-total">R$ 0,00</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Saldo Final:</span>
+                    <span class="result-value" id="saldo-final">R$ 0,00</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Recomendação de Investimento (20%):</span>
+                    <span class="result-value" id="invest-recom">R$ 0,00</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz">
+        <h2>Quiz: Descubra seu Perfil de Investidor</h2>
+        <div class="quiz-container">
+            <div class="quiz-card">
+                <h3>1. Qual é o seu objetivo principal ao investir?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectQuiz(this, 1, 'conservador')">Preservar meu capital com segurança</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 1, 'moderado')">Crescer meu patrimônio com risco moderado</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 1, 'arrojado')">Maximizar ganhos mesmo com alto risco</div>
+                </div>
+            </div>
+            <div class="quiz-card">
+                <h3>2. Como você reagiria se seus investimentos caíssem 20%?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectQuiz(this, 2, 'conservador')">Venderia tudo imediatamente</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 2, 'moderado')">Ficaria preocupado mas esperaria</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 2, 'arrojado')">Aproveitaria para investir mais</div>
+                </div>
+            </div>
+            <div class="quiz-card">
+                <h3>3. Quanto tempo pode deixar o dinheiro investido?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectQuiz(this, 3, 'conservador')">Menos de 1 ano</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 3, 'moderado')">1 a 5 anos</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 3, 'arrojado')">Mais de 5 anos</div>
+                </div>
+            </div>
+            <button class="calc-button" onclick="calcularPerfil()" style="max-width: 400px; margin: 2rem auto;">Ver Meu Perfil</button>
+        </div>
+    </section>
+
+    <section id="cadastro">
+        <h2>Cadastre-se</h2>
+        <div class="cadastro-container">
+            <form onsubmit="enviarCadastro(event)">
                 <div class="form-group">
-                    <label>Nome completo:</label>
+                    <label>Nome Completo</label>
                     <input type="text" id="nome" required>
                 </div>
                 <div class="form-group">
-                    <label>E-mail:</label>
+                    <label>E-mail</label>
                     <input type="email" id="email" required>
                 </div>
                 <div class="form-group">
-                    <label>Qual sua principal meta financeira?</label>
-                    <select id="meta" required>
-                        <option value="">Selecione...</option>
-                        <option value="aposentadoria">Aposentadoria tranquila</option>
-                        <option value="casa">Comprar casa própria</option>
-                        <option value="emergencia">Criar reserva de emergência</option>
-                        <option value="liberdade">Liberdade financeira</option>
-                    </select>
+                    <label>WhatsApp</label>
+                    <input type="tel" id="whatsapp" placeholder="(11) 99999-9999" required>
                 </div>
                 <div class="form-group">
-                    <label>Como você reagiria se seus investimentos caíssem 20%?</label>
-                    <select id="reacao" required>
-                        <option value="">Selecione...</option>
-                        <option value="conservador">Venderia tudo imediatamente</option>
-                        <option value="moderado">Ficaria preocupado mas esperaria</option>
-                        <option value="arrojado">Aproveitaria para investir mais</option>
-                    </select>
+                    <label>Qual seu principal interesse?</label>
+                    <input type="text" id="interesse" placeholder="Ex: Renda fixa, Ações, Cripto">
                 </div>
-                <div class="form-group">
-                    <label>Quanto tempo pode deixar o dinheiro investido?</label>
-                    <select id="prazo" required>
-                        <option value="">Selecione...</option>
-                        <option value="curto">Menos de 1 ano</option>
-                        <option value="medio">1 a 5 anos</option>
-                        <option value="longo">Mais de 5 anos</option>
-                    </select>
-                </div>
-                <button type="submit" class="cta-button" style="width: 100%;">Ver Meu Perfil</button>
+                <button type="submit" class="calc-button">Enviar Cadastro</button>
             </form>
-            <div id="resultado-perfil" style="margin-top: 2rem; padding: 2rem; background: var(--dark-card); border-radius: 16px; display: none;">
-                <h3 style="color: var(--gold); margin-bottom: 1rem;">Seu Perfil:</h3>
-                <p id="perfil-texto" style="margin-bottom: 1.5rem;"></p>
-                <a href="#" id="download-perfil" class="download-btn">Baixar E-book Personalizado</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="calculadora-investimentos">
-        <h2>Calculadora de Investimentos</h2>
-        <div style="max-width: 800px; margin: 0 auto;">
-            <div class="form-group">
-                <label>Digite seus investimentos (separe por vírgula):</label>
-                <input type="text" id="investimentos-input" placeholder="Ex: Ações 5000, Renda Fixa 3000, Cripto 2000">
-                <button onclick="gerarGrafico()" class="cta-button" style="margin-top: 1rem;">Gerar Gráfico</button>
-            </div>
-            <div id="investimentos-chart">
-                <canvas id="myChart"></canvas>
-            </div>
         </div>
     </section>
 
     <footer>
         <p>&copy; 2025 Família em Rumo Financeiro. Todos os direitos reservados.</p>
-        <p style="margin-top: 0.5rem;">Educação financeira para transformar vidas.</p>
+        <p>Educação financeira para transformar vidas.</p>
     </footer>
 
     <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20agendar%20uma%20consultoria" target="_blank" class="whatsapp-float">
@@ -242,80 +423,79 @@
     </a>
 
     <script>
-        // Formulário de Perfil
-        document.getElementById('perfil-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const nome = document.getElementById('nome').value;
-            const email = document.getElementById('email').value;
-            const reacao = document.getElementById('reacao').value;
+        // Calculadora de Orçamento
+        function calcularOrcamento() {
+            const renda = parseFloat(document.getElementById('renda').value) || 0;
+            const moradia = parseFloat(document.getElementById('moradia').value) || 0;
+            const alimentacao = parseFloat(document.getElementById('alimentacao').value) || 0;
+            const transporte = parseFloat(document.getElementById('transporte').value) || 0;
+            const educacao = parseFloat(document.getElementById('educacao').value) || 0;
+            const saude = parseFloat(document.getElementById('saude').value) || 0;
+            const lazer = parseFloat(document.getElementById('lazer').value) || 0;
+            const outros = parseFloat(document.getElementById('outros').value) || 0;
             
-            let perfil = '';
-            let ebookLink = '';
+            const despesasTotal = moradia + alimentacao + transporte + educacao + saude + lazer + outros;
+            const saldo = renda - despesasTotal;
+            const investRecom = renda * 0.2;
             
-            if (reacao === 'conservador') {
-                perfil = 'Conservador';
-                ebookLink = 'renda fixa intermediaria.pdf';
-            } else if (reacao === 'moderado') {
-                perfil = 'Moderado';
-                ebookLink = 'organizesuasfinancas.pdf';
-            } else {
-                perfil = 'Arrojado';
-                ebookLink = 'conhecendo sobre cripto.pdf';
+            document.getElementById('renda-total').textContent = 'R$ ' + renda.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            document.getElementById('despesas-total').textContent = 'R$ ' + despesasTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            document.getElementById('saldo-final').textContent = 'R$ ' + saldo.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            document.getElementById('saldo-final').style.color = saldo >= 0 ? 'var(--gold)' : '#ff4444';
+            document.getElementById('invest-recom').textContent = 'R$ ' + investRecom.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            
+            document.getElementById('resultado').style.display = 'block';
+        }
+        
+        // Quiz de Perfil
+        let quizRespostas = {};
+        
+        function selectQuiz(element, questao, perfil) {
+            const parent = element.parentElement;
+            const options = parent.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            quizRespostas[questao] = perfil;
+        }
+        
+        function calcularPerfil() {
+            if (Object.keys(quizRespostas).length < 3) {
+                alert('Por favor, responda todas as perguntas!');
+                return;
             }
             
-            document.getElementById('perfil-texto').innerHTML = `<strong>${nome}</strong>, seu perfil é <strong>${perfil}</strong>! Recomendamos começar com nosso e-book especializado.`;
-            document.getElementById('download-perfil').href = ebookLink;
-            document.getElementById('download-perfil').download = ebookLink;
-            document.getElementById('resultado-perfil').style.display = 'block';
+            const perfis = Object.values(quizRespostas);
+            const conservador = perfis.filter(p => p === 'conservador').length;
+            const moderado = perfis.filter(p => p === 'moderado').length;
+            const arrojado = perfis.filter(p => p === 'arrojado').length;
             
-            // Enviar dados para Google Sheets (opcional - você precisará configurar)
-            console.log('Dados salvos:', {nome, email, perfil});
-        });
+            let perfilFinal = '';
+            let mensagem = '';
+            
+            if (conservador >= 2) {
+                perfilFinal = 'Conservador';
+                mensagem = 'Seu perfil é CONSERVADOR! Você prioriza segurança. Recomendamos: Tesouro Direto, CDB, LCI/LCA.';
+            } else if (arrojado >= 2) {
+                perfilFinal = 'Arrojado';
+                mensagem = 'Seu perfil é ARROJADO! Você busca rentabilidade máxima. Recomendamos: Ações, FIIs, Criptomoedas.';
+            } else {
+                perfilFinal = 'Moderado';
+                mensagem = 'Seu perfil é MODERADO! Você busca equilíbrio. Recomendamos: Mix de Renda Fixa + Ações + FIIs.';
+            }
+            
+            alert(mensagem + '\n\nBaixe nossos e-books para saber mais!');
+        }
         
-        // Gráfico de Investimentos
-        let myChart = null;
-        function gerarGrafico() {
-            const input = document.getElementById('investimentos-input').value;
-            if (!input) return alert('Digite seus investimentos!');
+        // Formulário de Cadastro
+        function enviarCadastro(event) {
+            event.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const interesse = document.getElementById('interesse').value;
             
-            const investimentos = input.split(',').map(item => {
-                const parts = item.trim().split(' ');
-                return {
-                    nome: parts.slice(0, -1).join(' '),
-                    valor: parseFloat(parts[parts.length - 1])
-                };
-            });
-            
-            const labels = investimentos.map(i => i.nome);
-            const valores = investimentos.map(i => i.valor);
-            
-            const ctx = document.getElementById('myChart').getContext('2d');
-            
-            if (myChart) myChart.destroy();
-            
-            myChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: valores,
-                        backgroundColor: [
-                            '#0D7C3E',
-                            '#DAA545',
-                            '#12A150',
-                            '#E8C66A',
-                            '#095C2D'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { position: 'bottom', labels: { color: '#F1F5F9' } },
-                        title: { display: true, text: 'Distribuição de Investimentos', color: '#DAA545' }
-                    }
-                }
-            });
+            console.log('Cadastro enviado:', { nome, email, whatsapp, interesse });
+            alert('Cadastro realizado com sucesso! Em breve entraremos em contato.');
         }
     </script>
 </body>
