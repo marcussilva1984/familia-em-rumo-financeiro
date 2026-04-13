@@ -1,23 +1,3647 @@
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Família em Rumo Financeiro | Educação Financeira para Famílias</title>
-<meta name="description" content="Educação financeira gratuita para famílias. E-books, calculadora, perfil de investidor e consultoria.">
-<meta name="theme-color" content="#0D7C3E">
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-W1W2CTXMG8"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-W1W2CTXMG8');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Família em Rumo Financeiro | Educação Financeira para Famílias</title>
+  <meta name="description" content="Educação financeira gratuita para famílias. E-books, calculadora de orçamento, perfil de investidor e consultoria personalizada. Comece hoje sua jornada rumo à liberdade financeira.">
+  <meta name="theme-color" content="#0D7C3E">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W1W2CTXMG8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-W1W2CTXMG8');
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- AOS Animations -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS — PALETA FINANCEIRA PREMIUM
+       ============================================ */
+    :root {
+      --primary:        #0D7C3E;
+      --primary-dark:   #095C2D;
+      --primary-light:  #12A150;
+      --primary-glow:   rgba(13, 124, 62, 0.25);
+      --gold:           #DAA545;
+      --gold-dark:      #B8892E;
+      --gold-light:     #E8C66A;
+      --gold-glow:      rgba(218, 165, 69, 0.2);
+      --dark:           #0A0F1A;
+      --dark-card:      #111827;
+      --dark-surface:   #161D2E;
+      --dark-elevated:  #1E2D3D;
+      --text:           #F1F5F9;
+      --text-muted:     #94A3B8;
+      --text-faint:     #4A5568;
+      --border:         rgba(218, 165, 69, 0.12);
+      --border-hover:   rgba(218, 165, 69, 0.35);
+      --success:        #22C55E;
+      --danger:         #EF4444;
+      --radius-sm:      6px;
+      --radius-md:      12px;
+      --radius-lg:      20px;
+      --radius-xl:      28px;
+      --radius-full:    9999px;
+      --shadow-sm:      0 2px 8px rgba(0,0,0,0.2);
+      --shadow-md:      0 6px 24px rgba(0,0,0,0.3);
+      --shadow-lg:      0 16px 48px rgba(0,0,0,0.4);
+      --shadow-gold:    0 8px 32px rgba(218,165,69,0.15);
+      --transition:     180ms cubic-bezier(0.16, 1, 0.3, 1);
+      --font-body:      'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-display:   'Playfair Display', Georgia, serif;
+      --space-1: 0.25rem; --space-2: 0.5rem;  --space-3: 0.75rem;
+      --space-4: 1rem;    --space-5: 1.25rem; --space-6: 1.5rem;
+      --space-8: 2rem;    --space-10: 2.5rem; --space-12: 3rem;
+      --space-16: 4rem;   --space-20: 5rem;
+    }
+
+    /* ============================================
+       BASE RESET
+       ============================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      scroll-padding-top: 80px;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      font-family: var(--font-body);
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; font: inherit; }
+    ul { list-style: none; }
+    input, select, textarea { font: inherit; }
+
+    /* ============================================
+       PROGRESS BAR
+       ============================================ */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--gold));
+      z-index: 9999;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    /* ============================================
+       HEADER / NAV
+       ============================================ */
+    header {
+      position: fixed; top: 3px; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(10, 15, 26, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+    header.scrolled {
+      background: rgba(10, 15, 26, 0.98);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+    nav {
+      max-width: 1300px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--space-6);
+      height: 68px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: var(--space-3);
+      font-weight: 700; font-size: 1.1rem; color: var(--gold);
+    }
+    .logo-svg { width: 40px; height: 40px; flex-shrink: 0; }
+    .logo-text span { display: block; font-size: 0.7rem; font-weight: 500; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: none; flex-direction: column; justify-content: center;
+      gap: 5px; width: 36px; height: 36px; padding: 4px;
+      background: transparent; border: none; cursor: pointer; z-index: 100;
+    }
+    .nav-toggle span {
+      display: block; height: 2px; background: var(--text);
+      border-radius: 2px; transition: var(--transition);
+    }
+    .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.active span:nth-child(2) { opacity: 0; }
+    .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-links {
+      display: flex; align-items: center; gap: var(--space-1);
+    }
+    .nav-links a {
+      color: #CBD5E1; padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 500;
+      transition: color var(--transition), background var(--transition);
+      white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--gold); background: rgba(218,165,69,0.08); }
+    .nav-links a.active { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold) !important;
+      color: var(--dark) !important;
+      font-weight: 700 !important;
+      padding: var(--space-2) var(--space-5) !important;
+      border-radius: var(--radius-full) !important;
+      font-size: 0.875rem !important;
+    }
+    .nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); box-shadow: var(--shadow-gold); }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 120px var(--space-6) 80px;
+      position: relative; overflow: hidden;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(13,124,62,0.18) 0%, transparent 60%),
+                  radial-gradient(ellipse 50% 40% at 80% 80%, rgba(218,165,69,0.08) 0%, transparent 60%),
+                  var(--dark);
+    }
+    /* Decorative grid */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(218,165,69,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(218,165,69,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 880px; text-align: center; position: relative; z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      background: rgba(13,124,62,0.15);
+      border: 1px solid rgba(13,124,62,0.35);
+      color: var(--primary-light);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: var(--space-6);
+    }
+    .hero-badge i { font-size: 0.75rem; }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      line-height: 1.15;
+      margin-bottom: var(--space-6);
+      color: var(--text);
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--gold), var(--primary-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--text-muted); max-width: 620px; margin: 0 auto var(--space-10);
+      line-height: 1.75;
+    }
+    .hero-ctas {
+      display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap;
+      margin-bottom: var(--space-12);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--dark); padding: var(--space-4) var(--space-10);
+      border-radius: var(--radius-full); font-weight: 700; font-size: 1rem;
+      transition: all var(--transition); display: inline-flex; align-items: center; gap: var(--space-2);
+      box-shadow: 0 4px 20px rgba(218,165,69,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(218,165,69,0.45); }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1.5px solid var(--border-hover);
+      padding: var(--space-4) var(--space-10);
+      border-radius: var(--radius-full); font-weight: 600; font-size: 1rem;
+      transition: all var(--transition); display: inline-flex; align-items: center; gap: var(--space-2);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+    .hero-stats {
+      display: flex; justify-content: center; gap: var(--space-10); flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-number {
+      font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; color: var(--gold);
+      font-family: var(--font-display);
+    }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* ============================================
+       SECTION BASE
+       ============================================ */
+    section { padding: clamp(4rem, 8vw, 7rem) var(--space-6); }
+    .section-inner { max-width: 1300px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--gold-light);
+      margin-bottom: var(--space-3);
+    }
+    .section-tag::before, .section-tag::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      width: 40px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.2; color: var(--text);
+      margin-bottom: var(--space-4);
+    }
+    .section-desc { color: var(--text-muted); font-size: 1.05rem; max-width: 560px; margin: 0 auto; }
+
+    /* Divider */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-hover), transparent);
+      margin: 0;
+    }
+
+    /* ============================================
+       INVESTIMENTOS GRID
+       ============================================ */
+    .investimentos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-5);
+    }
+    .inv-card {
+      background: var(--dark-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8) var(--space-6);
+      text-align: center;
+      transition: all var(--transition);
+      cursor: pointer; position: relative; overflow: hidden;
+    }
+    .inv-card::before {
+      content: ''; position: absolute;
+      inset: 0; opacity: 0;
+      background: linear-gradient(135deg, var(--primary-glow), transparent);
+      transition: opacity var(--transition);
+    }
+    .inv-card:hover { transform: translateY(-6px); border-color: var(--border-hover); box-shadow: var(--shadow-gold); }
+    .inv-card:hover::before { opacity: 1; }
+    .inv-icon {
+      width: 56px; height: 56px;
+      border-radius: var(--radius-md);
+      background: rgba(13,124,62,0.12);
+      border: 1px solid rgba(13,124,62,0.25);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto var(--space-4);
+      font-size: 1.5rem;
+      transition: transform var(--transition);
+    }
+    .inv-card:hover .inv-icon { transform: scale(1.1); }
+    .inv-card h3 { color: var(--gold); font-size: 1rem; font-weight: 700; margin-bottom: var(--space-2); }
+    .inv-card p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; }
+
+    /* ============================================
+       SOBRE / QUEM SOU
+       ============================================ */
+    .sobre-section { background: var(--dark-surface); }
+    .sobre-grid {
+      display: grid; grid-template-columns: 1fr 1.5fr;
+      gap: var(--space-16); align-items: center;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .sobre-visual {
+      position: relative;
+    }
+    .sobre-avatar {
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-dark), var(--dark-elevated));
+      border: 3px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto;
+      box-shadow: 0 0 60px rgba(13,124,62,0.25);
+      font-size: 5rem;
+    }
+    .sobre-credential {
+      position: absolute; bottom: 10px; right: 0;
+      background: var(--dark-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-3) var(--space-4);
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .sobre-credential i { color: var(--gold); font-size: 1.2rem; }
+    .sobre-credential strong { display: block; font-size: 0.85rem; color: var(--text); }
+    .sobre-credential span { font-size: 0.75rem; color: var(--text-muted); }
+    .sobre-content h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      margin-bottom: var(--space-4);
+    }
+    .sobre-content p { color: var(--text-muted); line-height: 1.8; margin-bottom: var(--space-4); }
+    .sobre-content strong { color: var(--gold); }
+    .sobre-badges {
+      display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6);
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      background: rgba(13,124,62,0.1); border: 1px solid rgba(13,124,62,0.25);
+      color: var(--primary-light); padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600;
+    }
+
+    /* ============================================
+       EBOOKS
+       ============================================ */
+    .ebooks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-6);
+    }
+    .ebook-card {
+      background: var(--dark-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      transition: all var(--transition);
+      display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
+    }
+    .ebook-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--gold));
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .ebook-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--border-hover); }
+    .ebook-card:hover::after { opacity: 1; }
+    .ebook-number {
+      font-size: 0.75rem; font-weight: 700; color: var(--gold-light);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-3);
+    }
+    .ebook-icon {
+      width: 52px; height: 52px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--primary-glow), rgba(218,165,69,0.1));
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: var(--space-4);
+    }
+    .ebook-card h3 { color: var(--text); font-size: 1.1rem; font-weight: 700; margin-bottom: var(--space-3); line-height: 1.4; }
+    .ebook-card p { color: #94A3B8; font-size: 0.9rem; line-height: 1.65; flex: 1; margin-bottom: var(--space-6); }
+    .download-btn {
+      display: flex; align-items: center; justify-content: center; gap: var(--space-2);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff; padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem;
+      transition: all var(--transition); text-decoration: none;
+    }
+    .download-btn:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: 0 6px 20px var(--primary-glow); }
+    .download-btn i { font-size: 0.85rem; }
+
+    /* ============================================
+       CALCULADORA
+       ============================================ */
+    .calc-section { background: var(--dark-surface); }
+    .calc-wrapper {
+      max-width: 1000px; margin: 0 auto;
+      background: var(--dark-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-12);
+      box-shadow: var(--shadow-lg);
+    }
+    .calc-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10);
+    }
+    .calc-inputs {}
+    .calc-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-4); }
+    .calc-group { display: flex; flex-direction: column; }
+    .calc-group label {
+      color: #CBD5E1; margin-bottom: var(--space-2);
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .calc-group input {
+      background: var(--dark-surface); border: 1px solid rgba(218,165,69,0.25);
+      color: var(--text); padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md); font-size: 0.95rem;
+      transition: border-color var(--transition);
+    }
+    .calc-group input:focus { outline: none; border-color: var(--gold); background: var(--dark-elevated); }
+    .calc-group input::placeholder { color: #64748B; }
+    .calc-btn {
+      width: 100%; margin-top: var(--space-2);
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--dark); padding: var(--space-4);
+      border-radius: var(--radius-md); font-weight: 700; font-size: 1rem;
+      transition: all var(--transition);
+      display: flex; align-items: center; justify-content: center; gap: var(--space-2);
+    }
+    .calc-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-gold); filter: brightness(1.1); }
+
+    /* Calc Result */
+    .calc-result-panel {
+      display: flex; flex-direction: column; gap: var(--space-4);
+    }
+    .calc-chart-wrap {
+      position: relative; width: 200px; height: 200px; margin: 0 auto;
+    }
+    .calc-chart-label {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      pointer-events: none;
+    }
+    .calc-chart-label strong { font-size: 1.4rem; font-weight: 800; color: var(--text); }
+    .calc-chart-label span { font-size: 0.75rem; color: var(--text-muted); }
+    .result-items { display: flex; flex-direction: column; gap: var(--space-3); }
+    .result-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-3) var(--space-4);
+      background: var(--dark-surface); border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+    .result-row-label { display: flex; align-items: center; gap: var(--space-2); font-size: 0.875rem; color: #CBD5E1; }
+    .result-row-label .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .result-row-value { font-weight: 700; font-size: 0.95rem; color: var(--gold); }
+    .result-progress { margin-top: var(--space-2); }
+    .progress-bar-wrap {
+      height: 6px; background: var(--dark-elevated);
+      border-radius: var(--radius-full); overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%; border-radius: var(--radius-full);
+      transition: width 0.8s ease; width: 0%;
+    }
+    .empty-state {
+      text-align: center; padding: var(--space-12) var(--space-6);
+      color: #94A3B8;
+    }
+    .empty-state i { font-size: 3rem; margin-bottom: var(--space-4); display: block; color: #4A5568; }
+    .empty-state p { font-size: 0.95rem; line-height: 1.7; }
+
+    /* ============================================
+       PERFIL DE INVESTIDOR
+       ============================================ */
+    .perfil-container { max-width: 760px; margin: 0 auto; }
+    .perfil-card {
+      background: var(--dark-card); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: var(--space-8);
+      margin-bottom: var(--space-5);
+    }
+    .perfil-step {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-faint);
+      margin-bottom: var(--space-3);
+    }
+    .perfil-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: var(--space-5); line-height: 1.5; }
+    .perfil-options { display: flex; flex-direction: column; gap: var(--space-3); }
+    .perfil-option {
+      background: var(--dark-surface); border: 2px solid var(--border);
+      padding: var(--space-4) var(--space-5);
+      border-radius: var(--radius-md); cursor: pointer;
+      transition: all var(--transition);
+      display: flex; align-items: center; gap: var(--space-3);
+      font-size: 0.95rem;
+    }
+    .perfil-option .option-letter {
+      width: 28px; height: 28px; border-radius: var(--radius-full);
+      background: var(--dark-elevated); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700; color: var(--text-muted);
+      flex-shrink: 0; transition: all var(--transition);
+    }
+    .perfil-option:hover { border-color: var(--gold); color: var(--text); }
+    .perfil-option.selected { border-color: var(--gold); background: rgba(218,165,69,0.06); }
+    .perfil-option.selected .option-letter { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+    .perfil-progress-wrap {
+      display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-8);
+    }
+    .perfil-step-dots { display: flex; gap: var(--space-2); }
+    .step-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--text-faint); transition: all var(--transition);
+    }
+    .step-dot.active { background: var(--gold); transform: scale(1.3); }
+    .step-dot.done { background: var(--primary); }
+    .perfil-btn {
+      width: 100%; max-width: 360px; margin: 0 auto; display: block;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff; padding: var(--space-4) var(--space-8);
+      border-radius: var(--radius-md); font-weight: 700; font-size: 1rem;
+      transition: all var(--transition); text-align: center;
+    }
+    .perfil-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px var(--primary-glow); }
+    .perfil-result {
+      background: var(--dark-card); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: var(--space-10);
+      text-align: center; display: none;
+    }
+    .perfil-result-badge {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+      background: rgba(218,165,69,0.1); border: 1px solid rgba(218,165,69,0.3);
+      padding: var(--space-3) var(--space-6); border-radius: var(--radius-full);
+      font-size: 1.2rem; font-weight: 800; color: var(--gold);
+      margin-bottom: var(--space-4);
+    }
+    .perfil-result h3 { font-family: var(--font-display); font-size: 1.6rem; margin-bottom: var(--space-4); }
+    .perfil-result p { color: var(--text-muted); line-height: 1.75; margin-bottom: var(--space-6); }
+    .perfil-recom-list { display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: center; }
+    .recom-tag {
+      background: rgba(13,124,62,0.12); border: 1px solid rgba(13,124,62,0.25);
+      color: var(--primary-light); padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600;
+    }
+
+    /* ============================================
+       DEPOIMENTOS
+       ============================================ */
+    .depo-section { background: var(--dark-surface); }
+    .depo-slider { position: relative; overflow: hidden; }
+    .depo-track {
+      display: flex; gap: var(--space-6);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .depo-card {
+      min-width: 320px; flex-shrink: 0;
+      background: var(--dark-card); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: var(--space-8);
+      transition: border-color var(--transition);
+    }
+    .depo-card:hover { border-color: var(--border-hover); }
+    .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: var(--space-4); letter-spacing: 2px; }
+    .depo-text { color: var(--text-muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: var(--space-5); font-style: italic; }
+    .depo-author { display: flex; align-items: center; gap: var(--space-3); }
+    .depo-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1rem; color: var(--dark); flex-shrink: 0;
+    }
+    .depo-author strong { display: block; font-size: 0.9rem; color: var(--text); }
+    .depo-author span { font-size: 0.8rem; color: var(--text-muted); }
+    .depo-controls { display: flex; justify-content: center; gap: var(--space-3); margin-top: var(--space-8); }
+    .depo-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--text-faint); cursor: pointer;
+      transition: all var(--transition);
+    }
+    .depo-dot.active { background: var(--gold); width: 24px; border-radius: var(--radius-full); }
+
+    /* ============================================
+       MÉTRICAS
+       ============================================ */
+    .metricas-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--space-5);
+    }
+    .metrica-card {
+      background: var(--dark-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: var(--space-8) var(--space-6);
+      text-align: center; transition: all var(--transition);
+    }
+    .metrica-card:hover { border-color: var(--border-hover); transform: translateY(-4px); }
+    .metrica-icon {
+      width: 50px; height: 50px; border-radius: var(--radius-md);
+      margin: 0 auto var(--space-4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .metrica-number {
+      font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800;
+      color: var(--gold); font-family: var(--font-display);
+      line-height: 1;
+    }
+    .metrica-label { font-size: 0.8rem; color: var(--text-muted); margin-top: var(--space-2); }
+
+    /* ============================================
+       CADASTRO / FORMULÁRIO
+       ============================================ */
+    .cadastro-section { background: var(--dark-surface); }
+    .cadastro-wrapper {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--space-16); max-width: 1000px; margin: 0 auto;
+      align-items: start;
+    }
+    .cadastro-info {}
+    .cadastro-info h2 {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem);
+      margin-bottom: var(--space-4);
+    }
+    .cadastro-info p { color: var(--text-muted); line-height: 1.75; margin-bottom: var(--space-6); }
+    .cadastro-features { display: flex; flex-direction: column; gap: var(--space-4); }
+    .cadastro-feature {
+      display: flex; align-items: center; gap: var(--space-4);
+    }
+    .cadastro-feature .feat-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: rgba(13,124,62,0.12); border: 1px solid rgba(13,124,62,0.25);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary-light); font-size: 1rem;
+    }
+    .cadastro-feature strong { display: block; font-size: 0.9rem; margin-bottom: 2px; }
+    .cadastro-feature span { font-size: 0.8rem; color: var(--text-muted); }
+    .form-card {
+      background: var(--dark-card); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: var(--space-10);
+    }
+    .form-group { margin-bottom: var(--space-5); }
+    .form-group label {
+      display: flex; align-items: center; gap: var(--space-2);
+      color: var(--text-muted); margin-bottom: var(--space-2);
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .form-group label i { color: var(--gold); font-size: 0.75rem; }
+    .form-control {
+      width: 100%; background: var(--dark-surface);
+      border: 1.5px solid var(--border);
+      color: var(--text); padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md); font-size: 0.95rem;
+      transition: all var(--transition);
+    }
+    .form-control:focus { outline: none; border-color: var(--gold); background: var(--dark-elevated); box-shadow: 0 0 0 3px rgba(218,165,69,0.08); }
+    .form-control::placeholder { color: var(--text-faint); }
+    .form-control.error { border-color: var(--danger); }
+    .form-control.success { border-color: var(--success); }
+    .form-feedback {
+      font-size: 0.78rem; margin-top: var(--space-1);
+      display: none;
+    }
+    .form-feedback.error { color: var(--danger); display: block; }
+    .form-feedback.success { color: var(--success); display: block; }
+    .form-submit {
+      width: 100%; background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--dark); padding: var(--space-4) var(--space-8);
+      border-radius: var(--radius-md); font-weight: 700; font-size: 1rem;
+      transition: all var(--transition);
+      display: flex; align-items: center; justify-content: center; gap: var(--space-2);
+    }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+    .form-success {
+      display: none; text-align: center; padding: var(--space-8);
+    }
+    .form-success i { font-size: 3rem; color: var(--success); margin-bottom: var(--space-4); display: block; }
+    .form-success h3 { font-size: 1.3rem; margin-bottom: var(--space-3); }
+    .form-success p { color: var(--text-muted); }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+      background: var(--dark-card);
+      border-top: 1px solid var(--border);
+      padding: var(--space-16) var(--space-6) var(--space-8);
+    }
+    .footer-inner { max-width: 1300px; margin: 0 auto; }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: var(--space-10); margin-bottom: var(--space-10);
+    }
+    .footer-brand .logo { margin-bottom: var(--space-4); }
+    .footer-brand p { color: var(--text-muted); font-size: 0.875rem; line-height: 1.75; max-width: 280px; }
+    .footer-socials { display: flex; gap: var(--space-3); margin-top: var(--space-5); }
+    .social-btn {
+      width: 38px; height: 38px;
+      border-radius: var(--radius-full);
+      background: var(--dark-surface); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); font-size: 0.9rem;
+      transition: all var(--transition);
+    }
+    .social-btn:hover { background: var(--primary); border-color: var(--primary); color: #fff; transform: translateY(-2px); }
+    .footer-col h4 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); margin-bottom: var(--space-4); }
+    .footer-col ul { display: flex; flex-direction: column; gap: var(--space-3); }
+    .footer-col ul li a { color: var(--text-muted); font-size: 0.875rem; transition: color var(--transition); }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-whatsapp-btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      margin-top: var(--space-5);
+      background: #25D366; color: #fff;
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-full);
+      font-size: 0.875rem; font-weight: 700;
+      transition: all var(--transition);
+      box-shadow: 0 4px 16px rgba(37,211,102,0.3);
+    }
+    .footer-whatsapp-btn:hover { background: #1ebe5d; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(37,211,102,0.45); }
+    .footer-bottom {
+      padding-top: var(--space-8);
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: var(--space-4);
+    }
+    .footer-bottom p { font-size: 0.8rem; color: var(--text-faint); }
+    .footer-seals { display: flex; align-items: center; gap: var(--space-4); }
+    .seal {
+      display: flex; align-items: center; gap: var(--space-2);
+      background: var(--dark-surface); border: 1px solid var(--border);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm); font-size: 0.75rem; color: var(--text-faint);
+    }
+    .seal i { color: var(--primary-light); }
+
+    /* ============================================
+       WHATSAPP FLOAT
+       ============================================ */
+    .whatsapp-float {
+      position: fixed; bottom: 24px; left: 24px;
+      z-index: 900;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      transition: all var(--transition);
+      text-decoration: none;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 8px 32px rgba(37,211,102,0.55); }
+    .whatsapp-float svg { width: 30px; height: 30px; fill: white; }
+    .whatsapp-tooltip {
+      position: absolute; left: 72px; top: 50%;
+      transform: translateY(-50%);
+      background: var(--dark-card); border: 1px solid var(--border);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-md); font-size: 0.8rem; color: var(--text);
+      white-space: nowrap; pointer-events: none;
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .whatsapp-float:hover .whatsapp-tooltip { opacity: 1; }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 1024px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+      .sobre-grid { grid-template-columns: 1fr; gap: var(--space-10); }
+      .sobre-visual { display: none; }
+      .cadastro-wrapper { grid-template-columns: 1fr; }
+      .calc-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 var(--space-4); height: 60px; }
+      .nav-links {
+        position: fixed; top: 60px; left: 0; right: 0;
+        background: rgba(10,15,26,0.98); backdrop-filter: blur(16px);
+        flex-direction: column; padding: var(--space-6);
+        border-bottom: 1px solid var(--border);
+        transform: translateY(-100%); opacity: 0;
+        transition: all var(--transition); pointer-events: none;
+        z-index: 999;
+      }
+      .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: all; }
+      .nav-links a { padding: var(--space-3) var(--space-4); font-size: 1rem; border-radius: var(--radius-md); }
+      .nav-toggle { display: flex; }
+      .hero { padding: 90px var(--space-4) 60px; }
+      .hero-stats { gap: var(--space-6); }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .calc-row { grid-template-columns: 1fr; }
+      .ebooks-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .hero-ctas { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-outline { width: 100%; justify-content: center; }
+    }
+
+    /* ============================================
+       GLASSMORPHISM CARD
+       ============================================ */
+    .glass-card {
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-xl);
+    }
+
+    /* ============================================
+       TAWK.TO POSITION OVERRIDE
+       ============================================ */
+    #tawkchat-container { bottom: 90px !important; right: 24px !important; }
+
+    /* ============================================
+       AOS CUSTOM
+       ============================================ */
+    [data-aos] { transition-duration: 600ms !important; }
+
+    /* ============================================
+       UTILITY
+       ============================================ */
+    .text-gold { color: var(--gold); }
+    .text-green { color: var(--primary-light); }
+    .flex-center { display: flex; align-items: center; justify-content: center; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
+
+    /* ============================================
+       TICKER DE COTAÇÕES
+       ============================================ */
+    .ticker-bar {
+      background: var(--dark-card);
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-2) 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .ticker-track {
+      display: flex; gap: var(--space-10);
+      animation: ticker-scroll 110s linear infinite;
+      white-space: nowrap;
+    }
+    .ticker-bar:hover .ticker-track { animation-play-state: paused; }
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-item {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+      font-size: 0.8rem; font-weight: 600;
+    }
+    .ticker-name { color: var(--text-muted); }
+    .ticker-value { color: var(--text); }
+    .ticker-change { font-size: 0.75rem; display: flex; align-items: center; gap: 2px; }
+    .ticker-change.up   { color: var(--success); }
+    .ticker-change.down { color: var(--danger); }
+    .ticker-dot { width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; }
+
+    /* ============================================
+       CALCULADORA DE JUROS COMPOSTOS
+       ============================================ */
+    .juros-section { background: var(--dark); }
+    .juros-wrapper {
+      max-width: 1060px; margin: 0 auto;
+      background: var(--dark-card); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: var(--space-12);
+      box-shadow: var(--shadow-lg);
+    }
+    .juros-layout {
+      display: grid; grid-template-columns: 1fr 1.2fr;
+      gap: var(--space-10); align-items: start;
+    }
+    .juros-inputs {}
+    .juros-field { margin-bottom: var(--space-5); }
+    .juros-field label {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: var(--space-2); font-size: 0.8rem; font-weight: 600;
+      color: #CBD5E1; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .juros-field label span { color: var(--gold); font-size: 0.9rem; font-weight: 700; font-style: normal; }
+    .juros-slider {
+      width: 100%; -webkit-appearance: none; appearance: none;
+      height: 6px; border-radius: 3px; outline: none;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--gold) var(--val, 50%), var(--dark-elevated) var(--val, 50%));
+      cursor: pointer; margin-bottom: var(--space-2);
+    }
+    .juros-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 20px; height: 20px;
+      border-radius: 50%; background: var(--gold);
+      border: 3px solid var(--dark-card);
+      box-shadow: 0 2px 8px rgba(218,165,69,0.4); cursor: pointer;
+    }
+    .juros-slider::-moz-range-thumb {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--gold); border: 3px solid var(--dark-card); cursor: pointer;
+    }
+    .juros-input-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3);
+    }
+    .juros-input-group { display: flex; flex-direction: column; }
+    .juros-input-group label {
+      font-size: 0.75rem; color: #CBD5E1; margin-bottom: var(--space-1);
+      text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600;
+    }
+    .juros-input {
+      background: var(--dark-surface); border: 1.5px solid rgba(218,165,69,0.2);
+      color: var(--text); padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md); font-size: 0.95rem;
+      transition: border-color var(--transition);
+    }
+    .juros-input:focus { outline: none; border-color: var(--gold); }
+    .juros-calc-btn {
+      width: 100%; margin-top: var(--space-4);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff; padding: var(--space-4);
+      border-radius: var(--radius-md); font-weight: 700; font-size: 1rem;
+      transition: all var(--transition);
+      display: flex; align-items: center; justify-content: center; gap: var(--space-2);
+    }
+    .juros-calc-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px var(--primary-glow); background: var(--primary-light); }
+    .juros-results {
+      display: flex; flex-direction: column; gap: var(--space-4);
+    }
+    .juros-result-cards {
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3);
+    }
+    .jr-card {
+      background: var(--dark-surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: var(--space-4) var(--space-5);
+      text-align: center;
+    }
+    .jr-card label { display: block; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--space-2); }
+    .jr-card .jr-value { font-size: 1.2rem; font-weight: 800; }
+    .jr-card.highlight { background: rgba(13,124,62,0.1); border-color: rgba(13,124,62,0.3); }
+    .jr-card.highlight .jr-value { color: var(--success); }
+    .juros-chart-wrap { position: relative; height: 220px; }
+
+    /* ============================================
+       SIMULADOR DE APOSENTADORIA
+       ============================================ */
+    .apos-section { background: var(--dark-surface); }
+    .apos-wrapper {
+      max-width: 1060px; margin: 0 auto;
+      background: var(--dark-card); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: var(--space-12);
+    }
+    .apos-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--space-10);
+    }
+    .apos-field { margin-bottom: var(--space-5); }
+    .apos-field label {
+      display: flex; justify-content: space-between;
+      font-size: 0.8rem; font-weight: 600; color: #CBD5E1;
+      letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: var(--space-2);
+    }
+    .apos-field label span { color: var(--gold); font-weight: 700; }
+    .apos-slider {
+      width: 100%; -webkit-appearance: none; appearance: none;
+      height: 6px; border-radius: 3px; outline: none;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold) var(--val,50%), var(--dark-elevated) var(--val,50%));
+      cursor: pointer;
+    }
+    .apos-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 20px; height: 20px;
+      border-radius: 50%; background: var(--gold);
+      border: 3px solid var(--dark-card); cursor: pointer;
+    }
+    .apos-result-panel {
+      display: flex; flex-direction: column; gap: var(--space-4);
+    }
+    .apos-highlight {
+      background: linear-gradient(135deg, rgba(13,124,62,0.12), rgba(218,165,69,0.05));
+      border: 1px solid rgba(13,124,62,0.3);
+      border-radius: var(--radius-lg); padding: var(--space-6);
+      text-align: center;
+    }
+    .apos-highlight .label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--space-2); }
+    .apos-big-number { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 800; color: var(--success); font-family: var(--font-display); }
+    .apos-rows { display: flex; flex-direction: column; gap: var(--space-3); }
+    .apos-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: var(--space-3) var(--space-4);
+      background: var(--dark-surface); border-radius: var(--radius-md);
+      border: 1px solid var(--border); font-size: 0.875rem;
+    }
+    .apos-row span:first-child { color: #CBD5E1; }
+    .apos-row strong { color: var(--gold); }
+    .apos-chart-wrap { height: 180px; }
+    .apos-calc-btn {
+      width: 100%; margin-top: var(--space-2);
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--dark); padding: var(--space-4);
+      border-radius: var(--radius-md); font-weight: 700; font-size: 1rem;
+      transition: all var(--transition);
+      display: flex; align-items: center; justify-content: center; gap: var(--space-2);
+    }
+    .apos-calc-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+
+    /* ============================================
+       TABELA COMPARATIVA
+       ============================================ */
+    .tabela-section { background: var(--dark); }
+    .tabela-scroll { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); }
+    .tabela-invest {
+      width: 100%; border-collapse: collapse; min-width: 860px;
+    }
+    .tabela-invest thead tr {
+      background: linear-gradient(135deg, var(--primary-dark), #0A1A0F);
+    }
+    .tabela-invest th {
+      padding: var(--space-4) var(--space-5);
+      text-align: left; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--gold-light); border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .tabela-invest th:first-child { min-width: 160px; }
+    .tabela-invest td {
+      padding: var(--space-4) var(--space-5);
+      font-size: 0.875rem; color: #CBD5E1;
+      border-bottom: 1px solid rgba(218,165,69,0.06);
+      vertical-align: middle;
+    }
+    .tabela-invest tbody tr { transition: background var(--transition); }
+    .tabela-invest tbody tr:hover { background: rgba(218,165,69,0.04); }
+    .tabela-invest tbody tr:last-child td { border-bottom: none; }
+    .tabela-invest td:first-child { font-weight: 700; color: var(--text); }
+    .tag-risk {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 2px 10px; border-radius: var(--radius-full);
+      font-size: 0.72rem; font-weight: 700;
+    }
+    .risk-baixo   { background: rgba(34,197,94,0.12);  color: #22C55E; border: 1px solid rgba(34,197,94,0.25); }
+    .risk-medio   { background: rgba(218,165,69,0.12); color: #DAA545; border: 1px solid rgba(218,165,69,0.3); }
+    .risk-alto    { background: rgba(239,68,68,0.12);  color: #EF4444; border: 1px solid rgba(239,68,68,0.25); }
+    .tag-liq {
+      font-size: 0.75rem; color: var(--text-muted);
+    }
+    .check-yes { color: var(--success); font-size: 1rem; }
+    .check-no  { color: var(--danger);  font-size: 1rem; }
+    .tabela-invest td.rendimento { color: var(--gold); font-weight: 700; }
+
+    /* ============================================
+       LINHA DO TEMPO
+       ============================================ */
+    .timeline-section { background: var(--dark-surface); }
+    .timeline {
+      position: relative; max-width: 800px; margin: 0 auto;
+      padding: var(--space-4) 0;
+    }
+    .timeline::before {
+      content: ''; position: absolute;
+      left: 50%; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(180deg, var(--primary), var(--gold));
+      transform: translateX(-50%);
+    }
+    .tl-item {
+      display: flex; gap: var(--space-8); margin-bottom: var(--space-10);
+      position: relative;
+    }
+    .tl-item:nth-child(odd)  { flex-direction: row; }
+    .tl-item:nth-child(even) { flex-direction: row-reverse; }
+    .tl-content {
+      flex: 1; background: var(--dark-card);
+      border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: var(--space-6); transition: all var(--transition);
+    }
+    .tl-content:hover { border-color: var(--border-hover); transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .tl-dot {
+      flex-shrink: 0; width: 48px; height: 48px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; position: relative; z-index: 1;
+      border: 3px solid var(--dark-surface); align-self: flex-start;
+      margin-top: var(--space-3);
+    }
+    .tl-spacer { flex: 1; }
+    .tl-step {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--gold); margin-bottom: var(--space-2);
+    }
+    .tl-content h4 { font-size: 1rem; font-weight: 700; margin-bottom: var(--space-2); }
+    .tl-content p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ============================================
+       FAQ ACCORDION
+       ============================================ */
+    .faq-section { background: var(--dark); }
+    .faq-container { max-width: 860px; margin: 0 auto; }
+    .faq-cats {
+      display: flex; gap: var(--space-3); flex-wrap: wrap;
+      justify-content: center; margin-bottom: var(--space-8);
+    }
+    .faq-cat-btn {
+      background: var(--dark-card); border: 1px solid var(--border);
+      color: var(--text-muted); padding: var(--space-2) var(--space-5);
+      border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; transition: all var(--transition);
+    }
+    .faq-cat-btn:hover, .faq-cat-btn.active {
+      background: rgba(218,165,69,0.1); border-color: var(--gold); color: var(--gold);
+    }
+    .faq-item {
+      border: 1px solid var(--border); border-radius: var(--radius-md);
+      margin-bottom: var(--space-3); overflow: hidden;
+      transition: border-color var(--transition);
+    }
+    .faq-item.open { border-color: var(--border-hover); }
+    .faq-q {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-5) var(--space-6); background: var(--dark-card);
+      text-align: left; gap: var(--space-4); cursor: pointer;
+      font-size: 0.95rem; font-weight: 600; color: var(--text);
+      transition: background var(--transition);
+    }
+    .faq-q:hover { background: var(--dark-elevated); }
+    .faq-q .faq-icon {
+      flex-shrink: 0; width: 24px; height: 24px;
+      border-radius: 50%; background: rgba(218,165,69,0.1);
+      border: 1px solid rgba(218,165,69,0.25);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: 0.75rem;
+      transition: transform var(--transition), background var(--transition);
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--gold); color: var(--dark); }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1), padding 0.3s;
+      background: var(--dark-surface);
+      font-size: 0.9rem; color: #94A3B8; line-height: 1.75;
+      padding: 0 var(--space-6);
+    }
+    .faq-a.open { max-height: 600px; padding: var(--space-5) var(--space-6); }
+    .faq-a a { color: var(--gold); text-decoration: underline; }
+
+    /* ============================================
+       BLOG / ARTIGOS
+       ============================================ */
+    .blog-section { background: var(--dark-surface); }
+    .blog-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+      gap: var(--space-6);
+    }
+    .blog-card {
+      background: var(--dark-card); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); overflow: hidden;
+      transition: all var(--transition); display: flex; flex-direction: column;
+    }
+    .blog-card:hover { transform: translateY(-6px); border-color: var(--border-hover); box-shadow: var(--shadow-md); }
+    .blog-card-cover {
+      height: 160px; display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem; position: relative; overflow: hidden;
+    }
+    .blog-card-body { padding: var(--space-6); flex: 1; display: flex; flex-direction: column; }
+    .blog-tag {
+      display: inline-flex; align-items: center; gap: var(--space-1);
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 2px 10px;
+      border-radius: var(--radius-full); margin-bottom: var(--space-3);
+    }
+    .blog-card-body h3 {
+      font-size: 1rem; font-weight: 700; line-height: 1.45;
+      margin-bottom: var(--space-3); color: var(--text);
+    }
+    .blog-card-body p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; flex: 1; margin-bottom: var(--space-4); }
+    .blog-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.75rem; color: var(--text-faint);
+    }
+    .blog-meta .read-time { display: flex; align-items: center; gap: var(--space-1); }
+    .blog-read-btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      color: var(--gold); font-size: 0.85rem; font-weight: 600;
+      margin-top: var(--space-4); transition: gap var(--transition);
+    }
+    .blog-read-btn:hover { gap: var(--space-3); }
+
+    /* ============================================
+       RESPONSIVO EXTRA (novas seções)
+       ============================================ */
+    @media (max-width: 768px) {
+      .juros-layout, .apos-layout { grid-template-columns: 1fr; }
+      .juros-result-cards { grid-template-columns: 1fr 1fr; }
+      .timeline::before { left: 24px; }
+      .tl-item, .tl-item:nth-child(even) { flex-direction: row; }
+      .tl-spacer { display: none; }
+      .tl-dot { margin-left: 0; }
+      .ticker-track { gap: var(--space-6); }
+    }
+    @media (max-width: 480px) {
+      .juros-result-cards { grid-template-columns: 1fr; }
+      .juros-wrapper, .apos-wrapper { padding: var(--space-6); }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<!-- ============================================
+     SCROLL PROGRESS BAR
+     ============================================ -->
+<div id="progress-bar" role="progressbar" aria-label="Progresso de leitura"></div>
+
+<!-- ============================================
+     HEADER
+     ============================================ -->
+<header id="site-header">
+  <nav>
+    <a href="#" class="logo">
+      <!-- SVG Logo personalizado -->
+      <svg class="logo-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Família em Rumo Financeiro logo">
+        <rect width="40" height="40" rx="10" fill="#0D7C3E" fill-opacity="0.15"/>
+        <path d="M8 28 L14 18 L20 22 L26 14 L32 10" stroke="#DAA545" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="32" cy="10" r="3" fill="#DAA545"/>
+        <path d="M8 34 H32" stroke="#0D7C3E" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M12 28 L12 34" stroke="#0D7C3E" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M20 22 L20 34" stroke="#0D7C3E" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M28 16 L28 34" stroke="#0D7C3E" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div class="logo-text">
+        Família em Rumo <span>Educação Financeira</span>
+      </div>
+    </a>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-links" id="nav-links">
+      <a href="#investimentos">Investimentos</a>
+      <a href="#ebooks">E-books</a>
+      <a href="#calculadora">Calculadora</a>
+      <a href="#juros">Juros Compostos</a>
+      <a href="#aposentadoria">Aposentadoria</a>
+      <a href="#comparativo">Comparativo</a>
+      <a href="#faq">FAQ</a>
+      <a href="#perfil">Perfil</a>
+      <a href="#cadastro" class="nav-cta">Cadastre-se</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ============================================
+     HERO
+     ============================================ -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge" data-aos="fade-down">
+      <i class="fa-solid fa-shield-halved"></i>
+      100% Gratuito &bull; Sem Enrolação &bull; Resultado Real
+    </div>
+
+    <h1 data-aos="fade-up" data-aos-delay="100">
+      Transforme sua família com<br>
+      <span class="highlight">Educação Financeira</span>
+    </h1>
+
+    <p data-aos="fade-up" data-aos-delay="200">
+      Comecei do jeito errado e perdi dinheiro. Esse aprendizado me transformou.
+      Hoje ajudo famílias a saírem das dívidas, diversificarem investimentos e
+      construírem um futuro financeiro sólido e duradouro.
+    </p>
+
+    <div class="hero-ctas" data-aos="fade-up" data-aos-delay="300">
+      <a href="#ebooks" class="btn-primary">
+        <i class="fa-solid fa-book-open"></i> Baixar E-books Grátis
+      </a>
+      <a href="#calculadora" class="btn-outline">
+        <i class="fa-solid fa-calculator"></i> Calcular Orçamento
+      </a>
+    </div>
+
+    <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
+      <div class="stat-item">
+        <div class="stat-number" data-count="10">0</div>
+        <div class="stat-label">E-books Gratuitos</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-count="5">0</div>
+        <div class="stat-label">Anos de Mercado</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-count="2400">0</div>
+        <div class="stat-label">Downloads</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-count="98">0</div>
+        <div class="stat-label">Satisfação</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     TICKER DE COTAÇÕES REAIS
+     ============================================ -->
+<div class="ticker-bar" aria-label="Cotações do mercado financeiro">
+  <div class="ticker-track" id="ticker-track">
+    <!-- Preenchido dinamicamente via JavaScript -->
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     INVESTIMENTOS
+     ============================================ -->
+<section id="investimentos">
+  <div class="section-inner">
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-tag"><i class="fa-solid fa-chart-line"></i> Assessoria Financeira</div>
+      <h2 class="section-title">Onde atuamos com você</h2>
+      <p class="section-desc">Planejamento personalizado em cada modalidade — do conservador ao arrojado, de acordo com o seu momento de vida.</p>
+    </div>
+
+    <div class="investimentos-grid">
+      <div class="inv-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="inv-icon"><i class="fa-solid fa-landmark text-gold"></i></div>
+        <h3>Renda Fixa</h3>
+        <p>CDB, Tesouro Direto, LCI, LCA. Segurança e previsibilidade para seu portfólio.</p>
+      </div>
+      <div class="inv-card" data-aos="fade-up" data-aos-delay="50">
+        <div class="inv-icon"><i class="fa-solid fa-building-columns text-gold"></i></div>
+        <h3>CDB</h3>
+        <p>Certificados de Depósito Bancário com rendimento muito superior à poupança.</p>
+      </div>
+      <div class="inv-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="inv-icon"><i class="fa-solid fa-chart-bar text-gold"></i></div>
+        <h3>Ações</h3>
+        <p>Invista em empresas sólidas e participe do crescimento do mercado brasileiro.</p>
+      </div>
+      <div class="inv-card" data-aos="fade-up" data-aos-delay="150">
+        <div class="inv-icon"><i class="fa-solid fa-building text-gold"></i></div>
+        <h3>FIIs</h3>
+        <p>Fundos Imobiliários: renda passiva mensal com exposição ao setor imobiliário.</p>
+      </div>
+      <div class="inv-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="inv-icon"><i class="fa-brands fa-bitcoin text-gold"></i></div>
+        <h3>Criptomoedas</h3>
+        <p>Bitcoin, Ethereum e mais. O futuro das finanças descentralizadas explicado.</p>
+      </div>
+      <div class="inv-card" data-aos="fade-up" data-aos-delay="250">
+        <div class="inv-icon"><i class="fa-solid fa-layer-group text-gold"></i></div>
+        <h3>ETFs</h3>
+        <p>Diversificação instantânea com fundos de índice de baixo custo e eficiência.</p>
+      </div>
+      <div class="inv-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="inv-icon"><i class="fa-solid fa-globe text-gold"></i></div>
+        <h3>Stocks EUA</h3>
+        <p>Ações internacionais: Apple, Tesla, Microsoft e as maiores empresas do mundo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     SOBRE
+     ============================================ -->
+<section id="sobre" class="sobre-section">
+  <div class="section-inner">
+    <div class="sobre-grid">
+      <div class="sobre-visual" data-aos="fade-right">
+        <div class="sobre-avatar">👨‍💼</div>
+        <div class="sobre-credential">
+          <i class="fa-solid fa-certificate"></i>
+          <div>
+            <strong>+5 Anos de Mercado</strong>
+            <span>Educação Financeira</span>
+          </div>
+        </div>
+      </div>
+      <div class="sobre-content" data-aos="fade-left">
+        <div class="section-tag" style="justify-content:flex-start;"><i class="fa-solid fa-user"></i> Quem sou</div>
+        <h2>Uma história de <span class="text-gold">aprendizado</span> e transformação</h2>
+        <p>
+          Comecei minha jornada no mercado financeiro da pior forma possível — sem conhecimento, sem estratégia e com muito prejuízo.
+          Cada erro que cometi se tornou uma lição valiosa que hoje compartilho gratuitamente com famílias em todo o Brasil.
+        </p>
+        <p>
+          <strong>Minha missão</strong> é simples: democratizar o acesso à educação financeira de qualidade. Acredito que qualquer pessoa, independente da renda, pode aprender a organizar suas finanças, sair das dívidas e construir patrimônio.
+        </p>
+        <div class="sobre-badges">
+          <span class="badge"><i class="fa-solid fa-check"></i> +5 Anos no Mercado</span>
+          <span class="badge"><i class="fa-solid fa-check"></i> 10+ E-books Publicados</span>
+          <span class="badge"><i class="fa-solid fa-check"></i> 100% Gratuito</span>
+          <span class="badge"><i class="fa-solid fa-check"></i> +2.400 Downloads</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     MÉTRICAS
+     ============================================ -->
+<section id="metricas">
+  <div class="section-inner">
+    <div class="metricas-grid">
+      <div class="metrica-card" data-aos="zoom-in" data-aos-delay="0">
+        <div class="metrica-icon" style="background:rgba(13,124,62,0.12);border:1px solid rgba(13,124,62,0.25);">
+          <i class="fa-solid fa-download text-green"></i>
+        </div>
+        <div class="metrica-number" data-count="2400">0</div>
+        <div class="metrica-label">Downloads de E-books</div>
+      </div>
+      <div class="metrica-card" data-aos="zoom-in" data-aos-delay="100">
+        <div class="metrica-icon" style="background:rgba(218,165,69,0.1);border:1px solid rgba(218,165,69,0.2);">
+          <i class="fa-solid fa-users text-gold"></i>
+        </div>
+        <div class="metrica-number" data-count="890">0</div>
+        <div class="metrica-label">Famílias Ajudadas</div>
+      </div>
+      <div class="metrica-card" data-aos="zoom-in" data-aos-delay="200">
+        <div class="metrica-icon" style="background:rgba(13,124,62,0.12);border:1px solid rgba(13,124,62,0.25);">
+          <i class="fa-solid fa-book text-green"></i>
+        </div>
+        <div class="metrica-number" data-count="10">0</div>
+        <div class="metrica-label">E-books Gratuitos</div>
+      </div>
+      <div class="metrica-card" data-aos="zoom-in" data-aos-delay="300">
+        <div class="metrica-icon" style="background:rgba(218,165,69,0.1);border:1px solid rgba(218,165,69,0.2);">
+          <i class="fa-solid fa-star text-gold"></i>
+        </div>
+        <div class="metrica-number" data-count="98">0</div>
+        <div class="metrica-label">% Satisfação</div>
+      </div>
+      <div class="metrica-card" data-aos="zoom-in" data-aos-delay="400">
+        <div class="metrica-icon" style="background:rgba(13,124,62,0.12);border:1px solid rgba(13,124,62,0.25);">
+          <i class="fa-solid fa-calendar text-green"></i>
+        </div>
+        <div class="metrica-number" data-count="5">0</div>
+        <div class="metrica-label">Anos de Experiência</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     E-BOOKS
+     ============================================ -->
+<section id="ebooks">
+  <div class="section-inner">
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-tag"><i class="fa-solid fa-book-open"></i> Biblioteca Digital</div>
+      <h2 class="section-title">E-books 100% Gratuitos</h2>
+      <p class="section-desc">Conteúdo de qualidade que antes custava caro — agora disponível para você sem pagar nada.</p>
+    </div>
+
+    <div class="ebooks-grid">
+      <!-- Ebook 1 -->
+      <div class="ebook-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="ebook-number">E-book 01</div>
+        <div class="ebook-icon"><i class="fa-solid fa-stairs text-gold"></i></div>
+        <h3>7 Passos para sua Vida Financeira</h3>
+        <p>Metodologia comprovada para organizar suas finanças em 7 etapas práticas e transformadoras.</p>
+        <a href="https://raw.githubusercontent.com/marcussilva1984/familia-em-rumo-financeiro/main/7_passos_vida_financeira.pdf" download="7_passos_vida_financeira.pdf" class="download-btn">
+          <i class="fa-solid fa-download"></i> Baixar Gratuitamente
+        </a>
+      </div>
+      <!-- Ebook 2 -->
+      <div class="ebook-card" data-aos="fade-up" data-aos-delay="60">
+        <div class="ebook-number">E-book 02</div>
+        <div class="ebook-icon"><i class="fa-solid fa-seedling text-gold"></i></div>
+        <h3>Investimentos para Iniciantes</h3>
+        <p>Guia completo sobre os principais tipos de investimento e como começar com pouco dinheiro.</p>
+        <a href="https://raw.githubusercontent.com/marcussilva1984/familia-em-rumo-financeiro/main/Ebook_Investimentos_Iniciantes.pdf" download="Ebook_Investimentos_Iniciantes.pdf" class="download-btn">
+          <i class="fa-solid fa-download"></i> Baixar Gratuitamente
+        </a>
+      </div>
+      <!-- Ebook 3 -->
+      <div class="ebook-card" data-aos="fade-up" data-aos-delay="120">
+        <div class="ebook-number">E-book 03</div>
+        <div class="ebook-icon"><i class="fa-brands fa-bitcoin text-gold"></i></div>
+        <h3>Conhecendo sobre Cripto</h3>
+        <p>Introdução ao mundo das criptomoedas, blockchain e como investir com segurança.</p>
+        <a href="https://raw.githubusercontent.com/marcussilva1984/familia-em-rumo-financeiro/main/conhecendo%20sobre%20cripto.pdf" download="conhecendo_sobre_cripto.pdf" class="download-btn">
+          <i class="fa-solid fa-download"></i> Baixar Gratuitamente
+        </a>
+      </div>
+      <!-- Ebook 4 -->
+      <div class="ebook-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="ebook-number">E-book 04</div>
+        <div class="ebook-icon"><i class="fa-solid fa-trophy text-gold"></i></div>
+        <h3>Estratégias Avançadas</h3>
+        <p>Compilação definitiva com estratégias avançadas de gestão financeira e construção de patrimônio.</p>
+        <a href="https://raw.githubusercontent.com/marcussilva1984/familia-em-rumo-financeiro/main/ebook_final.pdf" download="ebook_final.pdf" class="download-btn">
+          <i class="fa-solid fa-download"></i> Baixar Gratuitamente
+        </a>
+      </div>
+      <!-- Ebook 5 -->
+      <div class="ebook-card" data-aos="fade-up" data-aos-delay="60">
+        <div class="ebook-number">E-book 05</div>
+        <div class="ebook-icon"><i class="fa-solid fa-rocket text-gold"></i></div>
+        <h3>Iniciando no Mercado Financeiro</h3>
+        <p>Primeiros passos no mundo dos investimentos com segurança, clareza e sem erros básicos.</p>
+        <a href="https://raw.githubusercontent.com/marcussilva1984/familia-em-rumo-financeiro/main/iniciando%20no%20mercado%20financeiro.pdf" download="iniciando_mercado_financeiro.pdf" class="download-btn">
+          <i class="fa-solid fa-download"></i> Baixar Gratuitamente
+        </a>
+      </div>
+      <!-- Ebook 6 -->
+      <div class="ebook-card" data-aos="fade-up" data-aos-delay="120">
+        <div class="ebook-number">E-book 06</div>
+        <div class="ebook-icon"><i class="fa-solid fa-circle-nodes text-gold"></i></div>
+        <h3>Cripto Avançado Vol. 2</h3>
+        <p>Estratégias avançadas de criptomoedas, DeFi, staking e como maximizar seus ganhos digitais.</p>
+        <a href="https://raw.githubusercontent.com/marcussilva1984/familia-em-rumo-financeiro/main/livro%202%20de%20cripto%20_edited.pdf1.pdf" download="cripto_avancado_vol2.pdf" class="download-btn">
+          <i class="fa-solid fa-download"></i> Baixar Gratuitamente
+        </a>
+      </div>
+      <!-- Ebook 7 -->
+      <div class="ebook-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="ebook-number">E-book 07</div>
+        <div class="ebook-icon"><i class="fa-solid fa-wallet text-gold"></i></div>
+        <h3>Organize suas Finanças</h3>
+        <p>Guia prático para organização financeira pessoal e familiar do zero ao resultado.</p>
+        <a href="https://raw.githubusercontent.com/marcussilva1984/familia-em-rumo-financeiro/main/organizesuasfinancas.pdf" download="organizesuasfinancas.pdf" class="download-btn">
+          <i class="fa-solid fa-download"></i> Baixar Gratuitamente
+        </a>
+      </div>
+      <!-- Ebook 8 -->
+      <div class="ebook-card" data-aos="fade-up" data-aos-delay="60">
+        <div class="ebook-number">E-book 08</div>
+        <div class="ebook-icon"><i class="fa-solid fa-house text-gold"></i></div>
+        <h3>Orçamento Familiar</h3>
+        <p>Método completo para criar e manter um orçamento familiar saudável e equilibrado.</p>
+        <a href="https://raw.githubusercontent.com/marcussilva1984/familia-em-rumo-financeiro/main/or%C3%A7amento%20familiar.pdf" download="orcamento_familiar.pdf" class="download-btn">
+          <i class="fa-solid fa-download"></i> Baixar Gratuitamente
+        </a>
+      </div>
+      <!-- Ebook 9 -->
+      <div class="ebook-card" data-aos="fade-up" data-aos-delay="120">
+        <div class="ebook-number">E-book 09</div>
+        <div class="ebook-icon"><i class="fa-solid fa-piggy-bank text-gold"></i></div>
+        <h3>Reserva de Emergência</h3>
+        <p>Como criar e manter sua reserva de emergência e nunca mais ficar desprotegido.</p>
+        <a href="https://raw.githubusercontent.com/marcussilva1984/familia-em-rumo-financeiro/main/reservademergencia.pdf" download="reservademergencia.pdf" class="download-btn">
+          <i class="fa-solid fa-download"></i> Baixar Gratuitamente
+        </a>
+      </div>
+      <!-- Ebook 10 -->
+      <div class="ebook-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="ebook-number">E-book 10</div>
+        <div class="ebook-icon"><i class="fa-solid fa-chart-pie text-gold"></i></div>
+        <h3>Renda Fixa Intermediária</h3>
+        <p>Aprofunde seus conhecimentos em renda fixa: CDB, Tesouro, LCI, LCA e muito mais.</p>
+        <a href="https://raw.githubusercontent.com/marcussilva1984/familia-em-rumo-financeiro/main/renda%20fixa%20intermediaria.pdf" download="renda_fixa_intermediaria.pdf" class="download-btn">
+          <i class="fa-solid fa-download"></i> Baixar Gratuitamente
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     CALCULADORA
+     ============================================ -->
+<section id="calculadora" class="calc-section">
+  <div class="section-inner">
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-tag"><i class="fa-solid fa-calculator"></i> Ferramenta</div>
+      <h2 class="section-title">Calculadora de Orçamento Familiar</h2>
+      <p class="section-desc">Preencha seus dados e visualize instantaneamente como está sua saúde financeira.</p>
+    </div>
+
+    <div class="calc-wrapper" data-aos="fade-up" data-aos-delay="100">
+      <div class="calc-layout">
+        <!-- Inputs -->
+        <div class="calc-inputs">
+          <div class="calc-row">
+            <div class="calc-group">
+              <label><i class="fa-solid fa-money-bill-wave" style="color:var(--gold);margin-right:4px;"></i>Renda Mensal (R$)</label>
+              <input type="number" id="renda" placeholder="Ex: 5000" min="0">
+            </div>
+            <div class="calc-group">
+              <label><i class="fa-solid fa-house" style="color:var(--gold);margin-right:4px;"></i>Moradia</label>
+              <input type="number" id="moradia" placeholder="Ex: 1500" min="0">
+            </div>
+          </div>
+          <div class="calc-row">
+            <div class="calc-group">
+              <label><i class="fa-solid fa-utensils" style="color:var(--gold);margin-right:4px;"></i>Alimentação</label>
+              <input type="number" id="alimentacao" placeholder="Ex: 800" min="0">
+            </div>
+            <div class="calc-group">
+              <label><i class="fa-solid fa-car" style="color:var(--gold);margin-right:4px;"></i>Transporte</label>
+              <input type="number" id="transporte" placeholder="Ex: 400" min="0">
+            </div>
+          </div>
+          <div class="calc-row">
+            <div class="calc-group">
+              <label><i class="fa-solid fa-graduation-cap" style="color:var(--gold);margin-right:4px;"></i>Educação</label>
+              <input type="number" id="educacao" placeholder="Ex: 500" min="0">
+            </div>
+            <div class="calc-group">
+              <label><i class="fa-solid fa-heart-pulse" style="color:var(--gold);margin-right:4px;"></i>Saúde</label>
+              <input type="number" id="saude" placeholder="Ex: 300" min="0">
+            </div>
+          </div>
+          <div class="calc-row">
+            <div class="calc-group">
+              <label><i class="fa-solid fa-gamepad" style="color:var(--gold);margin-right:4px;"></i>Lazer</label>
+              <input type="number" id="lazer" placeholder="Ex: 400" min="0">
+            </div>
+            <div class="calc-group">
+              <label><i class="fa-solid fa-ellipsis" style="color:var(--gold);margin-right:4px;"></i>Outros</label>
+              <input type="number" id="outros" placeholder="Ex: 200" min="0">
+            </div>
+          </div>
+          <button class="calc-btn" onclick="calcularOrcamento()">
+            <i class="fa-solid fa-chart-pie"></i> Visualizar Orçamento
+          </button>
+        </div>
+
+        <!-- Results -->
+        <div class="calc-result-panel" id="calc-result-panel">
+          <div class="empty-state" id="calc-empty">
+            <i class="fa-solid fa-chart-pie" style="color:var(--text-faint);"></i>
+            <p>Preencha seus dados e clique em<br><strong style="color:var(--gold);">Visualizar Orçamento</strong></p>
+          </div>
+          <div id="calc-results" style="display:none;">
+            <div class="calc-chart-wrap">
+              <canvas id="orcamentoChart" width="200" height="200"></canvas>
+              <div class="calc-chart-label">
+                <strong id="chart-pct">0%</strong>
+                <span>do orçamento</span>
+              </div>
+            </div>
+            <div class="result-items">
+              <div class="result-row">
+                <div class="result-row-label"><div class="dot" style="background:#0D7C3E;"></div>Renda Total</div>
+                <div class="result-row-value" id="res-renda">R$ 0,00</div>
+              </div>
+              <div class="result-row">
+                <div class="result-row-label"><div class="dot" style="background:#EF4444;"></div>Total de Despesas</div>
+                <div class="result-row-value" id="res-despesas" style="color:var(--danger);">R$ 0,00</div>
+              </div>
+              <div class="result-row">
+                <div class="result-row-label"><div class="dot" style="background:#DAA545;"></div>Saldo Final</div>
+                <div class="result-row-value" id="res-saldo">R$ 0,00</div>
+              </div>
+              <div class="result-row">
+                <div class="result-row-label"><div class="dot" style="background:#22C55E;"></div>Meta de Investimento (20%)</div>
+                <div class="result-row-value" id="res-invest" style="color:var(--success);">R$ 0,00</div>
+              </div>
+              <div class="result-progress">
+                <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--text-muted);margin-bottom:var(--space-2);">
+                  <span>Gasto vs. Renda</span><span id="pct-label">0%</span>
+                </div>
+                <div class="progress-bar-wrap">
+                  <div class="progress-bar-fill" id="gasto-bar" style="background:linear-gradient(90deg,var(--primary),var(--danger));"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     PERFIL DE INVESTIDOR
+     ============================================ -->
+<section id="perfil">
+  <div class="section-inner">
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-tag"><i class="fa-solid fa-user-tie"></i> Diagnóstico</div>
+      <h2 class="section-title">Descubra seu Perfil de Investidor</h2>
+      <p class="section-desc">Responda 3 perguntas e receba uma recomendação personalizada de investimentos.</p>
+    </div>
+
+    <div class="perfil-container" data-aos="fade-up" data-aos-delay="100">
+      <div class="perfil-progress-wrap">
+        <span style="font-size:0.8rem;color:var(--text-muted);">Progresso</span>
+        <div class="perfil-step-dots">
+          <div class="step-dot active" id="dot-1"></div>
+          <div class="step-dot" id="dot-2"></div>
+          <div class="step-dot" id="dot-3"></div>
+        </div>
+        <span id="perfil-progress-txt" style="font-size:0.8rem;color:var(--text-muted);margin-left:auto;">Pergunta 1 de 3</span>
+      </div>
+
+      <!-- Pergunta 1 -->
+      <div class="perfil-card" id="p-card-1">
+        <div class="perfil-step">Pergunta 01</div>
+        <h3>Qual é o seu objetivo principal ao investir?</h3>
+        <div class="perfil-options">
+          <div class="perfil-option" onclick="selectPerfil(this, 1, 'conservador')">
+            <div class="option-letter">A</div>
+            Preservar meu capital com total segurança
+          </div>
+          <div class="perfil-option" onclick="selectPerfil(this, 1, 'moderado')">
+            <div class="option-letter">B</div>
+            Crescer meu patrimônio com risco moderado
+          </div>
+          <div class="perfil-option" onclick="selectPerfil(this, 1, 'arrojado')">
+            <div class="option-letter">C</div>
+            Maximizar ganhos mesmo com alto risco
+          </div>
+        </div>
+      </div>
+
+      <!-- Pergunta 2 -->
+      <div class="perfil-card" id="p-card-2" style="display:none;">
+        <div class="perfil-step">Pergunta 02</div>
+        <h3>Como você reagiria se seus investimentos caíssem 20%?</h3>
+        <div class="perfil-options">
+          <div class="perfil-option" onclick="selectPerfil(this, 2, 'conservador')">
+            <div class="option-letter">A</div>
+            Venderia tudo imediatamente para evitar mais perdas
+          </div>
+          <div class="perfil-option" onclick="selectPerfil(this, 2, 'moderado')">
+            <div class="option-letter">B</div>
+            Ficaria preocupado, mas esperaria a recuperação
+          </div>
+          <div class="perfil-option" onclick="selectPerfil(this, 2, 'arrojado')">
+            <div class="option-letter">C</div>
+            Aproveitaria a queda para investir ainda mais
+          </div>
+        </div>
+      </div>
+
+      <!-- Pergunta 3 -->
+      <div class="perfil-card" id="p-card-3" style="display:none;">
+        <div class="perfil-step">Pergunta 03</div>
+        <h3>Por quanto tempo você pode deixar o dinheiro investido?</h3>
+        <div class="perfil-options">
+          <div class="perfil-option" onclick="selectPerfil(this, 3, 'conservador')">
+            <div class="option-letter">A</div>
+            Menos de 1 ano — preciso do dinheiro em breve
+          </div>
+          <div class="perfil-option" onclick="selectPerfil(this, 3, 'moderado')">
+            <div class="option-letter">B</div>
+            De 1 a 5 anos — tenho planos de médio prazo
+          </div>
+          <div class="perfil-option" onclick="selectPerfil(this, 3, 'arrojado')">
+            <div class="option-letter">C</div>
+            Mais de 5 anos — penso no longo prazo
+          </div>
+        </div>
+      </div>
+
+      <button class="perfil-btn" id="perfil-btn" onclick="calcularPerfil()">
+        <i class="fa-solid fa-arrow-right"></i> Ver meu Perfil
+      </button>
+
+      <!-- Resultado -->
+      <div class="perfil-result" id="perfil-result">
+        <div class="perfil-result-badge" id="pr-badge">🛡️ Conservador</div>
+        <h3 id="pr-title">Perfil Conservador</h3>
+        <p id="pr-desc">Você prioriza a segurança do seu capital acima de tudo. Ótima escolha para quem está começando ou tem objetivos de curto prazo.</p>
+        <div class="perfil-recom-list" id="pr-recom"></div>
+        <div style="margin-top:var(--space-8);">
+          <a href="#ebooks" class="btn-primary" style="display:inline-flex;">
+            <i class="fa-solid fa-book-open"></i> Ver E-books Recomendados
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     DEPOIMENTOS
+     ============================================ -->
+<section id="depoimentos" class="depo-section">
+  <div class="section-inner">
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-tag"><i class="fa-solid fa-star"></i> Depoimentos</div>
+      <h2 class="section-title">Pessoas que ajudamos a construir riqueza</h2>
+      <p class="section-desc">Histórias reais de quem transformou sua vida financeira com planejamento e estratégia.</p>
+    </div>
+
+    <div class="depo-slider" data-aos="fade-up" data-aos-delay="100">
+      <div class="depo-track" id="depo-track">
+        <div class="depo-card">
+          <div class="stars">★★★★★</div>
+          <p class="depo-text">"Os e-books mudaram completamente a forma como eu via o dinheiro. Em 3 meses já estava com a reserva de emergência formada e começando a investir."</p>
+          <div class="depo-author">
+            <div class="depo-avatar">A</div>
+            <div>
+              <strong>Ana Paula S.</strong>
+              <span>São Paulo, SP</span>
+            </div>
+          </div>
+        </div>
+        <div class="depo-card">
+          <div class="stars">★★★★★</div>
+          <p class="depo-text">"A calculadora de orçamento me abriu os olhos. Percebi que gastava mais de 40% da renda em coisas supérfluas. Agora investigo mais de R$ 800 por mês."</p>
+          <div class="depo-author">
+            <div class="depo-avatar">R</div>
+            <div>
+              <strong>Ricardo M.</strong>
+              <span>Rio de Janeiro, RJ</span>
+            </div>
+          </div>
+        </div>
+        <div class="depo-card">
+          <div class="stars">★★★★★</div>
+          <p class="depo-text">"Conteúdo direto, sem enrolação. O e-book de criptomoedas me ensinou mais que vídeos pagos que comprei antes. Recomendo para todos da família!"</p>
+          <div class="depo-author">
+            <div class="depo-avatar">M</div>
+            <div>
+              <strong>Marcos T.</strong>
+              <span>Belo Horizonte, MG</span>
+            </div>
+          </div>
+        </div>
+        <div class="depo-card">
+          <div class="stars">★★★★★</div>
+          <p class="depo-text">"Comecei do zero e hoje tenho uma carteira diversificada com ações, FIIs e Tesouro Direto. Tudo graças ao material gratuito daqui!"</p>
+          <div class="depo-author">
+            <div class="depo-avatar">F</div>
+            <div>
+              <strong>Fernanda L.</strong>
+              <span>Curitiba, PR</span>
+            </div>
+          </div>
+        </div>
+        <div class="depo-card">
+          <div class="stars">★★★★★</div>
+          <p class="depo-text">"Minha família estava endividada há anos. Após aplicar os 7 passos do e-book, em 8 meses quitamos todas as dívidas. É possível sim!"</p>
+          <div class="depo-author">
+            <div class="depo-avatar">J</div>
+            <div>
+              <strong>João Carlos P.</strong>
+              <span>Salvador, BA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="depo-controls" id="depo-controls"></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     CADASTRO
+     ============================================ -->
+<section id="cadastro" class="cadastro-section">
+  <div class="section-inner">
+    <div class="cadastro-wrapper">
+      <div class="cadastro-info" data-aos="fade-right">
+        <div class="section-tag" style="justify-content:flex-start;"><i class="fa-solid fa-user-plus"></i> Cadastro</div>
+        <h2>Faça parte da nossa <span class="text-gold">comunidade</span></h2>
+        <p>Cadastre-se e receba novos e-books, dicas exclusivas de investimento e acesso a conteúdo antecipado diretamente no seu e-mail.</p>
+        <div class="cadastro-features">
+          <div class="cadastro-feature">
+            <div class="feat-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <strong>Novidades por E-mail</strong>
+              <span>Receba conteúdo exclusivo toda semana</span>
+            </div>
+          </div>
+          <div class="cadastro-feature">
+            <div class="feat-icon"><i class="fa-brands fa-whatsapp"></i></div>
+            <div>
+              <strong>Suporte via WhatsApp</strong>
+              <span>Tire suas dúvidas diretamente</span>
+            </div>
+          </div>
+          <div class="cadastro-feature">
+            <div class="feat-icon"><i class="fa-solid fa-book"></i></div>
+            <div>
+              <strong>E-books Antecipados</strong>
+              <span>Primeiros a receber novos materiais</span>
+            </div>
+          </div>
+          <div class="cadastro-feature">
+            <div class="feat-icon"><i class="fa-solid fa-calendar-check"></i></div>
+            <div>
+              <strong>Consultoria Gratuita</strong>
+              <span>Agende uma sessão personalizada</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card" data-aos="fade-left">
+        <form id="cadastro-form" onsubmit="enviarCadastro(event)" novalidate>
+          <div class="form-group">
+            <label><i class="fa-solid fa-user"></i> Nome Completo</label>
+            <input type="text" id="f-nome" class="form-control" placeholder="Seu nome completo" required>
+            <div class="form-feedback" id="fb-nome"></div>
+          </div>
+          <div class="form-group">
+            <label><i class="fa-solid fa-envelope"></i> E-mail</label>
+            <input type="email" id="f-email" class="form-control" placeholder="seu@email.com" required>
+            <div class="form-feedback" id="fb-email"></div>
+          </div>
+          <div class="form-group">
+            <label><i class="fa-brands fa-whatsapp"></i> WhatsApp</label>
+            <input type="tel" id="f-whatsapp" class="form-control" placeholder="(11) 99999-9999" required>
+            <div class="form-feedback" id="fb-whatsapp"></div>
+          </div>
+          <div class="form-group">
+            <label><i class="fa-solid fa-tag"></i> Principal Interesse</label>
+            <select id="f-interesse" class="form-control">
+              <option value="">Selecione uma área...</option>
+              <option>Organização Financeira</option>
+              <option>Renda Fixa</option>
+              <option>Ações e FIIs</option>
+              <option>Criptomoedas</option>
+              <option>Investimentos para Iniciantes</option>
+              <option>Saída das Dívidas</option>
+              <option>Outros</option>
+            </select>
+          </div>
+          <button type="submit" class="form-submit">
+            <i class="fa-solid fa-paper-plane"></i> Enviar Cadastro
+          </button>
+        </form>
+        <div class="form-success" id="form-success">
+          <i class="fa-solid fa-circle-check"></i>
+          <h3>Cadastro realizado!</h3>
+          <p>Em breve entraremos em contato. Verifique seu e-mail e WhatsApp.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================
+     CALCULADORA DE JUROS COMPOSTOS
+     ============================================ -->
+<section id="juros" class="juros-section">
+  <div class="section-inner">
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-tag"><i class="fa-solid fa-percent"></i> Ferramenta</div>
+      <h2 class="section-title">Calculadora de Juros Compostos</h2>
+      <p class="section-desc">Descubra o poder dos juros compostos e simule o crescimento real do seu dinheiro ao longo do tempo.</p>
+    </div>
+
+    <div class="juros-wrapper" data-aos="fade-up" data-aos-delay="100">
+      <div class="juros-layout">
+        <!-- Inputs -->
+        <div class="juros-inputs">
+          <div class="juros-field">
+            <label>Investimento Inicial <span id="lbl-inicial">R$ 1.000</span></label>
+            <input type="range" class="juros-slider" id="sl-inicial" min="100" max="100000" step="100" value="1000" oninput="updateSliderLabel('sl-inicial','lbl-inicial','brl'); calcJuros()">
+          </div>
+          <div class="juros-field">
+            <label>Aporte Mensal <span id="lbl-aporte">R$ 500</span></label>
+            <input type="range" class="juros-slider" id="sl-aporte" min="0" max="10000" step="50" value="500" oninput="updateSliderLabel('sl-aporte','lbl-aporte','brl'); calcJuros()">
+          </div>
+          <div class="juros-field">
+            <label>Taxa de Juros ao Mês <span id="lbl-taxa">1,0% a.m.</span></label>
+            <input type="range" class="juros-slider" id="sl-taxa" min="0.1" max="3" step="0.1" value="1" oninput="updateSliderLabel('sl-taxa','lbl-taxa','pct'); calcJuros()">
+          </div>
+          <div class="juros-field">
+            <label>Período <span id="lbl-periodo">10 anos</span></label>
+            <input type="range" class="juros-slider" id="sl-periodo" min="1" max="40" step="1" value="10" oninput="updateSliderLabel('sl-periodo','lbl-periodo','anos'); calcJuros()">
+          </div>
+          <div class="juros-result-cards">
+            <div class="jr-card">
+              <label>Total Investido</label>
+              <div class="jr-value text-gold" id="jr-investido">R$ —</div>
+            </div>
+            <div class="jr-card">
+              <label>Juros Gerados</label>
+              <div class="jr-value text-green" id="jr-juros">R$ —</div>
+            </div>
+            <div class="jr-card highlight" style="grid-column: 1/-1;">
+              <label>Montante Final</label>
+              <div class="jr-value" id="jr-total">R$ —</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gráfico -->
+        <div class="juros-results">
+          <div class="juros-chart-wrap">
+            <canvas id="jurosChart"></canvas>
+          </div>
+          <div style="display:flex;gap:var(--space-4);justify-content:center;font-size:0.78rem;color:var(--text-muted);">
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#0D7C3E;margin-right:4px;vertical-align:middle;"></span>Valor Investido</span>
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#DAA545;margin-right:4px;vertical-align:middle;"></span>Juros Compostos</span>
+          </div>
+          <div style="background:var(--dark-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-4);margin-top:var(--space-2);">
+            <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.7;">
+              <i class="fa-solid fa-lightbulb text-gold" style="margin-right:6px;"></i>
+              <strong style="color:var(--text);">Einstein disse:</strong> "Os juros compostos são a oitava maravilha do mundo. Quem entende, ganha. Quem não entende, paga."
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     SIMULADOR DE APOSENTADORIA
+     ============================================ -->
+<section id="aposentadoria" class="apos-section">
+  <div class="section-inner">
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-tag"><i class="fa-solid fa-umbrella-beach"></i> Planejamento</div>
+      <h2 class="section-title">Simulador de Aposentadoria</h2>
+      <p class="section-desc">Quanto você precisa guardar por mês para se aposentar com conforto? Descubra agora.</p>
+    </div>
+
+    <div class="apos-wrapper" data-aos="fade-up" data-aos-delay="100">
+      <div class="apos-layout">
+        <!-- Inputs -->
+        <div>
+          <div class="apos-field">
+            <label>Sua Idade Atual <span id="lbl-idade">30 anos</span></label>
+            <input type="range" class="apos-slider" id="sl-idade" min="18" max="60" value="30" oninput="updateAposLabel('sl-idade','lbl-idade','anos'); calcApos()">
+          </div>
+          <div class="apos-field">
+            <label>Idade para Aposentar <span id="lbl-apos-idade">65 anos</span></label>
+            <input type="range" class="apos-slider" id="sl-apos-idade" min="40" max="75" value="65" oninput="updateAposLabel('sl-apos-idade','lbl-apos-idade','anos'); calcApos()">
+          </div>
+          <div class="apos-field">
+            <label>Renda Mensal Desejada <span id="lbl-renda-desej">R$ 5.000</span></label>
+            <input type="range" class="apos-slider" id="sl-renda-desej" min="1000" max="50000" step="500" value="5000" oninput="updateAposLabel('sl-renda-desej','lbl-renda-desej','brl'); calcApos()">
+          </div>
+          <div class="apos-field">
+            <label>Rentabilidade Real Anual <span id="lbl-rent">6% a.a.</span></label>
+            <input type="range" class="apos-slider" id="sl-rent" min="3" max="15" step="0.5" value="6" oninput="updateAposLabel('sl-rent','lbl-rent','pct-aa'); calcApos()">
+          </div>
+          <div class="apos-field">
+            <label>Anos de Aposentadoria <span id="lbl-anos-apos">25 anos</span></label>
+            <input type="range" class="apos-slider" id="sl-anos-apos" min="10" max="40" value="25" oninput="updateAposLabel('sl-anos-apos','lbl-anos-apos','anos'); calcApos()">
+          </div>
+          <button class="apos-calc-btn" onclick="calcApos()">
+            <i class="fa-solid fa-calculator"></i> Simular Aposentadoria
+          </button>
+        </div>
+
+        <!-- Resultados -->
+        <div class="apos-result-panel">
+          <div class="apos-highlight">
+            <div class="label">Aporte Mensal Necessário</div>
+            <div class="apos-big-number" id="apos-aporte">R$ —</div>
+          </div>
+          <div class="apos-rows">
+            <div class="apos-row">
+              <span>Anos até aposentar</span>
+              <strong id="apos-anos-falt">—</strong>
+            </div>
+            <div class="apos-row">
+              <span>Patrimônio necessário</span>
+              <strong id="apos-patrim">—</strong>
+            </div>
+            <div class="apos-row">
+              <span>Total que você vai investir</span>
+              <strong id="apos-total-invest">—</strong>
+            </div>
+            <div class="apos-row">
+              <span>Juros que irão trabalhar por você</span>
+              <strong id="apos-juros-ganhos" style="color:var(--success);">—</strong>
+            </div>
+          </div>
+          <div class="apos-chart-wrap">
+            <canvas id="aposChart"></canvas>
+          </div>
+          <div style="background:var(--dark-surface);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:var(--radius-md);padding:var(--space-4);">
+            <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.7;" id="apos-tip">
+              <i class="fa-solid fa-circle-info text-gold" style="margin-right:6px;"></i>
+              Preencha os campos acima para ver sua simulação personalizada.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     TABELA COMPARATIVA DE INVESTIMENTOS
+     ============================================ -->
+<section id="comparativo" class="tabela-section">
+  <div class="section-inner">
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-tag"><i class="fa-solid fa-table-list"></i> Comparativo</div>
+      <h2 class="section-title">Comparativo de Investimentos</h2>
+      <p class="section-desc">Entenda as diferenças entre os principais produtos do mercado e escolha o melhor para seu perfil.</p>
+    </div>
+
+    <div class="tabela-scroll" data-aos="fade-up" data-aos-delay="100">
+      <table class="tabela-invest">
+        <thead>
+          <tr>
+            <th>Investimento</th>
+            <th>Rentabilidade</th>
+            <th>Risco</th>
+            <th>Liquidez</th>
+            <th>IR?</th>
+            <th>FGC?</th>
+            <th>Ideal para</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><i class="fa-solid fa-piggy-bank text-gold" style="margin-right:6px;"></i>Poupança</td>
+            <td class="rendimento">~6,17% a.a.</td>
+            <td><span class="tag-risk risk-baixo">Baixo</span></td>
+            <td><span class="tag-liq">D+0</span></td>
+            <td><span class="check-yes">✓</span> Isento</td>
+            <td><span class="check-yes">✓</span> Sim</td>
+            <td>Reserva de emergência</td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-landmark text-gold" style="margin-right:6px;"></i>Tesouro Selic</td>
+            <td class="rendimento">~Selic (≈10,5%)</td>
+            <td><span class="tag-risk risk-baixo">Baixo</span></td>
+            <td><span class="tag-liq">D+1</span></td>
+            <td><span class="check-no">✕</span> 15–22,5%</td>
+            <td><span class="check-no">✕</span> Não</td>
+            <td>Reserva + curto prazo</td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-chart-line text-gold" style="margin-right:6px;"></i>Tesouro IPCA+</td>
+            <td class="rendimento">IPCA + 6–7% a.a.</td>
+            <td><span class="tag-risk risk-baixo">Baixo</span></td>
+            <td><span class="tag-liq">D+1</span></td>
+            <td><span class="check-no">✕</span> 15–22,5%</td>
+            <td><span class="check-no">✕</span> Não</td>
+            <td>Médio e longo prazo</td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-building-columns text-gold" style="margin-right:6px;"></i>CDB</td>
+            <td class="rendimento">100–130% CDI</td>
+            <td><span class="tag-risk risk-baixo">Baixo</span></td>
+            <td><span class="tag-liq">D+0 ou prazo</span></td>
+            <td><span class="check-no">✕</span> 15–22,5%</td>
+            <td><span class="check-yes">✓</span> Até 250k</td>
+            <td>Qualquer perfil</td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-house text-gold" style="margin-right:6px;"></i>LCI / LCA</td>
+            <td class="rendimento">85–95% CDI (líquido)</td>
+            <td><span class="tag-risk risk-baixo">Baixo</span></td>
+            <td><span class="tag-liq">90–360 dias</span></td>
+            <td><span class="check-yes">✓</span> Isento</td>
+            <td><span class="check-yes">✓</span> Até 250k</td>
+            <td>PF — médio prazo</td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-building text-gold" style="margin-right:6px;"></i>FIIs</td>
+            <td class="rendimento">0,7–1,1% a.m. (DY)</td>
+            <td><span class="tag-risk risk-medio">Médio</span></td>
+            <td><span class="tag-liq">D+2 (bolsa)</span></td>
+            <td><span class="check-yes">✓</span> Div. Isento</td>
+            <td><span class="check-no">✕</span> Não</td>
+            <td>Renda passiva mensal</td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-chart-bar text-gold" style="margin-right:6px;"></i>Ações BR</td>
+            <td class="rendimento">Variável (IBOV ~12%)</td>
+            <td><span class="tag-risk risk-alto">Alto</span></td>
+            <td><span class="tag-liq">D+2 (bolsa)</span></td>
+            <td><span class="check-no">✕</span> 15% s/ ganho</td>
+            <td><span class="check-no">✕</span> Não</td>
+            <td>Longo prazo (5+ anos)</td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-layer-group text-gold" style="margin-right:6px;"></i>ETF (BOVA11)</td>
+            <td class="rendimento">Variável (~IBOV)</td>
+            <td><span class="tag-risk risk-medio">Médio</span></td>
+            <td><span class="tag-liq">D+2 (bolsa)</span></td>
+            <td><span class="check-no">✕</span> 15% s/ ganho</td>
+            <td><span class="check-no">✕</span> Não</td>
+            <td>Diversificação fácil</td>
+          </tr>
+          <tr>
+            <td><i class="fa-brands fa-bitcoin text-gold" style="margin-right:6px;"></i>Bitcoin</td>
+            <td class="rendimento">Variável (histórico ~+100%)</td>
+            <td><span class="tag-risk risk-alto">Alto</span></td>
+            <td><span class="tag-liq">D+1 (exchange)</span></td>
+            <td><span class="check-no">✕</span> 15–22,5%</td>
+            <td><span class="check-no">✕</span> Não</td>
+            <td>Arrojado / especulativo</td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-circle-nodes text-gold" style="margin-right:6px;"></i>DeFi / Cripto</td>
+            <td class="rendimento">5–20%+ a.a. (staking)</td>
+            <td><span class="tag-risk risk-alto">Alto</span></td>
+            <td><span class="tag-liq">Variável</span></td>
+            <td><span class="check-no">✕</span> 15–22,5%</td>
+            <td><span class="check-no">✕</span> Não</td>
+            <td>Conhecimento avançado</td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-gem text-gold" style="margin-right:6px;"></i>Fundos Multi.</td>
+            <td class="rendimento">CDI + 2–6% a.a.</td>
+            <td><span class="tag-risk risk-medio">Médio</span></td>
+            <td><span class="tag-liq">D+30 a D+360</span></td>
+            <td><span class="check-no">✕</span> 15–22,5%</td>
+            <td><span class="check-no">✕</span> Não</td>
+            <td>Moderado / diversificado</td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-globe text-gold" style="margin-right:6px;"></i>BDR / Stocks EUA</td>
+            <td class="rendimento">Variável + câmbio</td>
+            <td><span class="tag-risk risk-alto">Alto</span></td>
+            <td><span class="tag-liq">D+2</span></td>
+            <td><span class="check-no">✕</span> 15% + IOF</td>
+            <td><span class="check-no">✕</span> Não</td>
+            <td>Proteção cambial</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="text-align:center;font-size:0.78rem;color:var(--text-faint);margin-top:var(--space-4);">
+      <i class="fa-solid fa-circle-info" style="margin-right:4px;"></i>
+      Rentabilidades aproximadas com base em dados históricos. Não constituem recomendação de investimento. FGC cobre até R$ 250 mil por CPF por instituição.
+    </p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     LINHA DO TEMPO
+     ============================================ -->
+<section id="jornada" class="timeline-section">
+  <div class="section-inner">
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-tag"><i class="fa-solid fa-route"></i> Jornada</div>
+      <h2 class="section-title">Do endividado ao investidor</h2>
+      <p class="section-desc">A jornada financeira que milhares de famílias já percorreram — passo a passo, sem pressa e sem truques.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item" data-aos="fade-right">
+        <div class="tl-content">
+          <div class="tl-step">Passo 01</div>
+          <h4>Diagnóstico Financeiro</h4>
+          <p>Entender onde você está hoje: mapear todas as dívidas, gastos e receitas. Sem se enganar, sem esconder. O ponto de partida honesto é o início de tudo.</p>
+        </div>
+        <div class="tl-dot" style="background:linear-gradient(135deg,#EF4444,#B91C1C);">🔍</div>
+        <div class="tl-spacer"></div>
+      </div>
+
+      <div class="tl-item" data-aos="fade-left">
+        <div class="tl-spacer"></div>
+        <div class="tl-dot" style="background:linear-gradient(135deg,#F97316,#C2410C);">💡</div>
+        <div class="tl-content">
+          <div class="tl-step">Passo 02</div>
+          <h4>Controle do Orçamento</h4>
+          <p>Criar um orçamento familiar realista usando a calculadora de orçamento. Categorie cada gasto e identifique onde o dinheiro está "vazando" todo mês.</p>
+        </div>
+      </div>
+
+      <div class="tl-item" data-aos="fade-right">
+        <div class="tl-content">
+          <div class="tl-step">Passo 03</div>
+          <h4>Quitação das Dívidas</h4>
+          <p>Priorizar o pagamento de dívidas com juros altos (cartão, cheque especial). Use o método bola de neve ou avalanche para eliminar os juros que destroem seu patrimônio.</p>
+        </div>
+        <div class="tl-dot" style="background:linear-gradient(135deg,#EAB308,#A16207);">⚔️</div>
+        <div class="tl-spacer"></div>
+      </div>
+
+      <div class="tl-item" data-aos="fade-left">
+        <div class="tl-spacer"></div>
+        <div class="tl-dot" style="background:linear-gradient(135deg,#0EA5E9,#0369A1);">🛡️</div>
+        <div class="tl-content">
+          <div class="tl-step">Passo 04</div>
+          <h4>Reserva de Emergência</h4>
+          <p>Acumular de 3 a 12 salários mensais em investimentos de alta liquidez (Tesouro Selic, CDB D+0). Essa reserva é o seguro que protege tudo o que você vai construir.</p>
+        </div>
+      </div>
+
+      <div class="tl-item" data-aos="fade-right">
+        <div class="tl-content">
+          <div class="tl-step">Passo 05</div>
+          <h4>Primeiros Investimentos</h4>
+          <p>Com a reserva formada, começar a investir de forma consistente. Renda fixa primeiro, depois diversificar gradualmente conforme o conhecimento cresce.</p>
+        </div>
+        <div class="tl-dot" style="background:linear-gradient(135deg,#0D7C3E,#064E24);">🌱</div>
+        <div class="tl-spacer"></div>
+      </div>
+
+      <div class="tl-item" data-aos="fade-left">
+        <div class="tl-spacer"></div>
+        <div class="tl-dot" style="background:linear-gradient(135deg,#7C3AED,#4C1D95);">📊</div>
+        <div class="tl-content">
+          <div class="tl-step">Passo 06</div>
+          <h4>Diversificação da Carteira</h4>
+          <p>Expandir para renda variável: ações de dividendos, FIIs, ETFs. Montar uma carteira equilibrada com múltiplas classes de ativos para reduzir riscos e aumentar retornos.</p>
+        </div>
+      </div>
+
+      <div class="tl-item" data-aos="fade-right">
+        <div class="tl-content">
+          <div class="tl-step">Passo 07</div>
+          <h4>Liberdade Financeira</h4>
+          <p>Quando a renda passiva dos seus investimentos supera seus gastos mensais, você atingiu a liberdade financeira. Não precisa ser milionário — precisa ser consistente.</p>
+        </div>
+        <div class="tl-dot" style="background:linear-gradient(135deg,var(--gold),var(--gold-dark));">🏆</div>
+        <div class="tl-spacer"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     FAQ ACCORDION
+     ============================================ -->
+<section id="faq" class="faq-section">
+  <div class="section-inner">
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-tag"><i class="fa-solid fa-circle-question"></i> FAQ</div>
+      <h2 class="section-title">Perguntas Frequentes</h2>
+      <p class="section-desc">Respondemos as dúvidas mais comuns sobre finanças pessoais e investimentos.</p>
+    </div>
+
+    <div class="faq-container" data-aos="fade-up" data-aos-delay="80">
+      <div class="faq-cats">
+        <button class="faq-cat-btn active" onclick="filterFaq('todos', this)">Todos</button>
+        <button class="faq-cat-btn" onclick="filterFaq('basico', this)">Básico</button>
+        <button class="faq-cat-btn" onclick="filterFaq('investimentos', this)">Investimentos</button>
+        <button class="faq-cat-btn" onclick="filterFaq('cripto', this)">Cripto</button>
+        <button class="faq-cat-btn" onclick="filterFaq('ebooks', this)">E-books</button>
+      </div>
+
+      <!-- FAQ Items -->
+      <div class="faq-item" data-cat="basico">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Por onde devo começar para organizar minhas finanças?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          O primeiro passo é fazer um diagnóstico completo das suas finanças: liste todas as suas receitas, todos os seus gastos fixos e variáveis, e todas as suas dívidas. Use nossa calculadora de orçamento familiar para visualizar sua situação atual. Depois, baixe o e-book "7 Passos para sua Vida Financeira" — ele vai te guiar exatamente por esse processo.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="basico">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Quanto preciso ter para começar a investir?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          Você pode começar com apenas R$ 30 no Tesouro Direto, ou com R$ 1 em alguns CDBs digitais (como os do Nubank, Inter ou C6 Bank). O mais importante não é o valor, mas a consistência. Investir R$ 100 por mês durante 30 anos pode gerar um patrimônio de mais de R$ 340.000 com juros compostos a 1% ao mês.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="basico">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Poupança ainda vale a pena?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          Para a reserva de emergência, a poupança é uma opção segura e com liquidez imediata (você saca quando quiser). Porém, o rendimento dela é bem abaixo de alternativas como o Tesouro Selic e CDBs de liquidez diária — que rendem mais e têm a mesma facilidade de resgate. Recomendamos migrar da poupança para essas opções assim que possível.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="basico">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Como sair das dívidas mais rápido?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          Existem dois métodos comprovados: <strong style="color:var(--gold);">Bola de neve</strong> — pague primeiro as menores dívidas para ganhar motivação e liberar renda progressivamente; <strong style="color:var(--gold);">Avalanche</strong> — pague primeiro as dívidas com maior taxa de juros (cartão de crédito, cheque especial) para economizar mais no total. Independente do método, negocie sempre as dívidas — é possível conseguir descontos de até 90% no valor total.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="basico">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Qual é a regra de ouro do orçamento familiar?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          A regra mais popular é a 50-30-20: <strong style="color:var(--gold);">50%</strong> da renda para necessidades (moradia, alimentação, transporte, saúde); <strong style="color:var(--gold);">30%</strong> para desejos (lazer, restaurante, roupas); e <strong style="color:var(--gold);">20%</strong> para investimentos e reservas. Se tiver dívidas, redirecione parte dos 30% para pagá-las primeiro.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="investimentos">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Qual a diferença entre CDB, LCI e LCA?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          <strong style="color:var(--gold);">CDB</strong> (Certificado de Depósito Bancário): emitido por bancos, tem Imposto de Renda sobre os rendimentos (tabela regressiva de 22,5% até 15%). <strong style="color:var(--gold);">LCI</strong> (Letra de Crédito Imobiliário) e <strong style="color:var(--gold);">LCA</strong> (Letra de Crédito do Agronegócio): vinculadas a setores específicos, são <strong>isentas de IR para pessoa física</strong>. Os três têm cobertura do FGC até R$ 250 mil por CPF por instituição. LCI e LCA costumam ter prazo mínimo de carência, então avalie sua liquidez antes de investir.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="investimentos">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          O que são FIIs e por que são populares?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          Fundos de Investimento Imobiliário (FIIs) são fundos negociados em bolsa que investem em imóveis reais (shoppings, lajes corporativas, galpões logísticos, hospitais). Você compra cotas a partir de R$ 10–100 e recebe renda passiva mensalmente, proporcional à quantidade de cotas. A distribuição de dividendos é isenta de IR para pessoa física. É como "alugar imóveis" sem precisar comprar um apartamento inteiro.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="investimentos">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Devo investir em ações ou em renda fixa?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          Não é uma escolha, é uma combinação estratégica. Comece pela renda fixa (reserva de emergência + objetivos de curto prazo) e, conforme aumenta o conhecimento e o prazo do investimento, adicione renda variável (ações, FIIs, ETFs) para potencializar os ganhos. Uma carteira equilibrada para perfil moderado pode ser: 60% renda fixa + 40% renda variável. Use nossa ferramenta de <a href="#perfil">Perfil de Investidor</a> para descobrir a proporção ideal para você.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="investimentos">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          O que é o FGC e como ele me protege?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          O Fundo Garantidor de Créditos (FGC) é uma entidade privada que protege depositantes e investidores em caso de falência de instituições financeiras. Ele garante até <strong style="color:var(--gold);">R$ 250.000 por CPF por instituição</strong> (e até R$ 1 milhão no total a cada 4 anos). Investimentos cobertos: conta corrente, poupança, CDB, LCI, LCA e LC. Ações, fundos de investimento e Tesouro Direto NÃO têm cobertura do FGC — mas o Tesouro Direto é garantido pelo Governo Federal.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="investimentos">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          O que é o Tesouro IPCA+ e para que serve?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          O Tesouro IPCA+ é um título público que rende a variação da inflação (IPCA) + uma taxa prefixada (ex: IPCA + 6,5% ao ano). Ele <strong style="color:var(--gold);">garante que seu dinheiro sempre vai ganhar da inflação</strong>, protegendo o poder de compra. É ideal para objetivos de longo prazo (aposentadoria, educação dos filhos) com prazo de 5, 10 ou até 35 anos. Atenção: se você precisar resgatar antes do vencimento, o preço pode variar (risco de mercado).
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="cripto">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          É seguro investir em criptomoedas?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          Criptomoedas são ativos de alta volatilidade e alto risco. Bitcoin e Ethereum são as mais consolidadas e líquidas. Para investir com segurança: 1) nunca invista mais do que pode perder (limite de 5–10% da carteira para iniciantes); 2) use exchanges reguladas e reconhecidas; 3) ative autenticação em dois fatores; 4) considere uma carteira fria (hardware wallet) para valores maiores. Baixe nosso e-book gratuito sobre criptomoedas para se aprofundar.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="cripto">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Preciso declarar criptomoedas no Imposto de Renda?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          Sim. A Receita Federal exige a declaração de criptoativos. Regras principais: saldo acima de R$ 5.000 deve ser declarado na ficha de "Bens e Direitos"; ganhos acima de R$ 35.000 em vendas no mesmo mês são tributados em 15% sobre o lucro; vendas abaixo de R$ 35.000 por mês são isentas. A Receita recebe informações das exchanges brasileiras, então declare corretamente para evitar problemas.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="cripto">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          O que é DeFi e como funciona?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          DeFi (Finanças Descentralizadas) são protocolos financeiros que funcionam em blockchains sem intermediários (bancos, corretoras). Você pode emprestar, tomar emprestado, fazer staking ou fornecer liquidez — tudo de forma autônoma via contratos inteligentes. Os riscos são maiores que a cripto convencional: bugs em contratos, hacks, riscos de liquidez. Recomendamos o e-book "Cripto Avançado Vol. 2" para quem quer se aprofundar em DeFi.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="cripto">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Qual a diferença entre Bitcoin e altcoins?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          Bitcoin (BTC) é a primeira e mais conhecida criptomoeda, com maior capitalização de mercado e liquidez. É considerada a "reserva de valor" do mercado cripto — mais estável que outras. Altcoins são todas as demais criptomoedas (Ethereum, Solana, BNB, etc.), cada uma com proposta diferente. Ethereum é a plataforma de contratos inteligentes mais usada. Altcoins têm maior potencial de ganho E maior risco de perda total. Para iniciantes: comece pelo Bitcoin antes de explorar altcoins.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="ebooks">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Os e-books realmente são gratuitos? Tem alguma pegadinha?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          Sim, 100% gratuitos, sem cadastro obrigatório para baixar, sem cartão de crédito, sem período de teste. Clique no botão de download e o arquivo PDF vai direto para o seu dispositivo. Nossa missão é democratizar a educação financeira no Brasil — o conteúdo gratuito é a forma que encontramos de impactar o maior número de famílias possível.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="ebooks">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Por qual e-book devo começar?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          Depende da sua situação atual: <strong style="color:var(--gold);">Se está com dívidas</strong> → comece por "7 Passos para sua Vida Financeira" e "Organize suas Finanças"; <strong style="color:var(--gold);">Se está bem financeiramente mas não investe</strong> → comece por "Investimentos para Iniciantes" e "Renda Fixa Intermediária"; <strong style="color:var(--gold);">Se já investe e quer expandir</strong> → leia "Cripto Avançado Vol.2" e "Estratégias Avançadas". Use também o <a href="#perfil">Perfil de Investidor</a> para receber uma recomendação personalizada.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="basico">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Como funciona a consultoria gratuita?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          Após o cadastro no site, você pode solicitar uma sessão gratuita de 30 minutos via WhatsApp ou chat. Na consultoria, analisamos sua situação financeira atual, identificamos as principais oportunidades de melhoria e indicamos um plano de ação personalizado. Não vendemos produtos financeiros — nossa orientação é 100% independente e educativa.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="investimentos">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Qual a melhor corretora para começar a investir?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          Para iniciantes, recomendamos corretoras com plataforma simples e sem taxa de corretagem: <strong style="color:var(--gold);">XP Investimentos</strong>, <strong style="color:var(--gold);">Rico</strong>, <strong style="color:var(--gold);">Clear</strong> (ações sem corretagem) e <strong style="color:var(--gold);">NuInvest</strong>. Para Tesouro Direto, você pode comprar diretamente pelo <a href="https://www.tesourodireto.com.br" target="_blank">site oficial do Tesouro</a> com taxa zero. O mais importante é a variedade de produtos e a qualidade do suporte.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="basico">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Como proteger minha família financeiramente?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          A proteção financeira familiar envolve quatro pilares: <strong style="color:var(--gold);">1. Reserva de emergência</strong> — de 3 a 12 meses de despesas; <strong style="color:var(--gold);">2. Seguro de vida</strong> — especialmente para quem tem dependentes; <strong style="color:var(--gold);">3. Plano de saúde</strong> — evita comprometer a reserva com emergências médicas; <strong style="color:var(--gold);">4. Diversificação dos investimentos</strong> — nunca colocar tudo em um único ativo ou instituição. Com esses quatro pilares, sua família estará protegida em diferentes cenários.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="investimentos">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Preciso de muito dinheiro para investir no exterior?
+          <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+        <div class="faq-a">
+          Não. Hoje você pode investir no mercado americano a partir de R$ 30 via BDRs (Brazilian Depositary Receipts) na B3, ou via ETFs internacionais como o IVVB11 (que replica o S&P 500). Alternativas: abrir conta em corretoras internacionais como Avenue ou Stake — com apenas US$ 1 você já compra frações de ações americanas. Essa diversificação cambial protege seu patrimônio de desvalorizações do Real.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     BLOG / ARTIGOS
+     ============================================ -->
+<section id="blog" class="blog-section">
+  <div class="section-inner">
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-tag"><i class="fa-solid fa-newspaper"></i> Conteúdo</div>
+      <h2 class="section-title">Artigos e Dicas</h2>
+      <p class="section-desc">Conteúdo educativo atualizado para você tomar decisões financeiras melhores todos os dias.</p>
+    </div>
+
+    <div class="blog-grid">
+      <div class="blog-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="blog-card-cover" style="background:linear-gradient(135deg,#064E24,#0D7C3E);">💰</div>
+        <div class="blog-card-body">
+          <span class="blog-tag" style="background:rgba(13,124,62,0.12);color:var(--primary-light);border:1px solid rgba(13,124,62,0.25);"><i class="fa-solid fa-circle"></i> Iniciante</span>
+          <h3>Como montar sua reserva de emergência do zero em 6 meses</h3>
+          <p>O segredo não é quanto você ganha, mas quanto você consegue guardar todo mês de forma consistente. Veja o passo a passo.</p>
+          <div class="blog-meta">
+            <span class="read-time"><i class="fa-regular fa-clock"></i> 5 min de leitura</span>
+            <span>Mar 2026</span>
+          </div>
+          <a href="#ebooks" class="blog-read-btn">Ler artigo <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="blog-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="blog-card-cover" style="background:linear-gradient(135deg,#1a1a2e,#DAA545);">📊</div>
+        <div class="blog-card-body">
+          <span class="blog-tag" style="background:rgba(218,165,69,0.1);color:var(--gold);border:1px solid rgba(218,165,69,0.25);"><i class="fa-solid fa-circle"></i> Intermediário</span>
+          <h3>FIIs em 2026: os melhores fundos imobiliários para renda passiva</h3>
+          <p>Análise dos FIIs com melhor dividend yield do mercado e como montar uma carteira diversificada para gerar renda mensal.</p>
+          <div class="blog-meta">
+            <span class="read-time"><i class="fa-regular fa-clock"></i> 8 min de leitura</span>
+            <span>Abr 2026</span>
+          </div>
+          <a href="#ebooks" class="blog-read-btn">Ler artigo <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="blog-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="blog-card-cover" style="background:linear-gradient(135deg,#0F1629,#F7931A);">₿</div>
+        <div class="blog-card-body">
+          <span class="blog-tag" style="background:rgba(247,147,26,0.1);color:#F7931A;border:1px solid rgba(247,147,26,0.25);"><i class="fa-solid fa-circle"></i> Avançado</span>
+          <h3>Bitcoin como reserva de valor: o que os dados históricos mostram</h3>
+          <p>Análise do desempenho do Bitcoin em diferentes ciclos econômicos e como posicioná-lo de forma estratégica no portfólio.</p>
+          <div class="blog-meta">
+            <span class="read-time"><i class="fa-regular fa-clock"></i> 10 min de leitura</span>
+            <span>Abr 2026</span>
+          </div>
+          <a href="#ebooks" class="blog-read-btn">Ler artigo <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="blog-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="blog-card-cover" style="background:linear-gradient(135deg,#1a0a2e,#7C3AED);">🎯</div>
+        <div class="blog-card-body">
+          <span class="blog-tag" style="background:rgba(124,58,237,0.1);color:#A78BFA;border:1px solid rgba(124,58,237,0.2);"><i class="fa-solid fa-circle"></i> Planejamento</span>
+          <h3>Regra dos 50-30-20: como usar esse método e transformar seu orçamento</h3>
+          <p>O método mais popular de gestão financeira pessoal explicado de forma prática, com exemplos reais e adaptações para a realidade brasileira.</p>
+          <div class="blog-meta">
+            <span class="read-time"><i class="fa-regular fa-clock"></i> 6 min de leitura</span>
+            <span>Mar 2026</span>
+          </div>
+          <a href="#calculadora" class="blog-read-btn">Ler artigo <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="blog-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="blog-card-cover" style="background:linear-gradient(135deg,#0a1a2e,#0EA5E9);">🌎</div>
+        <div class="blog-card-body">
+          <span class="blog-tag" style="background:rgba(14,165,233,0.1);color:#38BDF8;border:1px solid rgba(14,165,233,0.2);"><i class="fa-solid fa-circle"></i> Internacional</span>
+          <h3>Investir no exterior em 2026: BDRs, ETFs globais e corretoras</h3>
+          <p>Guia completo para diversificar internacionalmente sem sair do Brasil, com dólar, S&P 500 e as maiores empresas do mundo ao seu alcance.</p>
+          <div class="blog-meta">
+            <span class="read-time"><i class="fa-regular fa-clock"></i> 7 min de leitura</span>
+            <span>Abr 2026</span>
+          </div>
+          <a href="#ebooks" class="blog-read-btn">Ler artigo <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="blog-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="blog-card-cover" style="background:linear-gradient(135deg,#0a1a0a,#22C55E);">🧾</div>
+        <div class="blog-card-body">
+          <span class="blog-tag" style="background:rgba(34,197,94,0.1);color:#22C55E;border:1px solid rgba(34,197,94,0.2);"><i class="fa-solid fa-circle"></i> Imposto de Renda</span>
+          <h3>Imposto de Renda sobre investimentos: tudo que você precisa saber</h3>
+          <p>Tabela regressiva de IR, isenções, como calcular o DARF e quais investimentos são livres de imposto para pessoa física.</p>
+          <div class="blog-meta">
+            <span class="read-time"><i class="fa-regular fa-clock"></i> 9 min de leitura</span>
+            <span>Mar 2026</span>
+          </div>
+          <a href="#ebooks" class="blog-read-btn">Ler artigo <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <svg class="logo-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="10" fill="#0D7C3E" fill-opacity="0.15"/>
+            <path d="M8 28 L14 18 L20 22 L26 14 L32 10" stroke="#DAA545" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="32" cy="10" r="3" fill="#DAA545"/>
+            <path d="M8 34 H32" stroke="#0D7C3E" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <div class="logo-text">
+            Família em Rumo <span>Educação Financeira</span>
+          </div>
+        </a>
+        <p>Democratizando o acesso à educação financeira de qualidade para famílias de todo o Brasil.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://wa.me/5521970938600" class="social-btn" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="social-btn" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Conteúdo</h4>
+        <ul>
+          <li><a href="#ebooks">E-books Grátis</a></li>
+          <li><a href="#calculadora">Calculadora</a></li>
+          <li><a href="#perfil">Perfil Investidor</a></li>
+          <li><a href="#depoimentos">Depoimentos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Investimentos</h4>
+        <ul>
+          <li><a href="#investimentos">Renda Fixa</a></li>
+          <li><a href="#investimentos">Ações</a></li>
+          <li><a href="#investimentos">Criptomoedas</a></li>
+          <li><a href="#investimentos">FIIs & ETFs</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="#cadastro">Cadastre-se</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#cadastro">Consultoria</a></li>
+        </ul>
+        <a href="https://wa.me/5521970938600?text=Ol%C3%A1!%20Vim%20pelo%20site%20Fam%C3%ADlia%20em%20Rumo%20Financeiro%20e%20gostaria%20de%20saber%20mais!" target="_blank" class="footer-whatsapp-btn">
+          <i class="fa-brands fa-whatsapp"></i> Falar no WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Família em Rumo Financeiro. Todos os direitos reservados.</p>
+      <div class="footer-seals">
+        <div class="seal"><i class="fa-solid fa-lock"></i> Site Seguro</div>
+        <div class="seal"><i class="fa-solid fa-shield-halved"></i> 100% Gratuito</div>
+        <div class="seal"><i class="fa-solid fa-check-circle"></i> Conteúdo Verificado</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp flutuante removido — contato disponível no footer -->
+
+<!-- ============================================
+     AOS
+     ============================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/69dc33024c323a1c74f428a0/1jm22egi4';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
 </script>
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<!--End of Tawk.to Script-->
+
+<!-- ============================================
+     MAIN SCRIPTS
+     ============================================ -->
+<script>
+"use strict";
+
+/* ============================================
+   AOS Init
+   ============================================ */
+AOS.init({
+  duration: 650,
+  easing: 'ease-out-cubic',
+  once: true,
+  offset: 60
+});
+
+/* ============================================
+   SCROLL PROGRESS BAR
+   ============================================ */
+(function () {
+  const bar = document.getElementById('progress-bar');
+  function updateBar() {
+    const scrollTop = window.scrollY;
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docH > 0 ? (scrollTop / docH) * 100 : 0;
+    bar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateBar, { passive: true });
+  updateBar();
+})();
+
+/* ============================================
+   HEADER SCROLL STATE
+   ============================================ */
+(function () {
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+})();
+
+/* ============================================
+   HAMBURGER MENU
+   ============================================ */
+(function () {
+  const toggle = document.getElementById('nav-toggle');
+  const links = document.getElementById('nav-links');
+  toggle.addEventListener('click', () => {
+    const isOpen = links.classList.toggle('open');
+    toggle.classList.toggle('active', isOpen);
+    toggle.setAttribute('aria-expanded', isOpen);
+  });
+  // Close on link click
+  links.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      links.classList.remove('open');
+      toggle.classList.remove('active');
+      toggle.setAttribute('aria-expanded', false);
+    });
+  });
+})();
+
+/* ============================================
+   ACTIVE NAV LINKS
+   ============================================ */
+(function () {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const match = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => observer.observe(s));
+})();
+
+/* ============================================
+   COUNTER ANIMATION
+   ============================================ */
+(function () {
+  const counters = document.querySelectorAll('[data-count]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCount(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(el => observer.observe(el));
+
+  function animateCount(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || (target >= 100 ? '' : (target === 98 ? '%' : '+'));
+    const duration = 1600;
+    const start = performance.now();
+    function frame(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 4);
+      const current = Math.floor(ease * target);
+      el.textContent = current.toLocaleString('pt-BR') + (progress < 1 ? '' : (target === 98 ? '%' : (target >= 100 ? '+' : '+')));
+      if (progress < 1) requestAnimationFrame(frame);
+      else el.textContent = target.toLocaleString('pt-BR') + (target === 98 ? '%' : '+');
+    }
+    requestAnimationFrame(frame);
+  }
+})();
+
+/* ============================================
+   CALCULADORA
+   ============================================ */
+let orcamentoChartInstance = null;
+
+function formatBRL(val) {
+  return 'R$ ' + val.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function calcularOrcamento() {
+  const renda       = parseFloat(document.getElementById('renda').value) || 0;
+  const moradia     = parseFloat(document.getElementById('moradia').value) || 0;
+  const alimentacao = parseFloat(document.getElementById('alimentacao').value) || 0;
+  const transporte  = parseFloat(document.getElementById('transporte').value) || 0;
+  const educacao    = parseFloat(document.getElementById('educacao').value) || 0;
+  const saude       = parseFloat(document.getElementById('saude').value) || 0;
+  const lazer       = parseFloat(document.getElementById('lazer').value) || 0;
+  const outros      = parseFloat(document.getElementById('outros').value) || 0;
+
+  if (renda <= 0) { alert('Por favor, informe sua renda mensal.'); return; }
+
+  const despesas = moradia + alimentacao + transporte + educacao + saude + lazer + outros;
+  const saldo    = renda - despesas;
+  const invest   = renda * 0.2;
+  const pct      = Math.min((despesas / renda) * 100, 100);
+
+  document.getElementById('res-renda').textContent = formatBRL(renda);
+  document.getElementById('res-despesas').textContent = formatBRL(despesas);
+  document.getElementById('res-saldo').textContent = formatBRL(saldo);
+  document.getElementById('res-saldo').style.color = saldo >= 0 ? 'var(--gold)' : 'var(--danger)';
+  document.getElementById('res-invest').textContent = formatBRL(invest);
+  document.getElementById('pct-label').textContent = pct.toFixed(1) + '%';
+  document.getElementById('chart-pct').textContent = pct.toFixed(0) + '%';
+
+  // Animate progress bar
+  setTimeout(() => {
+    document.getElementById('gasto-bar').style.width = pct + '%';
+    document.getElementById('gasto-bar').style.background =
+      pct > 90 ? 'linear-gradient(90deg,var(--danger),#ff6b6b)' :
+      pct > 70 ? 'linear-gradient(90deg,var(--gold),var(--danger))' :
+                 'linear-gradient(90deg,var(--primary),var(--gold))';
+  }, 100);
+
+  // Show results
+  document.getElementById('calc-empty').style.display = 'none';
+  document.getElementById('calc-results').style.display = 'block';
+
+  // Chart
+  const livre = Math.max(saldo, 0);
+  const overBudget = Math.max(despesas - renda, 0);
+  const chartData = overBudget > 0
+    ? [renda, 0, overBudget]
+    : [despesas, livre, 0];
+  const chartColors = ['#EF4444', '#22C55E', '#FF8C00'];
+  const chartLabels = ['Despesas', 'Saldo livre', 'Excesso'];
+
+  if (orcamentoChartInstance) orcamentoChartInstance.destroy();
+
+  const ctx = document.getElementById('orcamentoChart').getContext('2d');
+  orcamentoChartInstance = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: chartLabels,
+      datasets: [{
+        data: overBudget > 0 ? [renda, 0, overBudget] : [despesas, livre, 0],
+        backgroundColor: chartColors,
+        borderColor: '#111827',
+        borderWidth: 3,
+        hoverOffset: 6
+      }]
+    },
+    options: {
+      cutout: '72%',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ' ' + formatBRL(ctx.parsed)
+          }
+        }
+      },
+      animation: { animateRotate: true, duration: 800 }
+    }
+  });
+}
+
+/* ============================================
+   PERFIL DE INVESTIDOR
+   ============================================ */
+let perfilRespostas = {};
+let currentPerfilCard = 1;
+
+function selectPerfil(el, questao, perfil) {
+  const parent = el.parentElement;
+  parent.querySelectorAll('.perfil-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  perfilRespostas[questao] = perfil;
+
+  // Auto-advance after short delay
+  setTimeout(() => {
+    if (questao < 3) {
+      document.getElementById('p-card-' + questao).style.display = 'none';
+      document.getElementById('p-card-' + (questao + 1)).style.display = 'block';
+      currentPerfilCard = questao + 1;
+      updatePerfilProgress(questao + 1);
+    }
+  }, 350);
+}
+
+function updatePerfilProgress(step) {
+  for (let i = 1; i <= 3; i++) {
+    const dot = document.getElementById('dot-' + i);
+    if (i < step) { dot.classList.add('done'); dot.classList.remove('active'); }
+    else if (i === step) { dot.classList.add('active'); dot.classList.remove('done'); }
+    else { dot.classList.remove('active', 'done'); }
+  }
+  document.getElementById('perfil-progress-txt').textContent = 'Pergunta ' + Math.min(step, 3) + ' de 3';
+}
+
+function calcularPerfil() {
+  if (Object.keys(perfilRespostas).length < 3) {
+    alert('Por favor, responda todas as 3 perguntas!');
+    return;
+  }
+
+  const vals = Object.values(perfilRespostas);
+  const cons = vals.filter(v => v === 'conservador').length;
+  const arrojado = vals.filter(v => v === 'arrojado').length;
+
+  let badge, title, desc, recom;
+
+  if (cons >= 2) {
+    badge = '🛡️ Conservador';
+    title = 'Perfil Conservador';
+    desc = 'Você prioriza a segurança do capital acima de tudo. Invista em produtos de baixo risco com rendimento previsível. Ótimo para quem está começando ou tem objetivos de curto prazo.';
+    recom = ['Tesouro Selic', 'CDB de banco grande', 'LCI / LCA', 'Poupança inteligente'];
+  } else if (arrojado >= 2) {
+    badge = '🚀 Arrojado';
+    title = 'Perfil Arrojado';
+    desc = 'Você busca rentabilidade máxima e tem tolerância ao risco. Pode explorar ativos de maior volatilidade com potencial de retorno superior no longo prazo.';
+    recom = ['Ações (small caps)', 'Criptomoedas', 'FIIs', 'ETFs internacionais', 'Stocks EUA'];
+  } else {
+    badge = '⚖️ Moderado';
+    title = 'Perfil Moderado';
+    desc = 'Você busca equilíbrio entre segurança e rentabilidade. Uma carteira mista é ideal — parte em renda fixa para proteção e parte em renda variável para crescimento.';
+    recom = ['Tesouro IPCA+', 'CDB 2+ anos', 'FIIs de tijolo', 'ETFs (BOVA11)', 'Ações de dividendos'];
+  }
+
+  document.getElementById('pr-badge').textContent = badge;
+  document.getElementById('pr-title').textContent = title;
+  document.getElementById('pr-desc').textContent = desc;
+
+  const recomList = document.getElementById('pr-recom');
+  recomList.innerHTML = recom.map(r => `<span class="recom-tag">${r}</span>`).join('');
+
+  // Hide cards, show result
+  ['p-card-1','p-card-2','p-card-3'].forEach(id => document.getElementById(id).style.display = 'none');
+  document.getElementById('perfil-btn').style.display = 'none';
+  const resultEl = document.getElementById('perfil-result');
+  resultEl.style.display = 'block';
+  resultEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+/* ============================================
+   DEPOIMENTOS SLIDER
+   ============================================ */
+(function () {
+  const track = document.getElementById('depo-track');
+  const controls = document.getElementById('depo-controls');
+  if (!track) return;
+
+  const cards = track.querySelectorAll('.depo-card');
+  let current = 0;
+  let autoSlide;
+
+  // Create dots
+  cards.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'depo-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => { goTo(i); resetAuto(); });
+    controls.appendChild(dot);
+  });
+
+  function goTo(idx) {
+    current = idx;
+    const cardW = cards[0].getBoundingClientRect().width + 24; // gap
+    track.style.transform = `translateX(-${idx * cardW}px)`;
+    controls.querySelectorAll('.depo-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === idx);
+    });
+  }
+
+  function resetAuto() {
+    clearInterval(autoSlide);
+    autoSlide = setInterval(() => {
+      current = (current + 1) % cards.length;
+      goTo(current);
+    }, 4500);
+  }
+
+  resetAuto();
+  window.addEventListener('resize', () => goTo(current));
+})();
+
+/* ============================================
+   FORMULÁRIO COM VALIDAÇÃO
+   ============================================ */
+function validateField(id, fbId, validator, msg) {
+  const input = document.getElementById(id);
+  const fb    = document.getElementById(fbId);
+  const val   = input.value.trim();
+  if (!validator(val)) {
+    input.classList.add('error'); input.classList.remove('success');
+    fb.textContent = msg; fb.className = 'form-feedback error';
+    return false;
+  }
+  input.classList.remove('error'); input.classList.add('success');
+  fb.textContent = ''; fb.className = 'form-feedback';
+  return true;
+}
+
+// Real-time validation
+['f-nome','f-email','f-whatsapp'].forEach(id => {
+  document.getElementById(id)?.addEventListener('blur', () => {
+    if (id === 'f-nome')     validateField('f-nome', 'fb-nome', v => v.length >= 3, 'Nome deve ter ao menos 3 caracteres.');
+    if (id === 'f-email')    validateField('f-email', 'fb-email', v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), 'E-mail inválido.');
+    if (id === 'f-whatsapp') validateField('f-whatsapp', 'fb-whatsapp', v => /\d{10,11}/.test(v.replace(/\D/g,'')), 'WhatsApp inválido. Use DDD + número.');
+  });
+});
+
+// WhatsApp mask
+document.getElementById('f-whatsapp')?.addEventListener('input', function() {
+  let v = this.value.replace(/\D/g,'');
+  if (v.length > 11) v = v.slice(0,11);
+  if (v.length > 7) v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+  else if (v.length > 2) v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+  else if (v.length > 0) v = '(' + v;
+  this.value = v;
+});
+
+/* ============================================
+   GOOGLE SHEETS — URL do Apps Script
+   Substitua APPS_SCRIPT_URL pela URL gerada no seu Apps Script
+   ============================================ */
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzGefsqtVpqJmpFiwsCe9Hd5hmJnE1aScyHggUeUKTy9AhBHGZOzGzxuEHSotvQf4mtMQ/exec';
+
+function enviarCadastro(event) {
+  event.preventDefault();
+  const v1 = validateField('f-nome', 'fb-nome', v => v.length >= 3, 'Nome deve ter ao menos 3 caracteres.');
+  const v2 = validateField('f-email', 'fb-email', v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), 'E-mail inválido.');
+  const v3 = validateField('f-whatsapp', 'fb-whatsapp', v => /\d{10,11}/.test(v.replace(/\D/g,'')), 'WhatsApp inválido.');
+  if (!v1 || !v2 || !v3) return;
+
+  const btn = document.querySelector('.form-submit');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
+
+  const nome      = document.getElementById('f-nome').value.trim();
+  const email     = document.getElementById('f-email').value.trim();
+  const whatsapp  = document.getElementById('f-whatsapp').value.trim();
+  const interesse = document.getElementById('f-interesse').value || 'Não informado';
+
+  // Analytics event
+  if (typeof gtag !== 'undefined') gtag('event', 'lead', { event_category: 'form', event_label: 'cadastro' });
+
+  // Envia para Google Sheets via Apps Script
+  const payload = new URLSearchParams({ nome, email, whatsapp, interesse });
+
+  fetch(APPS_SCRIPT_URL, { method: 'POST', body: payload })
+    .catch(() => {}) // mesmo com erro de CORS o Apps Script recebe
+    .finally(() => {
+      // Mostra tela de sucesso
+      document.getElementById('cadastro-form').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+
+      // Ativa o botão flutuante do WhatsApp com o número do usuário
+      const numLimpo = whatsapp.replace(/\D/g,'');
+      const waMsgPre = encodeURIComponent('Olá! Acabei de me cadastrar no Família em Rumo Financeiro. Meu nome é ' + nome + ' e tenho interesse em: ' + interesse + '.');
+      document.getElementById('wa-link').href = 'https://wa.me/55' + numLimpo + '?text=' + waMsgPre;
+      document.getElementById('wa-float').classList.add('visible');
+
+      // Salva em variável global para manter botão visível
+      window._waCadastrado = { nome, whatsapp: numLimpo, interesse };
+
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar Cadastro';
+    });
+}
+
+// Restaura botão WA se variável global presente (mesma sessão de página)
+window._waCadastrado = null;
+</script>
+
+<script>
+
+/* ============================================
+   TICKER DE COTAÇÕES REAIS
+   BTC/ETH: CoinGecko | USD/EUR: AwesomeAPI
+   Ouro/Petróleo: metals.live
+   Ações IBOV: dados simulados com variação realista
+   ============================================ */
+(function () {
+  const track = document.getElementById('ticker-track');
+
+  // Ativos: moedas cripto + macro + ações IBOV
+  const ativos = {
+    // --- CRIPTO ---
+    btc:    { nome: 'Bitcoin',   cor: '#F7931A', prefixo: 'R$',  val: '—',          chg: '—',      up: true  },
+    eth:    { nome: 'Ethereum',  cor: '#627EEA', prefixo: 'R$',  val: '—',          chg: '—',      up: true  },
+    // --- MOEDAS ---
+    usd:    { nome: 'Dólar',     cor: '#26A17B', prefixo: 'R$',  val: '—',          chg: '—',      up: true  },
+    eur:    { nome: 'Euro',      cor: '#0052CC', prefixo: 'R$',  val: '—',          chg: '—',      up: true  },
+    // --- COMMODITIES ---
+    gold:   { nome: 'Ouro',      cor: '#DAA545', prefixo: 'R$',  val: '—',          chg: '—',      up: true  },
+    oil:    { nome: 'Petróleo',  cor: '#8B5CF6', prefixo: 'US$', val: '—',          chg: '—',      up: false },
+    silver: { nome: 'Prata',     cor: '#94A3B8', prefixo: 'US$', val: '32,10',      chg: '+0,55%', up: true  },
+    corn:   { nome: 'Milho',     cor: '#EAB308', prefixo: 'US$', val: '4,72',       chg: '-0,30%', up: false },
+    soy:    { nome: 'Soja',      cor: '#84CC16', prefixo: 'US$', val: '11,85',      chg: '+0,40%', up: true  },
+    coffee: { nome: 'Café',      cor: '#92400E', prefixo: 'US$', val: '2,38',       chg: '+1,20%', up: true  },
+    // --- ÍNDICES GLOBAIS ---
+    ibov:   { nome: 'IBOVESPA',  cor: '#0D7C3E', prefixo: '',    val: '—',          chg: '—',      up: false },
+    spx:    { nome: 'S&P 500',   cor: '#3B82F6', prefixo: '',    val: '5.218 pts',  chg: '+0,40%', up: true  },
+    dji:    { nome: 'Dow Jones', cor: '#06B6D4', prefixo: '',    val: '38.640 pts', chg: '+0,28%', up: true  },
+    nasdaq: { nome: 'Nasdaq',    cor: '#A78BFA', prefixo: '',    val: '16.340 pts', chg: '+0,62%', up: true  },
+    russell:{ nome: 'Russell 2K',cor: '#F97316', prefixo: '',    val: '2.028 pts',  chg: '-0,15%', up: false },
+    vix:    { nome: 'VIX',       cor: '#EF4444', prefixo: '',    val: '14,8',       chg: '-2,10%', up: false },
+    dxy:    { nome: 'DXY',       cor: '#CBD5E1', prefixo: '',    val: '104,2',      chg: '+0,18%', up: true  },
+    // --- AÇÕES IBOV ---
+    petr4:  { nome: 'PETR4',     cor: '#10B981', prefixo: 'R$',  val: '38,75',      chg: '+0,82%', up: true  },
+    vale3:  { nome: 'VALE3',     cor: '#6366F1', prefixo: 'R$',  val: '62,10',      chg: '-0,45%', up: false },
+    itub4:  { nome: 'ITUB4',     cor: '#F59E0B', prefixo: 'R$',  val: '34,92',      chg: '+0,35%', up: true  },
+    bbdc4:  { nome: 'BBDC4',     cor: '#EC4899', prefixo: 'R$',  val: '15,28',      chg: '-0,26%', up: false },
+    bbas3:  { nome: 'BBAS3',     cor: '#14B8A6', prefixo: 'R$',  val: '26,45',      chg: '+0,57%', up: true  },
+    wege3:  { nome: 'WEGE3',     cor: '#F97316', prefixo: 'R$',  val: '48,80',      chg: '+1,10%', up: true  },
+    abev3:  { nome: 'ABEV3',     cor: '#EAB308', prefixo: 'R$',  val: '13,02',      chg: '-0,15%', up: false },
+    mglu3:  { nome: 'MGLU3',     cor: '#3B82F6', prefixo: 'R$',  val: '2,87',       chg: '+2,14%', up: true  },
+    rent3:  { nome: 'RENT3',     cor: '#A78BFA', prefixo: 'R$',  val: '55,30',      chg: '+0,73%', up: true  },
+    suzb3:  { nome: 'SUZB3',     cor: '#34D399', prefixo: 'R$',  val: '71,15',      chg: '-0,39%', up: false },
+  };
+
+  function renderTicker() {
+    const items = Object.keys(ativos).map(k => {
+      const a = ativos[k];
+      const displayVal = a.prefixo ? a.prefixo + ' ' + a.val : a.val;
+      return `<div class="ticker-item">
+        <span class="ticker-dot" style="background:${a.cor};"></span>
+        <span class="ticker-name">${a.nome}</span>
+        <span class="ticker-value" id="tk-${k}">${displayVal}</span>
+        <span class="ticker-change ${a.up ? 'up' : 'down'}" id="tk-${k}-chg">
+          <i class="fa-solid fa-caret-${a.up ? 'up' : 'down'}"></i> ${a.chg}
+        </span>
+      </div>`;
+    }).join('');
+    track.innerHTML = items + items; // duplica para scroll infinito
+  }
+
+  function setAtivo(k, val, chg, up) {
+    if (!ativos[k]) return;
+    ativos[k].val = val;
+    ativos[k].chg = chg;
+    ativos[k].up  = up;
+    const prefixo = ativos[k].prefixo;
+    const displayVal = prefixo ? prefixo + ' ' + val : val;
+    document.querySelectorAll('#tk-' + k).forEach(el => el.textContent = displayVal);
+    document.querySelectorAll('#tk-' + k + '-chg').forEach(el => {
+      el.innerHTML = `<i class="fa-solid fa-caret-${up ? 'up' : 'down'}"></i> ${chg}`;
+      el.className = 'ticker-change ' + (up ? 'up' : 'down');
+    });
+  }
+
+  renderTicker();
+
+  // --- BTC + ETH via CoinGecko ---
+  async function fetchCripto() {
+    try {
+      const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=brl&include_24hr_change=true');
+      const d = await r.json();
+      if (d.bitcoin) {
+        const v = d.bitcoin.brl, c = d.bitcoin.brl_24h_change;
+        setAtivo('btc', v.toLocaleString('pt-BR',{maximumFractionDigits:0}), (c>=0?'+':'')+c.toFixed(2)+'%', c>=0);
+      }
+      if (d.ethereum) {
+        const v = d.ethereum.brl, c = d.ethereum.brl_24h_change;
+        setAtivo('eth', v.toLocaleString('pt-BR',{maximumFractionDigits:0}), (c>=0?'+':'')+c.toFixed(2)+'%', c>=0);
+      }
+    } catch(e) { console.warn('CoinGecko:', e); }
+  }
+
+  // --- USD + EUR via AwesomeAPI ---
+  async function fetchMoedas() {
+    try {
+      const r = await fetch('https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL');
+      const d = await r.json();
+      if (d.USDBRL) {
+        const v = parseFloat(d.USDBRL.bid), c = parseFloat(d.USDBRL.pctChange);
+        setAtivo('usd', v.toFixed(2).replace('.',','), (c>=0?'+':'')+c.toFixed(2)+'%', c>=0);
+      }
+      if (d.EURBRL) {
+        const v = parseFloat(d.EURBRL.bid), c = parseFloat(d.EURBRL.pctChange);
+        setAtivo('eur', v.toFixed(2).replace('.',','), (c>=0?'+':'')+c.toFixed(2)+'%', c>=0);
+      }
+    } catch(e) { console.warn('AwesomeAPI:', e); }
+  }
+
+  // --- Ouro + Petróleo via metals.live ---
+  async function fetchMetais() {
+    try {
+      const r = await fetch('https://api.metals.live/v1/spot/gold,oil');
+      const d = await r.json();
+      // Pega dólar atual para converter ouro
+      const usdBrl = parseFloat(
+        document.querySelector('#tk-usd')?.textContent?.replace('R$ ','')?.replace(',','.') || '5.85'
+      );
+      d.forEach(item => {
+        if (item.gold !== undefined) {
+          const brl = item.gold * usdBrl;
+          setAtivo('gold', brl.toLocaleString('pt-BR',{maximumFractionDigits:0}), '—', true);
+        }
+        if (item.oil !== undefined) {
+          setAtivo('oil', item.oil.toFixed(2), '—', item.oil > 75);
+        }
+      });
+    } catch(e) { console.warn('metals.live:', e); }
+  }
+
+  // --- IBOV + Índices globais via Yahoo Finance ---
+  async function fetchYahoo(symbol, ativoKey, formatter) {
+    try {
+      const enc = encodeURIComponent(symbol);
+      const r = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${enc}?interval=1d&range=2d`, {mode:'cors'});
+      const d = await r.json();
+      const price = d?.chart?.result?.[0]?.meta?.regularMarketPrice;
+      const prev  = d?.chart?.result?.[0]?.meta?.chartPreviousClose;
+      if (price && prev) {
+        const chg = ((price - prev) / prev) * 100;
+        const chgStr = (chg>=0?'+':'')+chg.toFixed(2)+'%';
+        setAtivo(ativoKey, formatter(price), chgStr, chg>=0);
+      }
+    } catch(e) { /* mantém valor padrão */ }
+  }
+
+  async function fetchIbov() {
+    await fetchYahoo('^BVSP', 'ibov', v => v.toLocaleString('pt-BR',{maximumFractionDigits:0}) + ' pts');
+  }
+
+  async function fetchIndicesGlobais() {
+    // Tenta Yahoo; mantém simulado se CORS bloquear
+    await fetchYahoo('^GSPC',  'spx',     v => v.toLocaleString('en-US',{maximumFractionDigits:0}) + ' pts');
+    await fetchYahoo('^DJI',   'dji',     v => v.toLocaleString('en-US',{maximumFractionDigits:0}) + ' pts');
+    await fetchYahoo('^IXIC',  'nasdaq',  v => v.toLocaleString('en-US',{maximumFractionDigits:0}) + ' pts');
+    await fetchYahoo('^RUT',   'russell', v => v.toLocaleString('en-US',{maximumFractionDigits:0}) + ' pts');
+    await fetchYahoo('^VIX',   'vix',     v => v.toFixed(1));
+    await fetchYahoo('DX-Y.NYB','dxy',   v => v.toFixed(1));
+  }
+
+  async function fetchCommodities() {
+    // Prata, Milho, Soja, Café via metals.live (o que tiver disponível)
+    try {
+      const r = await fetch('https://api.metals.live/v1/spot/silver');
+      const d = await r.json();
+      d.forEach(item => {
+        if (item.silver !== undefined) setAtivo('silver', item.silver.toFixed(2), '—', item.silver > 30);
+      });
+    } catch(e) {}
+    // Milho, Soja, Café: simulados realistas (sem API pública com CORS)
+    const variacaoCom = (Math.random() - 0.48) * 0.8;
+    const variacaoSoy = (Math.random() - 0.48) * 0.6;
+    const variacaoCof = (Math.random() - 0.45) * 1.2;
+    const novoMilho = 4.72 * (1 + variacaoCom/100);
+    const novaSoja  = 11.85 * (1 + variacaoSoy/100);
+    const novoCafe  = 2.38 * (1 + variacaoCof/100);
+    setAtivo('corn',   novoMilho.toFixed(2), (variacaoCom>=0?'+':'')+variacaoCom.toFixed(2)+'%', variacaoCom>=0);
+    setAtivo('soy',    novaSoja.toFixed(2),  (variacaoSoy>=0?'+':'')+variacaoSoy.toFixed(2)+'%', variacaoSoy>=0);
+    setAtivo('coffee', novoCafe.toFixed(2),  (variacaoCof>=0?'+':'')+variacaoCof.toFixed(2)+'%', variacaoCof>=0);
+  }
+
+  // --- Variação realista das ações a cada 20s ---
+  function simularAcoes() {
+    const acoes = ['petr4','vale3','itub4','bbdc4','bbas3','wege3','abev3','mglu3','rent3','suzb3'];
+    acoes.forEach(k => {
+      const a = ativos[k];
+      const precoAtual = parseFloat(a.val.replace(',','.'));
+      const variacao = (Math.random() - 0.48) * 0.6; // leve tendência de alta
+      const novoPreco = Math.max(0.01, precoAtual * (1 + variacao / 100));
+      const chgPct = ((novoPreco - precoAtual) / precoAtual) * 100;
+      const novoChg = (chgPct >= 0 ? '+' : '') + chgPct.toFixed(2) + '%';
+      setAtivo(k, novoPreco.toFixed(2).replace('.',','), novoChg, chgPct >= 0);
+    });
+  }
+
+  // Busca inicial
+  fetchCripto();
+  fetchMoedas();
+  fetchMetais();
+  fetchIbov();
+  fetchIndicesGlobais();
+  fetchCommodities();
+
+  // Atualiza dados reais a cada 60s
+  setInterval(() => {
+    fetchCripto();
+    fetchMoedas();
+    fetchMetais();
+    fetchIbov();
+    fetchIndicesGlobais();
+    fetchCommodities();
+  }, 60000);
+
+  // Simula variação das ações a cada 20s (visual realista)
+  setInterval(simularAcoes, 20000);
+})();
+
+/* ============================================
+   SLIDER HELPERS — Juros e Aposentadoria
+   ============================================ */
+function updateSliderLabel(sliderId, labelId, type) {
+  const slider = document.getElementById(sliderId);
+  const label  = document.getElementById(labelId);
+  if (!slider || !label) return;
+  const val = parseFloat(slider.value);
+  const min = parseFloat(slider.min);
+  const max = parseFloat(slider.max);
+  const pct = ((val - min) / (max - min)) * 100;
+  slider.style.setProperty('--val', pct + '%');
+  if (type === 'brl')    label.textContent = 'R$ ' + val.toLocaleString('pt-BR', {minimumFractionDigits: 0});
+  else if (type === 'pct') label.textContent = val.toFixed(1).replace('.', ',') + '% a.m.';
+  else if (type === 'pct-aa') label.textContent = val.toFixed(1).replace('.', ',') + '% a.a.';
+  else if (type === 'anos') label.textContent = val + (val == 1 ? ' ano' : ' anos');
+}
+
+function updateAposLabel(sliderId, labelId, type) {
+  updateSliderLabel(sliderId, labelId, type);
+}
+
+// Init slider positions
+['sl-inicial','sl-aporte','sl-taxa','sl-periodo'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const pct = ((el.value - el.min) / (el.max - el.min)) * 100;
+  el.style.setProperty('--val', pct + '%');
+});
+['sl-idade','sl-apos-idade','sl-renda-desej','sl-rent','sl-anos-apos'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const pct = ((el.value - el.min) / (el.max - el.min)) * 100;
+  el.style.setProperty('--val', pct + '%');
+});
+
+/* ============================================
+   CALCULADORA DE JUROS COMPOSTOS
+   ============================================ */
+let jurosChartInstance = null;
+
+function calcJuros() {
+  const inicial  = parseFloat(document.getElementById('sl-inicial').value)  || 0;
+  const aporte   = parseFloat(document.getElementById('sl-aporte').value)   || 0;
+  const taxaMes  = parseFloat(document.getElementById('sl-taxa').value)     / 100;
+  const anosVal  = parseInt(document.getElementById('sl-periodo').value)    || 1;
+  const meses    = anosVal * 12;
+
+  let montante = inicial;
+  const investidos = [inicial];
+  const totais     = [inicial];
+
+  let totalInvestido = inicial;
+
+  for (let m = 1; m <= meses; m++) {
+    montante = montante * (1 + taxaMes) + aporte;
+    totalInvestido += aporte;
+    if (m % 12 === 0) {
+      investidos.push(totalInvestido);
+      totais.push(montante);
+    }
+  }
+
+  const juros = montante - totalInvestido;
+
+  document.getElementById('jr-investido').textContent = formatBRL2(totalInvestido);
+  document.getElementById('jr-juros').textContent     = formatBRL2(juros);
+  document.getElementById('jr-total').textContent     = formatBRL2(montante);
+
+  // Chart
+  const labels = Array.from({length: anosVal + 1}, (_, i) => (i === 0 ? 'Hoje' : `${i}a`));
+
+  if (jurosChartInstance) jurosChartInstance.destroy();
+  const ctx = document.getElementById('jurosChart');
+  if (!ctx) return;
+
+  jurosChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Valor Investido',
+          data: investidos,
+          backgroundColor: 'rgba(13,124,62,0.7)',
+          borderRadius: 4,
+          stack: 'stack'
+        },
+        {
+          label: 'Juros Compostos',
+          data: totais.map((t, i) => Math.max(t - investidos[i], 0)),
+          backgroundColor: 'rgba(218,165,69,0.75)',
+          borderRadius: 4,
+          stack: 'stack'
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ' ' + ctx.dataset.label + ': ' + formatBRL2(ctx.parsed.y)
+          }
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#94A3B8', font: { size: 10 } } },
+        y: {
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: {
+            color: '#94A3B8', font: { size: 10 },
+            callback: v => v >= 1e6 ? 'R$ ' + (v/1e6).toFixed(1) + 'M' : v >= 1e3 ? 'R$ ' + (v/1e3).toFixed(0) + 'k' : 'R$ ' + v
+          },
+          stacked: true
+        }
+      }
+    }
+  });
+}
+
+function formatBRL2(v) {
+  return 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+// Trigger on load
+calcJuros();
+
+/* ============================================
+   SIMULADOR DE APOSENTADORIA
+   ============================================ */
+let aposChartInstance = null;
+
+function calcApos() {
+  const idadeAtual  = parseInt(document.getElementById('sl-idade').value)      || 30;
+  const idadeApos   = parseInt(document.getElementById('sl-apos-idade').value) || 65;
+  const rendaMensal = parseFloat(document.getElementById('sl-renda-desej').value) || 5000;
+  const rentAnual   = parseFloat(document.getElementById('sl-rent').value) / 100;
+  const anosApos    = parseInt(document.getElementById('sl-anos-apos').value)   || 25;
+
+  const anosFalt = Math.max(idadeApos - idadeAtual, 1);
+  const mesesAcum = anosFalt * 12;
+  const taxaMes  = Math.pow(1 + rentAnual, 1/12) - 1;
+
+  // Patrimônio necessário (VP de anuidade)
+  // PV = PMT * (1 - (1+r)^-n) / r
+  const nMesesApos = anosApos * 12;
+  const patrimNec  = rendaMensal * (1 - Math.pow(1 + taxaMes, -nMesesApos)) / taxaMes;
+
+  // Aporte mensal necessário para acumular patrimNec
+  // PMT = FV * r / ((1+r)^n - 1)
+  const aporteMensal = patrimNec * taxaMes / (Math.pow(1 + taxaMes, mesesAcum) - 1);
+  const totalInvestido = aporteMensal * mesesAcum;
+  const jurosGanhos = patrimNec - totalInvestido;
+
+  document.getElementById('apos-aporte').textContent = formatBRL2(aporteMensal);
+  document.getElementById('apos-anos-falt').textContent = anosFalt + ' anos';
+  document.getElementById('apos-patrim').textContent = formatBRL2(patrimNec);
+  document.getElementById('apos-total-invest').textContent = formatBRL2(totalInvestido);
+  document.getElementById('apos-juros-ganhos').textContent = formatBRL2(Math.max(jurosGanhos, 0));
+
+  // Tip
+  const tip = document.getElementById('apos-tip');
+  if (tip) {
+    tip.innerHTML = `<i class="fa-solid fa-circle-info text-gold" style="margin-right:6px;"></i>
+      Guardando <strong style="color:var(--gold);">${formatBRL2(aporteMensal)}/mês</strong> por <strong style="color:var(--gold);">${anosFalt} anos</strong>,
+      você terá <strong style="color:var(--success);">${formatBRL2(patrimNec)}</strong> — suficiente para uma renda de
+      <strong style="color:var(--gold);">${formatBRL2(rendaMensal)}/mês</strong> por ${anosApos} anos.`;
+  }
+
+  // Gráfico de pizza
+  if (aposChartInstance) aposChartInstance.destroy();
+  const ctx2 = document.getElementById('aposChart');
+  if (!ctx2) return;
+  aposChartInstance = new Chart(ctx2, {
+    type: 'doughnut',
+    data: {
+      labels: ['Total Investido', 'Juros Ganhos'],
+      datasets: [{
+        data: [Math.max(totalInvestido, 0), Math.max(jurosGanhos, 0)],
+        backgroundColor: ['rgba(13,124,62,0.75)', 'rgba(218,165,69,0.75)'],
+        borderColor: '#111827', borderWidth: 3, hoverOffset: 6
+      }]
+    },
+    options: {
+      cutout: '65%', responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { color: '#94A3B8', font: { size: 11 }, boxWidth: 14, padding: 16 } },
+        tooltip: { callbacks: { label: ctx => ' ' + ctx.label + ': ' + formatBRL2(ctx.parsed) } }
+      }
+    }
+  });
+}
+
+calcApos();
+
+/* ============================================
+   FAQ ACCORDION
+   ============================================ */
+function toggleFaq(btn) {
+  const item   = btn.closest('.faq-item');
+  const answer = item.querySelector('.faq-a');
+  const isOpen = item.classList.contains('open');
+
+  // Close all
+  document.querySelectorAll('.faq-item.open').forEach(i => {
+    i.classList.remove('open');
+    i.querySelector('.faq-a').classList.remove('open');
+  });
+
+  if (!isOpen) {
+    item.classList.add('open');
+    answer.classList.add('open');
+    item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function filterFaq(cat, btn) {
+  document.querySelectorAll('.faq-cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  document.querySelectorAll('.faq-item').forEach(item => {
+    if (cat === 'todos' || item.dataset.cat === cat) {
+      item.style.display = '';
+    } else {
+      item.style.display = 'none';
+      item.classList.remove('open');
+      item.querySelector('.faq-a').classList.remove('open');
+    }
+  });
+}
+
+</script>
+
+<!-- ============================================
+     BOTÃO WHATSAPP FLUTUANTE
+     Aparece somente após cadastro confirmado
+     ============================================ -->
+<div id="wa-float" role="complementary" aria-label="Falar no WhatsApp">
+  <span class="wa-label">💬 Falar com assessor</span>
+  <a class="wa-btn" id="wa-link" href="#" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+</div>
+
+</body>
+</html>
