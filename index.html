@@ -1325,6 +1325,27 @@
     </div>
   </div>
 </section>
+  <!-- ============================================
+     TICKER DE COTAÇÕES
+     ============================================ -->
+<div class="ticker-bar" aria-label="Cotações do mercado financeiro">
+  <div class="ticker-track" id="ticker-track">
+    <!-- Duplicado para loop infinito -->
+    <div class="ticker-item"><span class="ticker-dot" style="background:#F7931A;"></span><span class="ticker-name">Bitcoin</span><span class="ticker-value" id="tk-btc">R$ —</span><span class="ticker-change up" id="tk-btc-chg"><i class="fa-solid fa-caret-up"></i> —</span></div>
+    <div class="ticker-item"><span class="ticker-dot" style="background:#627EEA;"></span><span class="ticker-name">Ethereum</span><span class="ticker-value" id="tk-eth">R$ —</span><span class="ticker-change up" id="tk-eth-chg"><i class="fa-solid fa-caret-up"></i> —</span></div>
+    <div class="ticker-item"><span class="ticker-dot" style="background:#26A17B;"></span><span class="ticker-name">Dólar (USD)</span><span class="ticker-value" id="tk-usd">R$ —</span><span class="ticker-change up" id="tk-usd-chg"><i class="fa-solid fa-caret-up"></i> —</span></div>
+    <div class="ticker-item"><span class="ticker-dot" style="background:#0052CC;"></span><span class="ticker-name">Euro (EUR)</span><span class="ticker-value" id="tk-eur">R$ —</span><span class="ticker-change up" id="tk-eur-chg"><i class="fa-solid fa-caret-up"></i> —</span></div>
+    <div class="ticker-item"><span class="ticker-dot" style="background:#DAA545;"></span><span class="ticker-name">Ouro</span><span class="ticker-value" id="tk-gold">R$ —</span><span class="ticker-change up" id="tk-gold-chg"><i class="fa-solid fa-caret-up"></i> —</span></div>
+    <div class="ticker-item"><span class="ticker-dot" style="background:#0D7C3E;"></span><span class="ticker-name">IBOVESPA</span><span class="ticker-value" id="tk-ibov">— pts</span><span class="ticker-change up" id="tk-ibov-chg"><i class="fa-solid fa-caret-up"></i> —</span></div>
+    <!-- Duplicate for seamless scroll -->
+    <div class="ticker-item"><span class="ticker-dot" style="background:#F7931A;"></span><span class="ticker-name">Bitcoin</span><span class="ticker-value">R$ 581.420</span><span class="ticker-change up"><i class="fa-solid fa-caret-up"></i> +2.3%</span></div>
+    <div class="ticker-item"><span class="ticker-dot" style="background:#627EEA;"></span><span class="ticker-name">Ethereum</span><span class="ticker-value">R$ 18.740</span><span class="ticker-change down"><i class="fa-solid fa-caret-down"></i> -0.8%</span></div>
+    <div class="ticker-item"><span class="ticker-dot" style="background:#26A17B;"></span><span class="ticker-name">Dólar (USD)</span><span class="ticker-value">R$ 5,72</span><span class="ticker-change up"><i class="fa-solid fa-caret-up"></i> +0.4%</span></div>
+    <div class="ticker-item"><span class="ticker-dot" style="background:#0052CC;"></span><span class="ticker-name">Euro (EUR)</span><span class="ticker-value">R$ 6,15</span><span class="ticker-change up"><i class="fa-solid fa-caret-up"></i> +0.2%</span></div>
+    <div class="ticker-item"><span class="ticker-dot" style="background:#DAA545;"></span><span class="ticker-name">Ouro</span><span class="ticker-value">R$ 18.920</span><span class="ticker-change up"><i class="fa-solid fa-caret-up"></i> +1.1%</span></div>
+    <div class="ticker-item"><span class="ticker-dot" style="background:#0D7C3E;"></span><span class="ticker-name">IBOVESPA</span><span class="ticker-value">131.840 pts</span><span class="ticker-change down"><i class="fa-solid fa-caret-down"></i> -0.6%</span></div>
+  </div>
+</div>
 
 <div class="section-divider"></div>
 
@@ -1961,27 +1982,7 @@
 </section>
 
 
-<!-- ============================================
-     TICKER DE COTAÇÕES
-     ============================================ -->
-<div class="ticker-bar" aria-label="Cotações do mercado financeiro">
-  <div class="ticker-track" id="ticker-track">
-    <!-- Duplicado para loop infinito -->
-    <div class="ticker-item"><span class="ticker-dot" style="background:#F7931A;"></span><span class="ticker-name">Bitcoin</span><span class="ticker-value" id="tk-btc">R$ —</span><span class="ticker-change up" id="tk-btc-chg"><i class="fa-solid fa-caret-up"></i> —</span></div>
-    <div class="ticker-item"><span class="ticker-dot" style="background:#627EEA;"></span><span class="ticker-name">Ethereum</span><span class="ticker-value" id="tk-eth">R$ —</span><span class="ticker-change up" id="tk-eth-chg"><i class="fa-solid fa-caret-up"></i> —</span></div>
-    <div class="ticker-item"><span class="ticker-dot" style="background:#26A17B;"></span><span class="ticker-name">Dólar (USD)</span><span class="ticker-value" id="tk-usd">R$ —</span><span class="ticker-change up" id="tk-usd-chg"><i class="fa-solid fa-caret-up"></i> —</span></div>
-    <div class="ticker-item"><span class="ticker-dot" style="background:#0052CC;"></span><span class="ticker-name">Euro (EUR)</span><span class="ticker-value" id="tk-eur">R$ —</span><span class="ticker-change up" id="tk-eur-chg"><i class="fa-solid fa-caret-up"></i> —</span></div>
-    <div class="ticker-item"><span class="ticker-dot" style="background:#DAA545;"></span><span class="ticker-name">Ouro</span><span class="ticker-value" id="tk-gold">R$ —</span><span class="ticker-change up" id="tk-gold-chg"><i class="fa-solid fa-caret-up"></i> —</span></div>
-    <div class="ticker-item"><span class="ticker-dot" style="background:#0D7C3E;"></span><span class="ticker-name">IBOVESPA</span><span class="ticker-value" id="tk-ibov">— pts</span><span class="ticker-change up" id="tk-ibov-chg"><i class="fa-solid fa-caret-up"></i> —</span></div>
-    <!-- Duplicate for seamless scroll -->
-    <div class="ticker-item"><span class="ticker-dot" style="background:#F7931A;"></span><span class="ticker-name">Bitcoin</span><span class="ticker-value">R$ 581.420</span><span class="ticker-change up"><i class="fa-solid fa-caret-up"></i> +2.3%</span></div>
-    <div class="ticker-item"><span class="ticker-dot" style="background:#627EEA;"></span><span class="ticker-name">Ethereum</span><span class="ticker-value">R$ 18.740</span><span class="ticker-change down"><i class="fa-solid fa-caret-down"></i> -0.8%</span></div>
-    <div class="ticker-item"><span class="ticker-dot" style="background:#26A17B;"></span><span class="ticker-name">Dólar (USD)</span><span class="ticker-value">R$ 5,72</span><span class="ticker-change up"><i class="fa-solid fa-caret-up"></i> +0.4%</span></div>
-    <div class="ticker-item"><span class="ticker-dot" style="background:#0052CC;"></span><span class="ticker-name">Euro (EUR)</span><span class="ticker-value">R$ 6,15</span><span class="ticker-change up"><i class="fa-solid fa-caret-up"></i> +0.2%</span></div>
-    <div class="ticker-item"><span class="ticker-dot" style="background:#DAA545;"></span><span class="ticker-name">Ouro</span><span class="ticker-value">R$ 18.920</span><span class="ticker-change up"><i class="fa-solid fa-caret-up"></i> +1.1%</span></div>
-    <div class="ticker-item"><span class="ticker-dot" style="background:#0D7C3E;"></span><span class="ticker-name">IBOVESPA</span><span class="ticker-value">131.840 pts</span><span class="ticker-change down"><i class="fa-solid fa-caret-down"></i> -0.6%</span></div>
-  </div>
-</div>
+
 
 <div class="section-divider"></div>
 
