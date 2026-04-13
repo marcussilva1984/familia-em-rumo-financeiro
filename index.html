@@ -3162,14 +3162,18 @@ function enviarCadastro(event) {
    (substituir por API real se disponível)
    ============================================ */
 (function () {
-  const tickerData = {
-    btc:  { val: 'R$ 581.420', chg: '+2,3%', up: true },
-    eth:  { val: 'R$ 18.740',  chg: '-0,8%', up: false },
-    usd:  { val: 'R$ 5,72',    chg: '+0,4%', up: true },
-    eur:  { val: 'R$ 6,15',    chg: '+0,2%', up: true },
-    gold: { val: 'R$ 18.920',  chg: '+1,1%', up: true },
-    ibov: { val: '131.840 pts',chg: '-0,6%', up: false },
+  // ============================================
+  // TICKER — APIs REAIS: CoinGecko + AwesomeAPI
+  // ============================================
+  const FALLBACK = {
+    btc:  { val: 'R$ --',    chg: '--',   up: true  },
+    eth:  { val: 'R$ --',    chg: '--',   up: true  },
+    usd:  { val: 'R$ --',   chg: '--',   up: true  },
+    eur:  { val: 'R$ --',   chg: '--',   up: true  },
+    gold: { val: 'R$ --',   chg: '--',   up: true  },
+    ibov: { val: '-- pts',  chg: '--',   up: true  },
   };
+
   function setTicker(id, data) {
     const valEl = document.getElementById('tk-' + id);
     const chgEl = document.getElementById('tk-' + id + '-chg');
@@ -3180,17 +3184,75 @@ function enviarCadastro(event) {
       : '<i class="fa-solid fa-caret-down"></i> ') + data.chg;
     chgEl.className = 'ticker-change ' + (data.up ? 'up' : 'down');
   }
-  Object.keys(tickerData).forEach(k => setTicker(k, tickerData[k]));
 
-  // Simulated live flicker every 8s
-  setInterval(() => {
-    Object.keys(tickerData).forEach(k => {
-      const d = tickerData[k];
-      const flip = Math.random() > 0.7;
-      if (flip) d.up = !d.up;
-      setTicker(k, d);
-    });
-  }, 8000);
+  function fmtBRL(v, decimals) {
+    return 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+  }
+
+  function fmtPct(v) {
+    const up = v >= 0;
+    return { chg: (up ? '+' : '') + v.toFixed(2) + '%', up };
+  }
+
+  async function fetchCrypto() {
+    try {
+      const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=brl&include_24hr_change=true', { cache: 'no-store' });
+      const d = await r.json();
+      if (d.bitcoin) {
+        const p = fmtPct(d.bitcoin.brl_24h_change);
+        setTicker('btc', { val: fmtBRL(d.bitcoin.brl, 0), ...p });
+      }
+      if (d.ethereum) {
+        const p = fmtPct(d.ethereum.brl_24h_change);
+        setTicker('eth', { val: fmtBRL(d.ethereum.brl, 0), ...p });
+      }
+    } catch(e) {
+      setTicker('btc', FALLBACK.btc);
+      setTicker('eth', FALLBACK.eth);
+    }
+  }
+
+  async function fetchFX() {
+    try {
+      const r = await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL', { cache: 'no-store' });
+      const d = await r.json();
+      if (d.USDBRL) {
+        const p = fmtPct(parseFloat(d.USDBRL.pctChange));
+        setTicker('usd', { val: fmtBRL(parseFloat(d.USDBRL.bid), 2), ...p });
+      }
+      if (d.EURBRL) {
+        const p = fmtPct(parseFloat(d.EURBRL.pctChange));
+        setTicker('eur', { val: fmtBRL(parseFloat(d.EURBRL.bid), 2), ...p });
+      }
+    } catch(e) {
+      setTicker('usd', FALLBACK.usd);
+      setTicker('eur', FALLBACK.eur);
+    }
+  }
+
+  async function fetchGold() {
+    try {
+      const r = await fetch('https://economia.awesomeapi.com.br/json/last/XAU-BRL', { cache: 'no-store' });
+      const d = await r.json();
+      if (d.XAUBRL) {
+        const p = fmtPct(parseFloat(d.XAUBRL.pctChange));
+        setTicker('gold', { val: fmtBRL(parseFloat(d.XAUBRL.bid), 0), ...p });
+      }
+    } catch(e) {
+      setTicker('gold', FALLBACK.gold);
+    }
+  }
+
+  function initTickers() {
+    Object.keys(FALLBACK).forEach(k => setTicker(k, FALLBACK[k]));
+    fetchCrypto();
+    fetchFX();
+    fetchGold();
+    setTicker('ibov', { val: 'IBOV ao vivo', chg: 'B3', up: true });
+  }
+
+  initTickers();
+  setInterval(() => { fetchCrypto(); fetchFX(); fetchGold(); }, 60000);
 })();
 
 /* ============================================
