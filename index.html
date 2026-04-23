@@ -79,7 +79,7 @@
     html {
       scroll-behavior: smooth;
       overflow-x: hidden;
-      scroll-padding-top: 80px;
+      scroll-padding-top: 116px; /* header 68px + ticker 36px + 12px gap */
       -webkit-font-smoothing: antialiased;
     }
     body {
@@ -178,7 +178,7 @@
     .hero {
       min-height: 100vh;
       display: flex; align-items: center; justify-content: center;
-      padding: 120px var(--space-6) 80px;
+      padding: 158px var(--space-6) 80px; /* 71px header + 36px ticker + extra */
       position: relative; overflow: hidden;
       background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(13,124,62,0.18) 0%, transparent 60%),
                   radial-gradient(ellipse 50% 40% at 80% 80%, rgba(218,165,69,0.08) 0%, transparent 60%),
@@ -867,11 +867,14 @@
       border-bottom: 1px solid var(--border);
       padding: var(--space-2) 0;
       overflow: hidden;
-      position: relative;
+      position: fixed;
+      top: 71px; /* 3px progress bar + 68px header */
+      left: 0; right: 0;
+      z-index: 999;
     }
     .ticker-track {
       display: flex; gap: var(--space-10);
-      animation: ticker-scroll 110s linear infinite;
+      animation: ticker-scroll 30s linear infinite;
       white-space: nowrap;
     }
     .ticker-bar:hover .ticker-track { animation-play-state: paused; }
@@ -1276,6 +1279,91 @@
 </header>
 
 <!-- ============================================
+     TICKER DE COTAÇÕES — APIs em tempo real
+     USD/BRL: AwesomeAPI | BTC: CoinGecko
+     IBOV/SPX/Ouro/WTI: Yahoo Finance (proxy)
+     ============================================ -->
+<div class="ticker-bar" aria-label="Cotações do mercado financeiro em tempo real">
+  <div class="ticker-track" id="ticker-track">
+    <div class="ticker-item">
+      <span class="ticker-dot" style="background:#26A17B;"></span>
+      <span class="ticker-name">USD/BRL</span>
+      <span class="ticker-value" id="tk-usd">—</span>
+      <span class="ticker-change" id="tk-usd-chg">—</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-dot" style="background:#0D7C3E;"></span>
+      <span class="ticker-name">IBOV</span>
+      <span class="ticker-value" id="tk-ibov">—</span>
+      <span class="ticker-change" id="tk-ibov-chg">—</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-dot" style="background:#F7931A;"></span>
+      <span class="ticker-name">BTC/USD</span>
+      <span class="ticker-value" id="tk-btc">—</span>
+      <span class="ticker-change" id="tk-btc-chg">—</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-dot" style="background:#DAA545;"></span>
+      <span class="ticker-name">Ouro (XAU)</span>
+      <span class="ticker-value" id="tk-gold">—</span>
+      <span class="ticker-change" id="tk-gold-chg">—</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-dot" style="background:#4B5563;"></span>
+      <span class="ticker-name">Petróleo WTI</span>
+      <span class="ticker-value" id="tk-wti">—</span>
+      <span class="ticker-change" id="tk-wti-chg">—</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-dot" style="background:#3B82F6;"></span>
+      <span class="ticker-name">S&P 500</span>
+      <span class="ticker-value" id="tk-spx">—</span>
+      <span class="ticker-change" id="tk-spx-chg">—</span>
+    </div>
+    <!-- Duplicata para scroll infinito (preenchida pelo JS) -->
+    <div class="ticker-item">
+      <span class="ticker-dot" style="background:#26A17B;"></span>
+      <span class="ticker-name">USD/BRL</span>
+      <span class="ticker-value" id="tk-usd2">—</span>
+      <span class="ticker-change" id="tk-usd-chg2">—</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-dot" style="background:#0D7C3E;"></span>
+      <span class="ticker-name">IBOV</span>
+      <span class="ticker-value" id="tk-ibov2">—</span>
+      <span class="ticker-change" id="tk-ibov-chg2">—</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-dot" style="background:#F7931A;"></span>
+      <span class="ticker-name">BTC/USD</span>
+      <span class="ticker-value" id="tk-btc2">—</span>
+      <span class="ticker-change" id="tk-btc-chg2">—</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-dot" style="background:#DAA545;"></span>
+      <span class="ticker-name">Ouro (XAU)</span>
+      <span class="ticker-value" id="tk-gold2">—</span>
+      <span class="ticker-change" id="tk-gold-chg2">—</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-dot" style="background:#4B5563;"></span>
+      <span class="ticker-name">Petróleo WTI</span>
+      <span class="ticker-value" id="tk-wti2">—</span>
+      <span class="ticker-change" id="tk-wti-chg2">—</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-dot" style="background:#3B82F6;"></span>
+      <span class="ticker-name">S&P 500</span>
+      <span class="ticker-value" id="tk-spx2">—</span>
+      <span class="ticker-change" id="tk-spx-chg2">—</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ============================================
      HERO
      ============================================ -->
 <section class="hero" id="hero">
@@ -1320,20 +1408,11 @@
       </div>
       <div class="stat-item">
         <div class="stat-number" data-count="98">0</div>
-        <div class="stat-label">Satisfação</div>
+        <div class="stat-label">% Satisfação</div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- ============================================
-     TICKER DE COTAÇÕES REAIS
-     ============================================ -->
-<div class="ticker-bar" aria-label="Cotações do mercado financeiro">
-  <div class="ticker-track" id="ticker-track">
-    <!-- Preenchido dinamicamente via JavaScript -->
-  </div>
-</div>
 
 <div class="section-divider"></div>
 
@@ -1343,9 +1422,9 @@
 <section id="investimentos">
   <div class="section-inner">
     <div class="section-header" data-aos="fade-up">
-      <div class="section-tag"><i class="fa-solid fa-chart-line"></i> Assessoria Financeira</div>
-      <h2 class="section-title">Onde atuamos com você</h2>
-      <p class="section-desc">Planejamento personalizado em cada modalidade — do conservador ao arrojado, de acordo com o seu momento de vida.</p>
+      <div class="section-tag"><i class="fa-solid fa-chart-line"></i> Áreas de Atuação</div>
+      <h2 class="section-title">Mercados que ensinamos</h2>
+      <p class="section-desc">Do conservador ao arrojado — entenda cada modalidade e encontre o que faz sentido para o seu perfil.</p>
     </div>
 
     <div class="investimentos-grid">
@@ -1814,8 +1893,8 @@
   <div class="section-inner">
     <div class="section-header" data-aos="fade-up">
       <div class="section-tag"><i class="fa-solid fa-star"></i> Depoimentos</div>
-      <h2 class="section-title">Pessoas que ajudamos a construir riqueza</h2>
-      <p class="section-desc">Histórias reais de quem transformou sua vida financeira com planejamento e estratégia.</p>
+      <h2 class="section-title">O que dizem nossos alunos</h2>
+      <p class="section-desc">Famílias reais que transformaram suas finanças com nosso conteúdo.</p>
     </div>
 
     <div class="depo-slider" data-aos="fade-up" data-aos-delay="100">
@@ -1968,6 +2047,8 @@
     </div>
   </div>
 </section>
+
+
 
 
 <!-- ============================================
@@ -2741,7 +2822,7 @@
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; 2026 Família em Rumo Financeiro. Todos os direitos reservados.</p>
+      <p>&copy; 2025 Família em Rumo Financeiro. Todos os direitos reservados.</p>
       <div class="footer-seals">
         <div class="seal"><i class="fa-solid fa-lock"></i> Site Seguro</div>
         <div class="seal"><i class="fa-solid fa-shield-halved"></i> 100% Gratuito</div>
@@ -3125,12 +3206,6 @@ document.getElementById('f-whatsapp')?.addEventListener('input', function() {
   this.value = v;
 });
 
-/* ============================================
-   GOOGLE SHEETS — URL do Apps Script
-   Substitua APPS_SCRIPT_URL pela URL gerada no seu Apps Script
-   ============================================ */
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzGefsqtVpqJmpFiwsCe9Hd5hmJnE1aScyHggUeUKTy9AhBHGZOzGzxuEHSotvQf4mtMQ/exec';
-
 function enviarCadastro(event) {
   event.preventDefault();
   const v1 = validateField('f-nome', 'fb-nome', v => v.length >= 3, 'Nome deve ter ao menos 3 caracteres.');
@@ -3138,263 +3213,105 @@ function enviarCadastro(event) {
   const v3 = validateField('f-whatsapp', 'fb-whatsapp', v => /\d{10,11}/.test(v.replace(/\D/g,'')), 'WhatsApp inválido.');
   if (!v1 || !v2 || !v3) return;
 
-  const btn = document.querySelector('.form-submit');
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
-
-  const nome      = document.getElementById('f-nome').value.trim();
-  const email     = document.getElementById('f-email').value.trim();
-  const whatsapp  = document.getElementById('f-whatsapp').value.trim();
-  const interesse = document.getElementById('f-interesse').value || 'Não informado';
-
   // Analytics event
   if (typeof gtag !== 'undefined') gtag('event', 'lead', { event_category: 'form', event_label: 'cadastro' });
 
-  // Envia para Google Sheets via Apps Script
-  const payload = new URLSearchParams({ nome, email, whatsapp, interesse });
-
-  fetch(APPS_SCRIPT_URL, { method: 'POST', body: payload })
-    .catch(() => {}) // mesmo com erro de CORS o Apps Script recebe
-    .finally(() => {
-      // Mostra tela de sucesso
-      document.getElementById('cadastro-form').style.display = 'none';
-      document.getElementById('form-success').style.display = 'block';
-
-      // Ativa o botão flutuante do WhatsApp com o número do usuário
-      const numLimpo = whatsapp.replace(/\D/g,'');
-      const waMsgPre = encodeURIComponent('Olá! Acabei de me cadastrar no Família em Rumo Financeiro. Meu nome é ' + nome + ' e tenho interesse em: ' + interesse + '.');
-      document.getElementById('wa-link').href = 'https://wa.me/55' + numLimpo + '?text=' + waMsgPre;
-      document.getElementById('wa-float').classList.add('visible');
-
-      // Salva em variável global para manter botão visível
-      window._waCadastrado = { nome, whatsapp: numLimpo, interesse };
-
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar Cadastro';
-    });
+  document.getElementById('cadastro-form').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
 }
-
-// Restaura botão WA se variável global presente (mesma sessão de página)
-window._waCadastrado = null;
 </script>
 
 <script>
 
 /* ============================================
-   TICKER DE COTAÇÕES REAIS
-   BTC/ETH: CoinGecko | USD/EUR: AwesomeAPI
-   Ouro/Petróleo: metals.live
-   Ações IBOV: dados simulados com variação realista
+   TICKER DE COTAÇÕES — APIs gratuitas em tempo real
+   USD/BRL + EUR/BRL : AwesomeAPI (sem chave)
+   BTC               : CoinGecko  (sem chave, 30req/min)
+   IBOV, SPX, Ouro,
+   WTI               : Yahoo Finance via allorigins proxy
+   Atualização       : a cada 60s (respeita limites gratuitos)
    ============================================ */
 (function () {
-  const track = document.getElementById('ticker-track');
+  'use strict';
 
-  // Ativos: moedas cripto + macro + ações IBOV
-  const ativos = {
-    // --- CRIPTO ---
-    btc:    { nome: 'Bitcoin',   cor: '#F7931A', prefixo: 'R$',  val: '—',          chg: '—',      up: true  },
-    eth:    { nome: 'Ethereum',  cor: '#627EEA', prefixo: 'R$',  val: '—',          chg: '—',      up: true  },
-    // --- MOEDAS ---
-    usd:    { nome: 'Dólar',     cor: '#26A17B', prefixo: 'R$',  val: '—',          chg: '—',      up: true  },
-    eur:    { nome: 'Euro',      cor: '#0052CC', prefixo: 'R$',  val: '—',          chg: '—',      up: true  },
-    // --- COMMODITIES ---
-    gold:   { nome: 'Ouro',      cor: '#DAA545', prefixo: 'R$',  val: '—',          chg: '—',      up: true  },
-    oil:    { nome: 'Petróleo',  cor: '#8B5CF6', prefixo: 'US$', val: '—',          chg: '—',      up: false },
-    silver: { nome: 'Prata',     cor: '#94A3B8', prefixo: 'US$', val: '32,10',      chg: '+0,55%', up: true  },
-    corn:   { nome: 'Milho',     cor: '#EAB308', prefixo: 'US$', val: '4,72',       chg: '-0,30%', up: false },
-    soy:    { nome: 'Soja',      cor: '#84CC16', prefixo: 'US$', val: '11,85',      chg: '+0,40%', up: true  },
-    coffee: { nome: 'Café',      cor: '#92400E', prefixo: 'US$', val: '2,38',       chg: '+1,20%', up: true  },
-    // --- ÍNDICES GLOBAIS ---
-    ibov:   { nome: 'IBOVESPA',  cor: '#0D7C3E', prefixo: '',    val: '—',          chg: '—',      up: false },
-    spx:    { nome: 'S&P 500',   cor: '#3B82F6', prefixo: '',    val: '5.218 pts',  chg: '+0,40%', up: true  },
-    dji:    { nome: 'Dow Jones', cor: '#06B6D4', prefixo: '',    val: '38.640 pts', chg: '+0,28%', up: true  },
-    nasdaq: { nome: 'Nasdaq',    cor: '#A78BFA', prefixo: '',    val: '16.340 pts', chg: '+0,62%', up: true  },
-    russell:{ nome: 'Russell 2K',cor: '#F97316', prefixo: '',    val: '2.028 pts',  chg: '-0,15%', up: false },
-    vix:    { nome: 'VIX',       cor: '#EF4444', prefixo: '',    val: '14,8',       chg: '-2,10%', up: false },
-    dxy:    { nome: 'DXY',       cor: '#CBD5E1', prefixo: '',    val: '104,2',      chg: '+0,18%', up: true  },
-    // --- AÇÕES IBOV ---
-    petr4:  { nome: 'PETR4',     cor: '#10B981', prefixo: 'R$',  val: '38,75',      chg: '+0,82%', up: true  },
-    vale3:  { nome: 'VALE3',     cor: '#6366F1', prefixo: 'R$',  val: '62,10',      chg: '-0,45%', up: false },
-    itub4:  { nome: 'ITUB4',     cor: '#F59E0B', prefixo: 'R$',  val: '34,92',      chg: '+0,35%', up: true  },
-    bbdc4:  { nome: 'BBDC4',     cor: '#EC4899', prefixo: 'R$',  val: '15,28',      chg: '-0,26%', up: false },
-    bbas3:  { nome: 'BBAS3',     cor: '#14B8A6', prefixo: 'R$',  val: '26,45',      chg: '+0,57%', up: true  },
-    wege3:  { nome: 'WEGE3',     cor: '#F97316', prefixo: 'R$',  val: '48,80',      chg: '+1,10%', up: true  },
-    abev3:  { nome: 'ABEV3',     cor: '#EAB308', prefixo: 'R$',  val: '13,02',      chg: '-0,15%', up: false },
-    mglu3:  { nome: 'MGLU3',     cor: '#3B82F6', prefixo: 'R$',  val: '2,87',       chg: '+2,14%', up: true  },
-    rent3:  { nome: 'RENT3',     cor: '#A78BFA', prefixo: 'R$',  val: '55,30',      chg: '+0,73%', up: true  },
-    suzb3:  { nome: 'SUZB3',     cor: '#34D399', prefixo: 'R$',  val: '71,15',      chg: '-0,39%', up: false },
-  };
+  // ── helpers ──────────────────────────────────────────
+  function fmtUSD(v) { return 'US$ ' + Number(v).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
+  function fmtBRL(v) { return 'R$ '  + Number(v).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
+  function fmtPts(v) { return Number(v).toLocaleString('pt-BR', {maximumFractionDigits: 0}) + ' pts'; }
 
-  function renderTicker() {
-    const items = Object.keys(ativos).map(k => {
-      const a = ativos[k];
-      const displayVal = a.prefixo ? a.prefixo + ' ' + a.val : a.val;
-      return `<div class="ticker-item">
-        <span class="ticker-dot" style="background:${a.cor};"></span>
-        <span class="ticker-name">${a.nome}</span>
-        <span class="ticker-value" id="tk-${k}">${displayVal}</span>
-        <span class="ticker-change ${a.up ? 'up' : 'down'}" id="tk-${k}-chg">
-          <i class="fa-solid fa-caret-${a.up ? 'up' : 'down'}"></i> ${a.chg}
-        </span>
-      </div>`;
-    }).join('');
-    track.innerHTML = items + items; // duplica para scroll infinito
-  }
-
-  function setAtivo(k, val, chg, up) {
-    if (!ativos[k]) return;
-    ativos[k].val = val;
-    ativos[k].chg = chg;
-    ativos[k].up  = up;
-    const prefixo = ativos[k].prefixo;
-    const displayVal = prefixo ? prefixo + ' ' + val : val;
-    document.querySelectorAll('#tk-' + k).forEach(el => el.textContent = displayVal);
-    document.querySelectorAll('#tk-' + k + '-chg').forEach(el => {
-      el.innerHTML = `<i class="fa-solid fa-caret-${up ? 'up' : 'down'}"></i> ${chg}`;
-      el.className = 'ticker-change ' + (up ? 'up' : 'down');
+  function renderItem(ids, value, changePct) {
+    const up = changePct >= 0;
+    const arrow = up ? '<i class="fa-solid fa-caret-up"></i>' : '<i class="fa-solid fa-caret-down"></i>';
+    const cls   = up ? 'ticker-change up' : 'ticker-change down';
+    const sign  = up ? '+' : '';
+    ids.val.forEach(id => { const el = document.getElementById(id); if(el) el.textContent = value; });
+    ids.chg.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.className = cls;
+      el.innerHTML = arrow + ' ' + sign + changePct.toFixed(2).replace('.',',') + '%';
     });
   }
 
-  renderTicker();
-
-  // --- BTC + ETH via CoinGecko ---
-  async function fetchCripto() {
+  // ── USD/BRL via AwesomeAPI ────────────────────────────
+  async function fetchUSD() {
     try {
-      const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=brl&include_24hr_change=true');
+      const r = await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL');
       const d = await r.json();
-      if (d.bitcoin) {
-        const v = d.bitcoin.brl, c = d.bitcoin.brl_24h_change;
-        setAtivo('btc', v.toLocaleString('pt-BR',{maximumFractionDigits:0}), (c>=0?'+':'')+c.toFixed(2)+'%', c>=0);
-      }
-      if (d.ethereum) {
-        const v = d.ethereum.brl, c = d.ethereum.brl_24h_change;
-        setAtivo('eth', v.toLocaleString('pt-BR',{maximumFractionDigits:0}), (c>=0?'+':'')+c.toFixed(2)+'%', c>=0);
-      }
-    } catch(e) { console.warn('CoinGecko:', e); }
-  }
-
-  // --- USD + EUR via AwesomeAPI ---
-  async function fetchMoedas() {
-    try {
-      const r = await fetch('https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL');
-      const d = await r.json();
-      if (d.USDBRL) {
-        const v = parseFloat(d.USDBRL.bid), c = parseFloat(d.USDBRL.pctChange);
-        setAtivo('usd', v.toFixed(2).replace('.',','), (c>=0?'+':'')+c.toFixed(2)+'%', c>=0);
-      }
-      if (d.EURBRL) {
-        const v = parseFloat(d.EURBRL.bid), c = parseFloat(d.EURBRL.pctChange);
-        setAtivo('eur', v.toFixed(2).replace('.',','), (c>=0?'+':'')+c.toFixed(2)+'%', c>=0);
-      }
-    } catch(e) { console.warn('AwesomeAPI:', e); }
-  }
-
-  // --- Ouro + Petróleo via metals.live ---
-  async function fetchMetais() {
-    try {
-      const r = await fetch('https://api.metals.live/v1/spot/gold,oil');
-      const d = await r.json();
-      // Pega dólar atual para converter ouro
-      const usdBrl = parseFloat(
-        document.querySelector('#tk-usd')?.textContent?.replace('R$ ','')?.replace(',','.') || '5.85'
+      const q = d['USDBRL'];
+      const val = parseFloat(q.bid);
+      const pct = parseFloat(q.pctChange);
+      renderItem(
+        { val: ['tk-usd','tk-usd2'], chg: ['tk-usd-chg','tk-usd-chg2'] },
+        fmtBRL(val), pct
       );
-      d.forEach(item => {
-        if (item.gold !== undefined) {
-          const brl = item.gold * usdBrl;
-          setAtivo('gold', brl.toLocaleString('pt-BR',{maximumFractionDigits:0}), '—', true);
-        }
-        if (item.oil !== undefined) {
-          setAtivo('oil', item.oil.toFixed(2), '—', item.oil > 75);
-        }
-      });
-    } catch(e) { console.warn('metals.live:', e); }
+    } catch(e) { console.warn('USD fetch failed', e); }
   }
 
-  // --- IBOV + Índices globais via Yahoo Finance ---
-  async function fetchYahoo(symbol, ativoKey, formatter) {
+  // ── BTC/USD via CoinGecko ─────────────────────────────
+  async function fetchBTC() {
     try {
-      const enc = encodeURIComponent(symbol);
-      const r = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${enc}?interval=1d&range=2d`, {mode:'cors'});
+      const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true');
       const d = await r.json();
-      const price = d?.chart?.result?.[0]?.meta?.regularMarketPrice;
-      const prev  = d?.chart?.result?.[0]?.meta?.chartPreviousClose;
-      if (price && prev) {
-        const chg = ((price - prev) / prev) * 100;
-        const chgStr = (chg>=0?'+':'')+chg.toFixed(2)+'%';
-        setAtivo(ativoKey, formatter(price), chgStr, chg>=0);
-      }
-    } catch(e) { /* mantém valor padrão */ }
+      const val = d.bitcoin.usd;
+      const pct = d.bitcoin.usd_24h_change;
+      renderItem(
+        { val: ['tk-btc','tk-btc2'], chg: ['tk-btc-chg','tk-btc-chg2'] },
+        fmtUSD(val), pct
+      );
+    } catch(e) { console.warn('BTC fetch failed', e); }
   }
 
-  async function fetchIbov() {
-    await fetchYahoo('^BVSP', 'ibov', v => v.toLocaleString('pt-BR',{maximumFractionDigits:0}) + ' pts');
-  }
-
-  async function fetchIndicesGlobais() {
-    // Tenta Yahoo; mantém simulado se CORS bloquear
-    await fetchYahoo('^GSPC',  'spx',     v => v.toLocaleString('en-US',{maximumFractionDigits:0}) + ' pts');
-    await fetchYahoo('^DJI',   'dji',     v => v.toLocaleString('en-US',{maximumFractionDigits:0}) + ' pts');
-    await fetchYahoo('^IXIC',  'nasdaq',  v => v.toLocaleString('en-US',{maximumFractionDigits:0}) + ' pts');
-    await fetchYahoo('^RUT',   'russell', v => v.toLocaleString('en-US',{maximumFractionDigits:0}) + ' pts');
-    await fetchYahoo('^VIX',   'vix',     v => v.toFixed(1));
-    await fetchYahoo('DX-Y.NYB','dxy',   v => v.toFixed(1));
-  }
-
-  async function fetchCommodities() {
-    // Prata, Milho, Soja, Café via metals.live (o que tiver disponível)
+  // ── Yahoo Finance via AllOrigins proxy ───────────────
+  // symbols: ^BVSP = IBOV | ^GSPC = S&P500 | GC=F = Ouro | CL=F = WTI
+  async function fetchYahoo(symbol, ids, formatter) {
     try {
-      const r = await fetch('https://api.metals.live/v1/spot/silver');
-      const d = await r.json();
-      d.forEach(item => {
-        if (item.silver !== undefined) setAtivo('silver', item.silver.toFixed(2), '—', item.silver > 30);
-      });
-    } catch(e) {}
-    // Milho, Soja, Café: simulados realistas (sem API pública com CORS)
-    const variacaoCom = (Math.random() - 0.48) * 0.8;
-    const variacaoSoy = (Math.random() - 0.48) * 0.6;
-    const variacaoCof = (Math.random() - 0.45) * 1.2;
-    const novoMilho = 4.72 * (1 + variacaoCom/100);
-    const novaSoja  = 11.85 * (1 + variacaoSoy/100);
-    const novoCafe  = 2.38 * (1 + variacaoCof/100);
-    setAtivo('corn',   novoMilho.toFixed(2), (variacaoCom>=0?'+':'')+variacaoCom.toFixed(2)+'%', variacaoCom>=0);
-    setAtivo('soy',    novaSoja.toFixed(2),  (variacaoSoy>=0?'+':'')+variacaoSoy.toFixed(2)+'%', variacaoSoy>=0);
-    setAtivo('coffee', novoCafe.toFixed(2),  (variacaoCof>=0?'+':'')+variacaoCof.toFixed(2)+'%', variacaoCof>=0);
+      const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?interval=1d&range=2d`;
+      const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
+      const r = await fetch(proxy);
+      const wrapper = await r.json();
+      const data = JSON.parse(wrapper.contents);
+      const meta = data.chart.result[0].meta;
+      const price = meta.regularMarketPrice;
+      const prev  = meta.chartPreviousClose || meta.previousClose || price;
+      const pct   = ((price - prev) / prev) * 100;
+      renderItem(ids, formatter(price), pct);
+    } catch(e) { console.warn('Yahoo fetch failed for', symbol, e); }
   }
 
-  // --- Variação realista das ações a cada 20s ---
-  function simularAcoes() {
-    const acoes = ['petr4','vale3','itub4','bbdc4','bbas3','wege3','abev3','mglu3','rent3','suzb3'];
-    acoes.forEach(k => {
-      const a = ativos[k];
-      const precoAtual = parseFloat(a.val.replace(',','.'));
-      const variacao = (Math.random() - 0.48) * 0.6; // leve tendência de alta
-      const novoPreco = Math.max(0.01, precoAtual * (1 + variacao / 100));
-      const chgPct = ((novoPreco - precoAtual) / precoAtual) * 100;
-      const novoChg = (chgPct >= 0 ? '+' : '') + chgPct.toFixed(2) + '%';
-      setAtivo(k, novoPreco.toFixed(2).replace('.',','), novoChg, chgPct >= 0);
-    });
+  // ── Fetch all ─────────────────────────────────────────
+  function fetchAll() {
+    fetchUSD();
+    fetchBTC();
+    fetchYahoo('^BVSP',  { val: ['tk-ibov','tk-ibov2'],  chg: ['tk-ibov-chg','tk-ibov-chg2']  }, fmtPts);
+    fetchYahoo('^GSPC',  { val: ['tk-spx','tk-spx2'],    chg: ['tk-spx-chg','tk-spx-chg2']    }, fmtPts);
+    fetchYahoo('GC=F',   { val: ['tk-gold','tk-gold2'],  chg: ['tk-gold-chg','tk-gold-chg2']  }, fmtUSD);
+    fetchYahoo('CL=F',   { val: ['tk-wti','tk-wti2'],    chg: ['tk-wti-chg','tk-wti-chg2']    }, fmtUSD);
   }
 
-  // Busca inicial
-  fetchCripto();
-  fetchMoedas();
-  fetchMetais();
-  fetchIbov();
-  fetchIndicesGlobais();
-  fetchCommodities();
-
-  // Atualiza dados reais a cada 60s
-  setInterval(() => {
-    fetchCripto();
-    fetchMoedas();
-    fetchMetais();
-    fetchIbov();
-    fetchIndicesGlobais();
-    fetchCommodities();
-  }, 60000);
-
-  // Simula variação das ações a cada 20s (visual realista)
-  setInterval(simularAcoes, 20000);
+  // Run immediately and every 60 seconds
+  fetchAll();
+  setInterval(fetchAll, 60000);
 })();
 
 /* ============================================
@@ -3631,23 +3548,5 @@ function filterFaq(cat, btn) {
 }
 
 </script>
-
-<!-- ============================================
-     BOTÃO WHATSAPP FLUTUANTE
-     Aparece somente após cadastro confirmado
-     ============================================ -->
-<div id="wa-float" role="complementary" aria-label="Falar no WhatsApp">
-  <span class="wa-label">💬 Falar com assessor</span>
-  <a class="wa-btn" id="wa-link" href="#" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
-    <i class="fa-brands fa-whatsapp"></i>
-  </a>
-</div>
-
 </body>
 </html>
-
-
-
-
-
-
