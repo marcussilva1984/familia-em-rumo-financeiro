@@ -3,6 +3,7 @@
 // era usado direto do client para contornar CORS do Yahoo Finance.
 
 const YAHOO_SYMBOLS = {
+  usd: "BRL=X",
   ibov: "^BVSP",
   spx: "^GSPC",
   gold: "GC=F",
@@ -19,13 +20,6 @@ async function fetchYahoo(symbol) {
   return { price, pct: ((price - prev) / prev) * 100 };
 }
 
-async function fetchUSD() {
-  const r = await fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL");
-  const d = await r.json();
-  const q = d["USDBRL"];
-  return { price: parseFloat(q.bid), pct: parseFloat(q.pctChange) };
-}
-
 async function fetchBTC() {
   const r = await fetch(
     "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true"
@@ -36,7 +30,6 @@ async function fetchBTC() {
 
 export default async function handler(req, res) {
   const entries = await Promise.all([
-    ["usd", fetchUSD()],
     ["btc", fetchBTC()],
     ...Object.entries(YAHOO_SYMBOLS).map(([key, symbol]) => [key, fetchYahoo(symbol)]),
   ].map(async ([key, promise]) => {
