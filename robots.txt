@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://familia-em-rumo-financeiro.vercel.app/sitemap.xml

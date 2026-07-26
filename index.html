@@ -6,6 +6,22 @@
   <title>Família em Rumo Financeiro | Educação Financeira para Famílias</title>
   <meta name="description" content="Educação financeira gratuita para famílias. E-books, calculadora de orçamento, perfil de investidor e consultoria personalizada. Comece hoje sua jornada rumo à liberdade financeira.">
   <meta name="theme-color" content="#0D7C3E">
+  <link rel="canonical" href="https://familia-em-rumo-financeiro.vercel.app/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Família em Rumo Financeiro">
+  <meta property="og:title" content="Família em Rumo Financeiro | Educação Financeira para Famílias">
+  <meta property="og:description" content="Educação financeira gratuita para famílias. E-books, calculadora de orçamento, perfil de investidor e consultoria personalizada.">
+  <meta property="og:url" content="https://familia-em-rumo-financeiro.vercel.app/">
+  <meta property="og:image" content="https://familia-em-rumo-financeiro.vercel.app/og-image.png">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Família em Rumo Financeiro | Educação Financeira para Famílias">
+  <meta name="twitter:description" content="Educação financeira gratuita para famílias. E-books, calculadora de orçamento, perfil de investidor e consultoria personalizada.">
+  <meta name="twitter:image" content="https://familia-em-rumo-financeiro.vercel.app/og-image.png">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-W1W2CTXMG8"></script>
@@ -3206,35 +3222,56 @@ document.getElementById('f-whatsapp')?.addEventListener('input', function() {
   this.value = v;
 });
 
-function enviarCadastro(event) {
+async function enviarCadastro(event) {
   event.preventDefault();
   const v1 = validateField('f-nome', 'fb-nome', v => v.length >= 3, 'Nome deve ter ao menos 3 caracteres.');
   const v2 = validateField('f-email', 'fb-email', v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), 'E-mail inválido.');
   const v3 = validateField('f-whatsapp', 'fb-whatsapp', v => /\d{10,11}/.test(v.replace(/\D/g,'')), 'WhatsApp inválido.');
   if (!v1 || !v2 || !v3) return;
 
-  // Analytics event
-  if (typeof gtag !== 'undefined') gtag('event', 'lead', { event_category: 'form', event_label: 'cadastro' });
+  const submitBtn = document.querySelector('#cadastro-form .form-submit');
+  const originalLabel = submitBtn?.innerHTML;
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...'; }
 
-  document.getElementById('cadastro-form').style.display = 'none';
-  document.getElementById('form-success').style.display = 'block';
+  const payload = {
+    nome: document.getElementById('f-nome').value.trim(),
+    email: document.getElementById('f-email').value.trim(),
+    whatsapp: document.getElementById('f-whatsapp').value.trim(),
+    interesse: document.getElementById('f-interesse')?.value || '',
+  };
+
+  try {
+    const r = await fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!r.ok) throw new Error('lead endpoint respondeu ' + r.status);
+
+    if (typeof gtag !== 'undefined') gtag('event', 'lead', { event_category: 'form', event_label: 'cadastro' });
+
+    document.getElementById('cadastro-form').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  } catch (e) {
+    console.warn('Falha ao enviar cadastro', e);
+    const fb = document.getElementById('fb-email');
+    if (fb) { fb.textContent = 'Não foi possível enviar agora. Tente de novo em instantes.'; fb.className = 'form-feedback error'; }
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = originalLabel; }
+  }
 }
 </script>
 
 <script>
 
 /* ============================================
-   TICKER DE COTAÇÕES — APIs gratuitas em tempo real
-   USD/BRL + EUR/BRL : AwesomeAPI (sem chave)
-   BTC               : CoinGecko  (sem chave, 30req/min)
-   IBOV, SPX, Ouro,
-   WTI               : Yahoo Finance via allorigins proxy
-   Atualização       : a cada 60s (respeita limites gratuitos)
+   TICKER DE COTAÇÕES — agregado server-side (/api/ticker)
+   USD/BRL, BTC, IBOV, S&P500, Ouro, WTI num único request,
+   sem depender de proxy público no client.
+   Atualização: a cada 60s.
    ============================================ */
 (function () {
   'use strict';
 
-  // ── helpers ──────────────────────────────────────────
   function fmtUSD(v) { return 'US$ ' + Number(v).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
   function fmtBRL(v) { return 'R$ '  + Number(v).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
   function fmtPts(v) { return Number(v).toLocaleString('pt-BR', {maximumFractionDigits: 0}) + ' pts'; }
@@ -3253,63 +3290,26 @@ function enviarCadastro(event) {
     });
   }
 
-  // ── USD/BRL via AwesomeAPI ────────────────────────────
-  async function fetchUSD() {
+  const ITEMS = {
+    usd:  { ids: { val: ['tk-usd','tk-usd2'],   chg: ['tk-usd-chg','tk-usd-chg2']   }, fmt: fmtBRL },
+    btc:  { ids: { val: ['tk-btc','tk-btc2'],   chg: ['tk-btc-chg','tk-btc-chg2']   }, fmt: fmtUSD },
+    ibov: { ids: { val: ['tk-ibov','tk-ibov2'], chg: ['tk-ibov-chg','tk-ibov-chg2'] }, fmt: fmtPts },
+    spx:  { ids: { val: ['tk-spx','tk-spx2'],   chg: ['tk-spx-chg','tk-spx-chg2']   }, fmt: fmtPts },
+    gold: { ids: { val: ['tk-gold','tk-gold2'], chg: ['tk-gold-chg','tk-gold-chg2'] }, fmt: fmtUSD },
+    wti:  { ids: { val: ['tk-wti','tk-wti2'],   chg: ['tk-wti-chg','tk-wti-chg2']   }, fmt: fmtUSD },
+  };
+
+  async function fetchAll() {
     try {
-      const r = await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL');
-      const d = await r.json();
-      const q = d['USDBRL'];
-      const val = parseFloat(q.bid);
-      const pct = parseFloat(q.pctChange);
-      renderItem(
-        { val: ['tk-usd','tk-usd2'], chg: ['tk-usd-chg','tk-usd-chg2'] },
-        fmtBRL(val), pct
-      );
-    } catch(e) { console.warn('USD fetch failed', e); }
+      const r = await fetch('/api/ticker');
+      const data = await r.json();
+      for (const [key, cfg] of Object.entries(ITEMS)) {
+        const entry = data[key];
+        if (entry) renderItem(cfg.ids, cfg.fmt(entry.price), entry.pct);
+      }
+    } catch (e) { console.warn('Ticker fetch failed', e); }
   }
 
-  // ── BTC/USD via CoinGecko ─────────────────────────────
-  async function fetchBTC() {
-    try {
-      const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true');
-      const d = await r.json();
-      const val = d.bitcoin.usd;
-      const pct = d.bitcoin.usd_24h_change;
-      renderItem(
-        { val: ['tk-btc','tk-btc2'], chg: ['tk-btc-chg','tk-btc-chg2'] },
-        fmtUSD(val), pct
-      );
-    } catch(e) { console.warn('BTC fetch failed', e); }
-  }
-
-  // ── Yahoo Finance via AllOrigins proxy ───────────────
-  // symbols: ^BVSP = IBOV | ^GSPC = S&P500 | GC=F = Ouro | CL=F = WTI
-  async function fetchYahoo(symbol, ids, formatter) {
-    try {
-      const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?interval=1d&range=2d`;
-      const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
-      const r = await fetch(proxy);
-      const wrapper = await r.json();
-      const data = JSON.parse(wrapper.contents);
-      const meta = data.chart.result[0].meta;
-      const price = meta.regularMarketPrice;
-      const prev  = meta.chartPreviousClose || meta.previousClose || price;
-      const pct   = ((price - prev) / prev) * 100;
-      renderItem(ids, formatter(price), pct);
-    } catch(e) { console.warn('Yahoo fetch failed for', symbol, e); }
-  }
-
-  // ── Fetch all ─────────────────────────────────────────
-  function fetchAll() {
-    fetchUSD();
-    fetchBTC();
-    fetchYahoo('^BVSP',  { val: ['tk-ibov','tk-ibov2'],  chg: ['tk-ibov-chg','tk-ibov-chg2']  }, fmtPts);
-    fetchYahoo('^GSPC',  { val: ['tk-spx','tk-spx2'],    chg: ['tk-spx-chg','tk-spx-chg2']    }, fmtPts);
-    fetchYahoo('GC=F',   { val: ['tk-gold','tk-gold2'],  chg: ['tk-gold-chg','tk-gold-chg2']  }, fmtUSD);
-    fetchYahoo('CL=F',   { val: ['tk-wti','tk-wti2'],    chg: ['tk-wti-chg','tk-wti-chg2']    }, fmtUSD);
-  }
-
-  // Run immediately and every 60 seconds
   fetchAll();
   setInterval(fetchAll, 60000);
 })();
